@@ -1,4 +1,4 @@
-import { getAllPublicSettings } from '@/api/setting'
+import { allSettings } from '@/api/setting'
 
 const state = {
   allSettings: {}
@@ -13,7 +13,7 @@ const mutations = {
 const actions = {
   fetchAllSettings({ commit }) {
     return new Promise((resolve, reject) => {
-      getAllPublicSettings().then(response => {
+      allSettings().then(response => {
         commit('SET_SETTINGS', response.data)
         resolve()
       }).catch(error => {

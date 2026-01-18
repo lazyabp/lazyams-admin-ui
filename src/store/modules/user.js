@@ -50,7 +50,7 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.name).then(response => {
-        const { data } = response.data
+        const data = response.data
 
         if (!data) {
           reject('Verification failed, please Login again.')
