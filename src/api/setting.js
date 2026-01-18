@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getAllPublicSettings() {
+export function allSettings() {
   return request({
     url: '/api/Setting/all',
     method: 'get'

@@ -1118,7 +1118,7 @@
         }
       }
     },
-    "/api/Setting/GetAllPublicSettings/all": {
+    "/api/Setting/all": {
       "get": {
         "tags": [
           "Setting"
@@ -1148,7 +1148,7 @@
         }
       }
     },
-    "/api/Setting/GetSetting": {
+    "/api/Setting/get": {
       "get": {
         "tags": [
           "Setting"
@@ -1188,7 +1188,7 @@
         }
       }
     },
-    "/api/Setting/SetSetting": {
+    "/api/Setting/set": {
       "post": {
         "tags": [
           "Setting"
@@ -1624,6 +1624,48 @@
         }
       }
     },
+    "/api/User/GetUserById/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "通过ID获取用户信息",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWithRoleIdsDtoBaseResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWithRoleIdsDtoBaseResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWithRoleIdsDtoBaseResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/User/Get/{userName}": {
       "get": {
         "tags": [
@@ -1665,23 +1707,10 @@
         }
       }
     },
-    "/api/User/GetUserById/{id}": {
+    "/api/User/GetUserInfo/info": {
       "get": {
         "tags": [
           "User"
-        ],
-        "summary": "通过ID获取用户信息",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
         ],
         "responses": {
           "200": {

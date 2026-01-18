@@ -1,28 +1,25 @@
-import variables from '@/styles/element-variables.scss'
-import defaultSettings from '@/settings'
-
-const { showSettings, tagsView, fixedHeader, sidebarLogo } = defaultSettings
+import { getAllPublicSettings } from '@/api/setting'
 
 const state = {
-  theme: variables.theme,
-  showSettings: showSettings,
-  tagsView: tagsView,
-  fixedHeader: fixedHeader,
-  sidebarLogo: sidebarLogo
+  allSettings: {}
 }
 
 const mutations = {
-  CHANGE_SETTING: (state, { key, value }) => {
-    // eslint-disable-next-line no-prototype-builtins
-    if (state.hasOwnProperty(key)) {
-      state[key] = value
-    }
+  SET_SETTINGS: (state, settings) => {
+    state.allSettings = settings
   }
 }
 
 const actions = {
-  changeSetting({ commit }, data) {
-    commit('CHANGE_SETTING', data)
+  fetchAllSettings({ commit }) {
+    return new Promise((resolve, reject) => {
+      getAllPublicSettings().then(response => {
+        commit('SET_SETTINGS', response.data)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
   }
 }
 
@@ -32,4 +29,3 @@ export default {
   mutations,
   actions
 }
-
