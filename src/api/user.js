@@ -44,3 +44,10 @@ export function getUserById(id) {
     method: 'get'
   })
 }
+
+export function getUserInfo() {
+  return request({
+    url: `/api/User/info`,
+    method: 'get'
+  })
+}
