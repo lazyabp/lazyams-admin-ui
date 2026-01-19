@@ -26,14 +26,6 @@ export default {
       googleLogin: false
     }
   },
-  methods: {
-    weixinHandleClick() {
-      alert('ok')
-    },
-    googleHandleClick() {
-      alert('ok')
-    }
-  },
   computed: {
     ...mapGetters([
       'settings'
@@ -48,6 +40,14 @@ export default {
           this.googleLogin = newVal.socialitelogin.GoogleLogin
         }
       }
+    }
+  },
+  methods: {
+    weixinHandleClick() {
+      alert('ok')
+    },
+    googleHandleClick() {
+      alert('ok')
     }
   }
 }

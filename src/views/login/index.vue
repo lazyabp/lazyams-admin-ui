@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">{{ settings.site ? settings.site.AppName : 'LazyAMS' }}</h3>
+        <h3 class="title">{{ appName }}</h3>
       </div>
 
       <el-form-item prop="username">
@@ -76,6 +76,7 @@ export default {
       }
     }
     return {
+      appName: 'LazyAMS',
       loginForm: {
         username: 'admin',
         password: '123456'
@@ -106,6 +107,14 @@ export default {
         }
       },
       immediate: true
+    },
+    settings: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal && newVal.site) {
+          this.appName = newVal.site.AppName
+        }
+      }
     }
   },
   created() {
