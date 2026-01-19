@@ -58,19 +58,22 @@ export default {
         }
       }
     },
-    '$route.query.callback': {
-      handler(value) {
-        if (value) {
-          if (value === 'weixin' && this.$route.query.code) {
-            this.$store.dispatch('user/weixinLogin', this.$route.query.code)
+    $route: {
+      handler(route) {
+        const query = route.query
+        if (query && query.callback) {
+          const callback = route.query.callback
+
+          if (callback === 'weixin' && route.query.code) {
+            this.$store.dispatch('user/weixinLogin', route.query.code)
               .then(() => {
                 this.$router.push({ path: '/' })
               })
               .catch(err => {
                 this.$message.error(err.message || 'Weixin login failed')
               })
-          } else if (value === 'google' && this.$route.query.code) {
-            this.$store.dispatch('user/googleLogin', this.$route.query.code)
+          } else if (callback === 'google' && route.query.code) {
+            this.$store.dispatch('user/googleLogin', route.query.code)
               .then(() => {
                 this.$router.push({ path: '/' })
               })
