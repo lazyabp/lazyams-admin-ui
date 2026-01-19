@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">{{ appName }}</h3>
+        <h3 class="title">{{ settings.site ? settings.site.AppName : 'LazyAMS' }}</h3>
       </div>
 
       <el-form-item prop="username">
@@ -76,6 +76,7 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Login',
@@ -109,9 +110,13 @@ export default {
       loading: false,
       showDialog: false,
       redirect: undefined,
-      otherQuery: {},
-      appName: ''
+      otherQuery: {}
     }
+  },
+  computed: {
+    ...mapGetters([
+      'settings'
+    ])
   },
   watch: {
     $route: {
