@@ -1,5 +1,5 @@
 import { login } from '@/api/auth'
-import { getInfo } from '@/api/user'
+import { getUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -15,6 +15,9 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
+  SET_PERMISSIONS: (state, permissions) => {
+    state.permissions = permissions
+  },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
   },
@@ -26,6 +29,9 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_EMAIL: (state, email) => {
+    state.email = email
   }
 }
 
@@ -37,6 +43,7 @@ const actions = {
       login({ userName: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
+        commit('SET_PERMISSIONS', data.permissions)
         setToken(data.token)
         commit('SET_NAME', username.trim())
         resolve()
@@ -49,14 +56,13 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.name).then(response => {
+      getUserInfo().then(response => {
         const data = response.data
-
         if (!data) {
           reject('Verification failed, please Login again.')
         }
 
-        const { roleIds, nickName, avatar } = data
+        const { roleIds, nickName, avatar, email } = data
 
         const roles = roleIds.map(String)
 
@@ -68,6 +74,7 @@ const actions = {
         commit('SET_ROLES', roles)
         commit('SET_NAME', nickName)
         commit('SET_AVATAR', avatar)
+        commit('SET_EMAIL ', email)
         commit('SET_INTRODUCTION', '')
         resolve({ ...data, roles })
       }).catch(error => {
@@ -81,6 +88,9 @@ const actions = {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
+      commit('SET_AVATAR', '')
+      commit('SET_EMAIL', '')
+      commit('SET_INTRODUCTION', '')
       removeToken()
       resetRouter()
 
@@ -97,6 +107,9 @@ const actions = {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
+      commit('SET_AVATAR', '')
+      commit('SET_EMAIL', '')
+      commit('SET_INTRODUCTION', '')
       removeToken()
       resolve()
     })

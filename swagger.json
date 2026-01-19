@@ -38,7 +38,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            }
           }
         }
       }
@@ -71,7 +88,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            }
           }
         }
       }
@@ -162,17 +196,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoBaseResultDto"
+                  "$ref": "#/components/schemas/CarouselDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoBaseResultDto"
+                  "$ref": "#/components/schemas/CarouselDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoBaseResultDto"
+                  "$ref": "#/components/schemas/CarouselDto"
                 }
               }
             }
@@ -212,17 +246,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoBaseResultDto"
+                  "$ref": "#/components/schemas/CarouselDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoBaseResultDto"
+                  "$ref": "#/components/schemas/CarouselDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoBaseResultDto"
+                  "$ref": "#/components/schemas/CarouselDto"
                 }
               }
             }
@@ -262,17 +296,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoBaseResultDto"
+                  "$ref": "#/components/schemas/CarouselDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoBaseResultDto"
+                  "$ref": "#/components/schemas/CarouselDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoBaseResultDto"
+                  "$ref": "#/components/schemas/CarouselDto"
                 }
               }
             }
@@ -304,17 +338,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               }
             }
@@ -349,17 +383,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/FileDtoBaseResultDto"
+                  "$ref": "#/components/schemas/FileDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FileDtoBaseResultDto"
+                  "$ref": "#/components/schemas/FileDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FileDtoBaseResultDto"
+                  "$ref": "#/components/schemas/FileDto"
                 }
               }
             }
@@ -394,17 +428,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringBaseResultDto"
+                  "type": "string"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringBaseResultDto"
+                  "type": "string"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringBaseResultDto"
+                  "type": "string"
                 }
               }
             }
@@ -506,17 +540,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoBaseResultDto"
+                  "$ref": "#/components/schemas/MenuDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoBaseResultDto"
+                  "$ref": "#/components/schemas/MenuDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoBaseResultDto"
+                  "$ref": "#/components/schemas/MenuDto"
                 }
               }
             }
@@ -556,17 +590,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoBaseResultDto"
+                  "$ref": "#/components/schemas/MenuDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoBaseResultDto"
+                  "$ref": "#/components/schemas/MenuDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoBaseResultDto"
+                  "$ref": "#/components/schemas/MenuDto"
                 }
               }
             }
@@ -598,17 +632,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               }
             }
@@ -640,17 +674,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoBaseResultDto"
+                  "$ref": "#/components/schemas/MenuDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoBaseResultDto"
+                  "$ref": "#/components/schemas/MenuDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoBaseResultDto"
+                  "$ref": "#/components/schemas/MenuDto"
                 }
               }
             }
@@ -700,17 +734,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Int32StringDictionaryBaseResultDto"
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Int32StringDictionaryBaseResultDto"
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Int32StringDictionaryBaseResultDto"
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -854,17 +897,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoBaseResultDto"
+                  "$ref": "#/components/schemas/RoleDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoBaseResultDto"
+                  "$ref": "#/components/schemas/RoleDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoBaseResultDto"
+                  "$ref": "#/components/schemas/RoleDto"
                 }
               }
             }
@@ -904,17 +947,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoBaseResultDto"
+                  "$ref": "#/components/schemas/RoleDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoBaseResultDto"
+                  "$ref": "#/components/schemas/RoleDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoBaseResultDto"
+                  "$ref": "#/components/schemas/RoleDto"
                 }
               }
             }
@@ -946,17 +989,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               }
             }
@@ -1008,17 +1051,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               }
             }
@@ -1050,17 +1093,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoBaseResultDto"
+                  "$ref": "#/components/schemas/RoleDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoBaseResultDto"
+                  "$ref": "#/components/schemas/RoleDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoBaseResultDto"
+                  "$ref": "#/components/schemas/RoleDto"
                 }
               }
             }
@@ -1100,17 +1143,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               }
             }
@@ -1130,17 +1173,20 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringObjectDictionaryBaseResultDto"
+                  "type": "object",
+                  "additionalProperties": { }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringObjectDictionaryBaseResultDto"
+                  "type": "object",
+                  "additionalProperties": { }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringObjectDictionaryBaseResultDto"
+                  "type": "object",
+                  "additionalProperties": { }
                 }
               }
             }
@@ -1170,17 +1216,20 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringObjectIDictionaryBaseResultDto"
+                  "type": "object",
+                  "additionalProperties": { }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringObjectIDictionaryBaseResultDto"
+                  "type": "object",
+                  "additionalProperties": { }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringObjectIDictionaryBaseResultDto"
+                  "type": "object",
+                  "additionalProperties": { }
                 }
               }
             }
@@ -1233,17 +1282,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               }
             }
@@ -1263,17 +1312,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModelBaseResultDto"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModel"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModelBaseResultDto"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModel"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModelBaseResultDto"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModel"
                 }
               }
             }
@@ -1293,17 +1342,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModelBaseResultDto"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModel"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModelBaseResultDto"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModel"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModelBaseResultDto"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModel"
                 }
               }
             }
@@ -1323,17 +1372,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModelBaseResultDto"
+                  "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModel"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModelBaseResultDto"
+                  "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModel"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModelBaseResultDto"
+                  "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModel"
                 }
               }
             }
@@ -1359,7 +1408,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            }
           }
         }
       }
@@ -1392,7 +1458,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            }
           }
         }
       }
@@ -1415,7 +1498,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            }
           }
         }
       }
@@ -1514,17 +1614,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               }
             }
@@ -1564,17 +1664,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               }
             }
@@ -1606,17 +1706,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BooleanBaseResultDto"
+                  "type": "boolean"
                 }
               }
             }
@@ -1648,17 +1748,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
                 }
               }
             }
@@ -1689,17 +1789,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               }
             }
@@ -1707,7 +1807,7 @@
         }
       }
     },
-    "/api/User/GetUserInfo/info": {
+    "/api/User/info": {
       "get": {
         "tags": [
           "User"
@@ -1718,17 +1818,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDtoBaseResultDto"
+                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
                 }
               }
             }
@@ -1747,22 +1847,6 @@
         ],
         "type": "integer",
         "format": "int32"
-      },
-      "BooleanBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
       },
       "CarouselDto": {
         "type": "object",
@@ -1807,33 +1891,10 @@
         },
         "additionalProperties": false
       },
-      "CarouselDtoBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/CarouselDto"
-          }
-        },
-        "additionalProperties": false
-      },
       "CarouselDtoPagedResultDto": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
+          "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CarouselDto"
@@ -2104,22 +2165,6 @@
         },
         "additionalProperties": false
       },
-      "FileDtoBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/FileDto"
-          }
-        },
-        "additionalProperties": false
-      },
       "FileType": {
         "enum": [
           0,
@@ -2139,27 +2184,6 @@
         "type": "integer",
         "format": "int32"
       },
-      "Int32StringDictionaryBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "nullable": true
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "LoginRequestDto": {
         "type": "object",
         "properties": {
@@ -2173,6 +2197,23 @@
           },
           "password": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginResponseDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "nullable": true
           }
         },
@@ -2346,33 +2387,10 @@
         },
         "additionalProperties": false
       },
-      "MenuDtoBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/MenuDto"
-          }
-        },
-        "additionalProperties": false
-      },
       "MenuDtoListResultDto": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
+          "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MenuDto"
@@ -2385,14 +2403,7 @@
       "MenuDtoPagedResultDto": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
+          "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MenuDto"
@@ -2419,14 +2430,7 @@
       "MenuIdDtoListResultDto": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
+          "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MenuIdDto"
@@ -2531,33 +2535,10 @@
         },
         "additionalProperties": false
       },
-      "RoleDtoBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/RoleDto"
-          }
-        },
-        "additionalProperties": false
-      },
       "RoleDtoPagedResultDto": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
+          "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RoleDto"
@@ -2631,22 +2612,6 @@
         },
         "additionalProperties": false
       },
-      "SocialiteLoginGoogleSettingModelBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModel"
-          }
-        },
-        "additionalProperties": false
-      },
       "SocialiteLoginWeixinMiniSettingModel": {
         "type": "object",
         "properties": {
@@ -2657,22 +2622,6 @@
           "appSecret": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SocialiteLoginWeixinMiniSettingModelBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModel"
           }
         },
         "additionalProperties": false
@@ -2695,22 +2644,6 @@
         },
         "additionalProperties": false
       },
-      "SocialiteLoginWeixinSettingModelBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModel"
-          }
-        },
-        "additionalProperties": false
-      },
       "StorageType": {
         "enum": [
           0,
@@ -2723,63 +2656,6 @@
         ],
         "type": "integer",
         "format": "int32"
-      },
-      "StringBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "StringObjectDictionaryBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "StringObjectIDictionaryBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       },
       "UpdateCarouselDto": {
         "type": "object",
@@ -3094,33 +2970,10 @@
         },
         "additionalProperties": false
       },
-      "UserDtoBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/UserDto"
-          }
-        },
-        "additionalProperties": false
-      },
       "UserDtoPagedResultDto": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
+          "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/UserDto"
@@ -3219,22 +3072,6 @@
               "format": "int64"
             },
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserWithRoleIdsDtoBaseResultDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/UserWithRoleIdsDto"
           }
         },
         "additionalProperties": false
