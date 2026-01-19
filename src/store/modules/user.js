@@ -1,6 +1,6 @@
 import { login } from '@/api/auth'
 import { getUserInfo } from '@/api/user'
-import { weixinCallback, googleCallback } from '@/api/social'
+import { weixinCallback, googleCallback } from '@/api/socialite'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
