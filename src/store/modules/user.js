@@ -1,5 +1,6 @@
 import { login } from '@/api/auth'
 import { getUserInfo } from '@/api/user'
+import { weixinCallback, googleCallback } from '@/api/social'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -7,8 +8,9 @@ const state = {
   token: getToken(),
   name: '',
   avatar: '',
-  introduction: '',
-  roles: []
+  roles: [],
+  email: '',
+  permissions: []
 }
 
 const mutations = {
@@ -17,9 +19,6 @@ const mutations = {
   },
   SET_PERMISSIONS: (state, permissions) => {
     state.permissions = permissions
-  },
-  SET_INTRODUCTION: (state, introduction) => {
-    state.introduction = introduction
   },
   SET_NAME: (state, name) => {
     state.name = name
@@ -53,6 +52,34 @@ const actions = {
     })
   },
 
+  weixinLogin({ commit }, code) {
+    return new Promise((resolve, reject) => {
+      weixinCallback({ code: code }).then(response => {
+        const { data } = response
+        commit('SET_TOKEN', data.token)
+        commit('SET_PERMISSIONS', data.permissions)
+        setToken(data.token)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  googleLogin({ commit }, code) {
+    return new Promise((resolve, reject) => {
+      googleCallback({ code: code }).then(response => {
+        const { data } = response
+        commit('SET_TOKEN', data.token)
+        commit('SET_PERMISSIONS', data.permissions)
+        setToken(data.token)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
   // get user info
   getInfo({ commit }) {
     return new Promise((resolve, reject) => {
@@ -75,7 +102,6 @@ const actions = {
         commit('SET_NAME', nickName)
         commit('SET_AVATAR', avatar)
         commit('SET_EMAIL ', email)
-        commit('SET_INTRODUCTION', '')
         resolve({ ...data, roles })
       }).catch(error => {
         reject(error)
@@ -90,7 +116,6 @@ const actions = {
       commit('SET_ROLES', [])
       commit('SET_AVATAR', '')
       commit('SET_EMAIL', '')
-      commit('SET_INTRODUCTION', '')
       removeToken()
       resetRouter()
 
@@ -109,7 +134,6 @@ const actions = {
       commit('SET_ROLES', [])
       commit('SET_AVATAR', '')
       commit('SET_EMAIL', '')
-      commit('SET_INTRODUCTION', '')
       removeToken()
       resolve()
     })
