@@ -40,6 +40,7 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ userName: username.trim(), password: password }).then(response => {
+        // console.log(response)
         const { data } = response
         commit('SET_TOKEN', data.token)
         commit('SET_PERMISSIONS', data.permissions)
@@ -101,7 +102,7 @@ const actions = {
         commit('SET_ROLES', roles)
         commit('SET_NAME', nickName)
         commit('SET_AVATAR', avatar)
-        commit('SET_EMAIL ', email)
+        commit('SET_EMAIL', email)
         resolve({ ...data, roles })
       }).catch(error => {
         reject(error)

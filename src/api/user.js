@@ -31,6 +31,14 @@ export function updateUser(data) {
   })
 }
 
+export function activeUser(id, data) {
+  return request({
+    url: `/api/User/${id}/Active`,
+    method: 'post',
+    data
+  })
+}
+
 export function deleteUser(id) {
   return request({
     url: `/api/User/Delete/${id}`,
