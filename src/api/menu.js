@@ -31,7 +31,7 @@ export function deleteMenu(id) {
   })
 }
 
-export function getMenu(id) {
+export function getMenuById(id) {
   return request({
     url: `/api/Menu/GetById/${id}`,
     method: 'get'
@@ -45,24 +45,17 @@ export function getMenuTree() {
   })
 }
 
-export function getMenuType() {
-  return request({
-    url: '/api/Menu/GetMenuType',
-    method: 'get'
-  })
-}
-
-export function getMenuIdsByRoleId(id) {
-  return request({
-    url: `/api/Menu/GetMenuIdsByRoleId/${id}`,
-    method: 'get'
-  })
-}
-
 export function activeMenu(id, data) {
   return request({
     url: `/api/Menu/Active/${id}`,
     method: 'post',
     data
+  })
+}
+
+export function getMenuTypes() {
+  return request({
+    url: '/api/Menu/GetMenuType',
+    method: 'get'
   })
 }

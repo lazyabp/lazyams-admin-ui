@@ -2260,7 +2260,7 @@
             "type": "string",
             "nullable": true
           },
-          "componentPath": {
+          "component": {
             "type": "string",
             "nullable": true
           },
@@ -2580,7 +2580,7 @@
             "type": "string",
             "nullable": true
           },
-          "componentPath": {
+          "component": {
             "maxLength": 200,
             "minLength": 0,
             "type": "string",
@@ -2666,7 +2666,7 @@
             "type": "string",
             "nullable": true
           },
-          "componentPath": {
+          "component": {
             "type": "string",
             "nullable": true
           },
@@ -3100,7 +3100,7 @@
             "type": "string",
             "nullable": true
           },
-          "componentPath": {
+          "component": {
             "type": "string",
             "nullable": true
           },
