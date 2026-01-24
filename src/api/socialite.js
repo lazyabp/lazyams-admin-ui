@@ -2,28 +2,28 @@ import request from '@/utils/request'
 
 export function weixinLogin() {
   return request({
-    url: '/api/socialite/weixin/login',
+    url: '/api/Socialite/Weixin/Login',
     method: 'get'
   })
 }
 
 export function weixinMiniLogin() {
   return request({
-    url: '/api/socialite/weixin-mini/login',
+    url: '/api/Socialite/WeixinMini/Login',
     method: 'get'
   })
 }
 
 export function googleLogin() {
   return request({
-    url: '/api/socialite/google/login',
+    url: '/api/Socialite/Google/Login',
     method: 'get'
   })
 }
 
 export function weixinCallback(code) {
   return request({
-    url: '/api/socialite/weixin/callback',
+    url: '/api/Socialite/Weixin/Callback',
     method: 'get',
     params: { code }
   })
@@ -31,7 +31,7 @@ export function weixinCallback(code) {
 
 export function weixinMiniCallback(data) {
   return request({
-    url: '/api/socialite/weixin-mini/callback',
+    url: '/api/Socialite/WeixinMini/Callback',
     method: 'post',
     data
   })
@@ -39,7 +39,7 @@ export function weixinMiniCallback(data) {
 
 export function googleCallback(code) {
   return request({
-    url: '/api/socialite/google/callback',
+    url: '/api/Socialite/Google/Callback',
     method: 'get',
     params: { code }
   })

@@ -58,3 +58,11 @@ export function getMenuIdsByRoleId(id) {
     method: 'get'
   })
 }
+
+export function activeMenu(id, data) {
+  return request({
+    url: `/api/Menu/Active/${id}`,
+    method: 'post',
+    data
+  })
+}

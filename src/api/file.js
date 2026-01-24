@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function uploadFile(data) {
   return request({
-    url: '/api/File/upload',
+    url: '/api/File/Upload',
     method: 'post',
     data,
     headers: {
@@ -13,7 +13,7 @@ export function uploadFile(data) {
 
 export function uploadAvatar(data) {
   return request({
-    url: '/api/File/avatar/upload',
+    url: '/api/File/Avatar/Upload',
     method: 'post',
     data,
     headers: {

@@ -31,24 +31,46 @@ export function deleteRole(id) {
   })
 }
 
-export function getRole(id) {
+export function batchDeleteRoles(ids) {
+  return request({
+    url: '/api/Role/BatchDelete',
+    method: 'delete',
+    data: ids
+  })
+}
+
+export function getRoleById(id) {
   return request({
     url: `/api/Role/GetById/${id}`,
     method: 'get'
   })
 }
 
-export function batchDeleteRoles(data) {
+export function getMenuTree() {
   return request({
-    url: '/api/Role/BatchDelete',
-    method: 'delete',
+    url: '/api/Menu/GetMenuTree',
+    method: 'get'
+  })
+}
+
+export function getMenuIdsByRoleId(id) {
+  return request({
+    url: `/api/Menu/GetMenuIdsByRoleId/${id}`,
+    method: 'get'
+  })
+}
+
+export function rolePermission(data) {
+  return request({
+    url: '/api/Role/RolePermission',
+    method: 'post',
     data
   })
 }
 
-export function setRolePermission(data) {
+export function activeRole(id, data) {
   return request({
-    url: '/api/Role/RolePermission',
+    url: `/api/Role/Active/${id}`,
     method: 'post',
     data
   })

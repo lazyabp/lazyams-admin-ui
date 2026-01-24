@@ -356,7 +356,7 @@
         }
       }
     },
-    "/api/File/upload": {
+    "/api/File/Upload": {
       "post": {
         "tags": [
           "File"
@@ -401,7 +401,7 @@
         }
       }
     },
-    "/api/File/avatar/upload": {
+    "/api/File/Avatar/Upload": {
       "post": {
         "tags": [
           "File"
@@ -453,6 +453,42 @@
         ],
         "summary": "分页获取菜单列表",
         "parameters": [
+          {
+            "name": "Permission",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Route",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MenuType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/MenuType"
+            }
+          },
+          {
+            "name": "ParentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "IsActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
           {
             "name": "Filter",
             "in": "query",
@@ -580,6 +616,65 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateMenuDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenuDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenuDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenuDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Menu/Active/{id}": {
+      "post": {
+        "tags": [
+          "Menu"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
               }
             }
           }
@@ -811,6 +906,13 @@
         "summary": "分页获取角色列表",
         "parameters": [
           {
+            "name": "IsActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
             "name": "Filter",
             "in": "query",
             "schema": {
@@ -937,6 +1039,68 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Role/Active/{id}": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "修改状态",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
               }
             }
           }
@@ -1111,7 +1275,7 @@
         }
       }
     },
-    "/api/Role/RolePermission": {
+    "/api/Role": {
       "post": {
         "tags": [
           "Role"
@@ -1161,7 +1325,7 @@
         }
       }
     },
-    "/api/Setting/all": {
+    "/api/Setting/All": {
       "get": {
         "tags": [
           "Setting"
@@ -1194,7 +1358,7 @@
         }
       }
     },
-    "/api/Setting/get": {
+    "/api/Setting/Get": {
       "get": {
         "tags": [
           "Setting"
@@ -1237,7 +1401,7 @@
         }
       }
     },
-    "/api/Setting/set": {
+    "/api/Setting/Set": {
       "post": {
         "tags": [
           "Setting"
@@ -1300,7 +1464,7 @@
         }
       }
     },
-    "/api/socialite/weixin/login": {
+    "/api/Socialite/Weixin/Login": {
       "get": {
         "tags": [
           "SocialiteUser"
@@ -1330,7 +1494,7 @@
         }
       }
     },
-    "/api/socialite/weixin-mini/login": {
+    "/api/Socialite/WeixinMini/Login": {
       "get": {
         "tags": [
           "SocialiteUser"
@@ -1360,7 +1524,7 @@
         }
       }
     },
-    "/api/socialite/google/login": {
+    "/api/Socialite/Google/Login": {
       "get": {
         "tags": [
           "SocialiteUser"
@@ -1390,7 +1554,7 @@
         }
       }
     },
-    "/api/socialite/weixin/callback": {
+    "/api/Socialite/Weixin/Callback": {
       "get": {
         "tags": [
           "SocialiteUser"
@@ -1430,7 +1594,7 @@
         }
       }
     },
-    "/api/socialite/weixin-mini/callback": {
+    "/api/Socialite/WeixinMini/Callback": {
       "post": {
         "tags": [
           "SocialiteUser"
@@ -1480,7 +1644,7 @@
         }
       }
     },
-    "/api/socialite/google/callback": {
+    "/api/Socialite/Google/Callback": {
       "get": {
         "tags": [
           "SocialiteUser"
@@ -1527,6 +1691,50 @@
         ],
         "summary": "分页获取用户列表",
         "parameters": [
+          {
+            "name": "Email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsAdministrator",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Access",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/Access"
+            }
+          },
+          {
+            "name": "IsActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "CreateBegin",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "CreateEnd",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
           {
             "name": "Filter",
             "in": "query",
@@ -1682,6 +1890,68 @@
         }
       }
     },
+    "/api/User/Active/{id}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "更新用户",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/User/Delete/{id}": {
       "delete": {
         "tags": [
@@ -1807,7 +2077,7 @@
         }
       }
     },
-    "/api/User/info": {
+    "/api/User/Info": {
       "get": {
         "tags": [
           "User"
@@ -1847,6 +2117,15 @@
         ],
         "type": "integer",
         "format": "int32"
+      },
+      "ActiveDto": {
+        "type": "object",
+        "properties": {
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
       },
       "CarouselDto": {
         "type": "object",
@@ -1989,6 +2268,9 @@
             "type": "integer",
             "format": "int64",
             "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -2011,6 +2293,9 @@
           "description": {
             "type": "string",
             "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -2308,6 +2593,9 @@
             "format": "int64",
             "nullable": true
           },
+          "isActive": {
+            "type": "boolean"
+          },
           "children": {
             "type": "array",
             "items": {
@@ -2334,6 +2622,26 @@
           "id": {
             "type": "integer",
             "format": "int64"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           },
           "title": {
             "type": "string",
@@ -2383,6 +2691,9 @@
               "$ref": "#/components/schemas/RoleMenu"
             },
             "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -2474,6 +2785,39 @@
             "type": "integer",
             "format": "int64"
           },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "deletedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "roleName": {
             "type": "string",
             "nullable": true
@@ -2481,6 +2825,9 @@
           "description": {
             "type": "string",
             "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           },
           "roleMenus": {
             "type": "array",
@@ -2509,6 +2856,26 @@
             "type": "integer",
             "format": "int64"
           },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "roleName": {
             "maxLength": 50,
             "minLength": 3,
@@ -2517,6 +2884,9 @@
           "description": {
             "type": "string",
             "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           },
           "roleMenus": {
             "type": "array",
@@ -2738,6 +3108,9 @@
             "type": "integer",
             "format": "int64",
             "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -2760,12 +3133,16 @@
           "description": {
             "type": "string",
             "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
       },
       "UpdateUserDto": {
         "required": [
+          "password",
           "userName"
         ],
         "type": "object",
@@ -2819,6 +3196,15 @@
               "format": "int64"
             },
             "nullable": true
+          },
+          "avatar": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -2921,6 +3307,26 @@
             "type": "integer",
             "format": "int64"
           },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "userName": {
             "type": "string",
             "nullable": true
@@ -2957,11 +3363,6 @@
           },
           "address": {
             "type": "string",
-            "nullable": true
-          },
-          "createdDate": {
-            "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "isActive": {
@@ -3018,6 +3419,26 @@
             "type": "integer",
             "format": "int64"
           },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "userName": {
             "type": "string",
             "nullable": true
@@ -3050,11 +3471,6 @@
           },
           "address": {
             "type": "string",
-            "nullable": true
-          },
-          "createdDate": {
-            "type": "string",
-            "format": "date-time",
             "nullable": true
           },
           "isActive": {
