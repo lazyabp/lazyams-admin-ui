@@ -8,7 +8,7 @@
 export default {
   name: 'App',
   created() {
-    this.$store.dispatch('settings/fetchAllSettings')
+    this.$store.dispatch('config/fetchAll')
   }
 }
 </script>

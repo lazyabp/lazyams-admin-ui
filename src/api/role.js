@@ -75,3 +75,11 @@ export function activeRole(id, data) {
     data
   })
 }
+
+export function getRoutes(data) {
+  return request({
+    url: `/api/Role/Active`,
+    method: 'post',
+    data
+  })
+}
