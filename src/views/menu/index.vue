@@ -15,7 +15,7 @@
     >
       <el-table-column align="center" label="Name">
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          {{ scope.row.name }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="Type">
@@ -60,10 +60,13 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'Edit Menu':'New Menu'">
+    <el-dialog :visible.sync="dialogVisible" :name="dialogType==='edit'?'Edit Menu':'New Menu'">
       <el-form :model="menu" label-width="120px" label-position="left">
         <el-form-item label="Name">
-          <el-input v-model="menu.title" placeholder="Menu Name" />
+          <el-input v-model="menu.name" placeholder="Menu Name" />
+        </el-form-item>
+        <el-form-item label="Icon">
+          <el-input v-model="menu.icon" placeholder="Icon" />
         </el-form-item>
         <el-form-item label="Menu Type">
           <el-input v-model="menu.menuType" placeholder="Menu Type" />
@@ -82,12 +85,12 @@
             <el-option
               v-for="item in list"
               :key="item.id"
-              :label="item.title"
+              :label="item.name"
               :value="item.id"
             >
               <el-tree
                 :data="[item]"
-                :props="{ value: 'id', label: 'title', children: 'children' }"
+                :props="{ value: 'id', label: 'name', children: 'children' }"
                 @node-click="(data) => { menu.parentId = data.id }"
               />
             </el-option>
@@ -145,7 +148,7 @@ export default {
         this.fetchMenuTree()
         this.dialogFormVisible = false
         this.$notify({
-          title: 'Success',
+          name: 'Success',
           message: 'Created Successfully',
           type: 'success',
           duration: 2000
