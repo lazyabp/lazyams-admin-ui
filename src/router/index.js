@@ -14,7 +14,7 @@ import nestedRouter from './modules/nested'
 import userRouter from './modules/user'
 import roleRouter from './modules/role'
 import menuRouter from './modules/menu'
-import settingRouter from './modules/setting'
+import configRouter from './modules/config'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -196,7 +196,7 @@ export const asyncRoutes = [
   userRouter,
   roleRouter,
   menuRouter,
-  settingRouter,
+  configRouter,
 
   {
     path: '/example',

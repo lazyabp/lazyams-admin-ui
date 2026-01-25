@@ -1,23 +1,23 @@
 import request from '@/utils/request'
 
-export function getAllSettings() {
+export function getAllConfigs() {
   return request({
-    url: '/api/Setting/All',
+    url: '/api/Config/All',
     method: 'get'
   })
 }
 
-export function getSetting(key) {
+export function getConfig(key) {
   return request({
-    url: '/api/Setting/Get',
+    url: '/api/Config/Get',
     method: 'get',
     params: { key }
   })
 }
 
-export function setSetting(key, data) {
+export function setConfig(key, data) {
   return request({
-    url: '/api/Setting/Set',
+    url: '/api/Config/Set',
     method: 'post',
     params: { key },
     data

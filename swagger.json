@@ -356,6 +356,145 @@
         }
       }
     },
+    "/api/Config/All": {
+      "get": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "获取所有公开的配置信息",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Config/Get": {
+      "get": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "获取配置信息",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Config/Set": {
+      "post": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "更新配置信息",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": { }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": { }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": { }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/File/Upload": {
       "post": {
         "tags": [
@@ -685,17 +824,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
+                  "type": "boolean"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
+                  "type": "boolean"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
+                  "type": "boolean"
                 }
               }
             }
@@ -1325,145 +1464,6 @@
         }
       }
     },
-    "/api/Setting/All": {
-      "get": {
-        "tags": [
-          "Setting"
-        ],
-        "summary": "获取所有公开的配置信息",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Setting/Get": {
-      "get": {
-        "tags": [
-          "Setting"
-        ],
-        "summary": "获取配置信息",
-        "parameters": [
-          {
-            "name": "key",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Setting/Set": {
-      "post": {
-        "tags": [
-          "Setting"
-        ],
-        "summary": "更新配置信息",
-        "parameters": [
-          {
-            "name": "key",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": { }
-              }
-            },
-            "text/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": { }
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": { }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/Socialite/Weixin/Login": {
       "get": {
         "tags": [
@@ -1476,17 +1476,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModel"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinConfigModel"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModel"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinConfigModel"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinSettingModel"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinConfigModel"
                 }
               }
             }
@@ -1506,17 +1506,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModel"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniConfigModel"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModel"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniConfigModel"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniSettingModel"
+                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniConfigModel"
                 }
               }
             }
@@ -1536,17 +1536,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModel"
+                  "$ref": "#/components/schemas/SocialiteLoginGoogleConfigModel"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModel"
+                  "$ref": "#/components/schemas/SocialiteLoginGoogleConfigModel"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginGoogleSettingModel"
+                  "$ref": "#/components/schemas/SocialiteLoginGoogleConfigModel"
                 }
               }
             }
@@ -2964,7 +2964,7 @@
         },
         "additionalProperties": false
       },
-      "SocialiteLoginGoogleSettingModel": {
+      "SocialiteLoginGoogleConfigModel": {
         "type": "object",
         "properties": {
           "clientId": {
@@ -2982,21 +2982,7 @@
         },
         "additionalProperties": false
       },
-      "SocialiteLoginWeixinMiniSettingModel": {
-        "type": "object",
-        "properties": {
-          "appId": {
-            "type": "string",
-            "nullable": true
-          },
-          "appSecret": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SocialiteLoginWeixinSettingModel": {
+      "SocialiteLoginWeixinConfigModel": {
         "type": "object",
         "properties": {
           "appId": {
@@ -3008,6 +2994,20 @@
             "nullable": true
           },
           "redirectUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SocialiteLoginWeixinMiniConfigModel": {
+        "type": "object",
+        "properties": {
+          "appId": {
+            "type": "string",
+            "nullable": true
+          },
+          "appSecret": {
             "type": "string",
             "nullable": true
           }
@@ -3537,6 +3537,10 @@
       "description": "轮播内容"
     },
     {
+      "name": "Config",
+      "description": "配置管理控制器"
+    },
+    {
       "name": "File",
       "description": "文件上传"
     },
@@ -3547,10 +3551,6 @@
     {
       "name": "Role",
       "description": "角色管理"
-    },
-    {
-      "name": "Setting",
-      "description": "配置管理控制器"
     },
     {
       "name": "SocialiteUser",

@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'settings'
+      'configs'
     ])
   },
   watch: {
@@ -108,7 +108,7 @@ export default {
       },
       immediate: true
     },
-    settings: {
+    configs: {
       immediate: true,
       handler(newVal) {
         if (newVal && newVal.site) {

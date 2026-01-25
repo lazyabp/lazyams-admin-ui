@@ -1,19 +1,19 @@
-import { getAllSettings } from '@/api/setting'
+import { getAllConfigs } from '@/api/config'
 
 const state = {
-  config: {}
+  configs: {}
 }
 
 const mutations = {
   SET_CONFIG: (state, config) => {
-    state.config = config
+    state.configs = config
   }
 }
 
 const actions = {
   fetchAll({ commit }) {
     return new Promise((resolve, reject) => {
-      getAllSettings().then(response => {
+      getAllConfigs().then(response => {
         // console.log('Fetched settings:', response.data)
         commit('SET_CONFIG', response.data)
         resolve()
