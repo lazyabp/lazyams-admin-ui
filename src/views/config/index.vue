@@ -1,26 +1,38 @@
 <template>
   <div class="app-container">
-    <el-form ref="form" :model="configs" label-width="120px">
-      <el-form-item v-for="(value, key) in configs" :key="key" :label="key">
-        <el-input v-model="configs[key]" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">
-          Save
-        </el-button>
-      </el-form-item>
-    </el-form>
+    <el-row :gutter="20" style="margin-top:50px;">
+      <el-col v-for="(row, key) in keys" :key="key" :span="6">
+        <el-card class="box-card" style="margin-bottom:20px;">
+          <div slot="header" class="clearfix">
+            <span>{{ row.title }}</span>
+          </div>
+          <div class="component-item">
+            <el-button type="primary" @click="handleEdit(row)">
+              修改配置
+            </el-button>
+            <div style="margin-top:10px;color:#999;">
+              {{ row.description }}
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <SiteConfig :show.sync="showSiteConfig" :item="item" @closed="showSiteConfig = false" />
   </div>
 </template>
 
 <script>
-import { getAllConfigs, setConfig } from '@/api/config'
+import SiteConfig from './components/SiteConfig.vue'
+import { getKeys } from '@/api/config'
 
 export default {
   name: 'ConfigManagement',
+  components: { SiteConfig },
   data() {
     return {
-      configs: {}
+      keys: [],
+      item: {},
+      showSiteConfig: false
     }
   },
   created() {
@@ -28,20 +40,18 @@ export default {
   },
   methods: {
     async fetchConfigs() {
-      const res = await getAllConfigs()
-      this.configs = res
+      const res = await getKeys()
+      this.keys = res.data
     },
-    async onSubmit() {
-      for (const key in this.configs) {
-        if (Object.prototype.hasOwnProperty.call(this.configs, key)) {
-          await setConfig(key, this.configs[key])
-        }
+    async handleEdit(row) {
+      this.item = row
+      switch (row.key) {
+        case 'site':
+          this.showSiteConfig = true
+          break
+        default:
+          break
       }
-      this.$message({
-        message: 'Configs saved successfully',
-        type: 'success'
-      })
-      this.fetchConfigs()
     }
   }
 }

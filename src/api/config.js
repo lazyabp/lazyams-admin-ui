@@ -7,6 +7,13 @@ export function getAllConfigs() {
   })
 }
 
+export function getKeys() {
+  return request({
+    url: '/api/Config/GetKeys',
+    method: 'get'
+  })
+}
+
 export function getConfig(key) {
   return request({
     url: '/api/Config/Get',

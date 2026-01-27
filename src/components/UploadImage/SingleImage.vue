@@ -1,13 +1,13 @@
 <template>
   <div class="upload-container">
     <el-upload
-      :data="dataObj"
       :multiple="false"
       :show-file-list="false"
       :on-success="handleImageSuccess"
       class="image-uploader"
       drag
-      action="https://httpbin.org/post"
+      :action="fileUploadUrl"
+      :headers="headers"
     >
       <i class="el-icon-upload" />
       <div class="el-upload__text">
@@ -15,8 +15,8 @@
       </div>
     </el-upload>
     <div class="image-preview">
-      <div v-show="imageUrl.length>1" class="image-preview-wrapper">
-        <img :src="imageUrl+'?imageView2/1/w/200/h/200'">
+      <div v-show="imageUrl.length > 1" class="image-preview-wrapper">
+        <img :src="imageUrl">
         <div class="image-preview-action">
           <i class="el-icon-delete" @click="rmImage" />
         </div>
@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import { getToken } from '@/api/qiniu'
-
 export default {
   name: 'SingleImageUpload',
   props: {
@@ -38,8 +36,11 @@ export default {
   },
   data() {
     return {
+      fileUploadUrl: `${process.env.VUE_APP_BASE_API}/api/File/Upload`,
       tempUrl: '',
-      dataObj: { token: '', key: '' }
+      headers: {
+        Authorization: `Bearer ${this.$store.getters.token}`
+      }
     }
   },
   computed: {
@@ -56,22 +57,6 @@ export default {
     },
     handleImageSuccess() {
       this.emitInput(this.tempUrl)
-    },
-    beforeUpload() {
-      const _self = this
-      return new Promise((resolve, reject) => {
-        getToken().then(response => {
-          const key = response.data.qiniu_key
-          const token = response.data.qiniu_token
-          _self._data.dataObj.token = token
-          _self._data.dataObj.key = key
-          this.tempUrl = response.data.qiniu_url
-          resolve(true)
-        }).catch(err => {
-          console.log(err)
-          reject(false)
-        })
-      })
     }
   }
 }
