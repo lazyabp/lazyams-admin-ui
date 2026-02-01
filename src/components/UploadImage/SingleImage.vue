@@ -32,12 +32,15 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    onSuccess: {
+      type: Function,
+      default: null
     }
   },
   data() {
     return {
       fileUploadUrl: `${process.env.VUE_APP_BASE_API}/api/File/Upload`,
-      tempUrl: '',
       headers: {
         Authorization: `Bearer ${this.$store.getters.token}`
       }
@@ -55,8 +58,10 @@ export default {
     emitInput(val) {
       this.$emit('input', val)
     },
-    handleImageSuccess() {
-      this.emitInput(this.tempUrl)
+    handleImageSuccess(response) {
+      const url = response.data.baseUrl + response.data.filePath
+      this.emitInput(url)
+      this.onSuccess && this.onSuccess(response.data)
     }
   }
 }

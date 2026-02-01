@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-input v-model="value">
-      <span v-if="isImage && value" slot="prepend" class="image-review">
-        <a :href="value" target="_blank">
-          <img :src="value" alt="Preview" style="max-width: 28px; max-height: 28px;">
+    <el-input v-model="innerValue" @change="handleChanged">
+      <span v-if="isImage && innerValue" slot="prepend" class="image-review">
+        <a :href="innerValue" target="_blank">
+          <img :src="innerValue" alt="Preview" style="max-width: 28px; max-height: 28px;">
         </a>
       </span>
       <el-button slot="append" size="mini" type="primary" @click="dialogVisible = true">
@@ -54,6 +54,10 @@ export default {
     accept: {
       type: String,
       default: '.jpg,.jpeg,.png,.gif,.webp'
+    },
+    onSuccess: {
+      type: Function,
+      default: null
     }
   },
   data() {
@@ -66,11 +70,25 @@ export default {
       }
     }
   },
+  computed: {
+    innerValue: {
+      get() {
+        return this.value
+      },
+      set(newValue) {
+        this.$emit('input', newValue) // 对于 v-model
+      }
+    }
+  },
   methods: {
     handleSuccess(response) {
-      const url = response.data.domain + response.data.filePath
-      this.$emit('input', url)
+      const url = response.data.baseUrl + response.data.filePath
+      this.innerValue = url
+      this.onSuccess && this.onSuccess(response.data)
       this.dialogVisible = false
+    },
+    handleChanged(value) {
+      this.innerValue = value
     }
   }
 }
