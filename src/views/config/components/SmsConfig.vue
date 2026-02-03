@@ -56,6 +56,9 @@
           <el-form-item label="SmsSdkAppId">
             <el-input v-model="config.tencent.smsSdkAppId" />
           </el-form-item>
+          <el-form-item label="地区">
+            <el-input v-model="config.tencent.region" />
+          </el-form-item>
           <el-form-item label="签名">
             <el-input v-model="config.tencent.signName" />
           </el-form-item>
@@ -108,6 +111,7 @@ export default {
           secretId: '',
           secretKey: '',
           smsSdkAppId: '1400XXXXXX',
+          region: 'ap-guangzhou',
           signName: '',
           templateId: ''
         },
@@ -215,6 +219,7 @@ export default {
           secretId: '',
           secretKey: '',
           smsSdkAppId: '1400XXXXXX',
+          region: 'ap-guangzhou',
           signName: '',
           templateId: ''
         },
