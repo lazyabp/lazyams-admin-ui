@@ -7,27 +7,15 @@
       width="600px"
       @close="handleCancel"
     >
-      <el-form :model="config" label-width="120px">
-        <el-form-item label="App名称">
-          <el-input v-model="config.AppName" />
+      <el-form :model="config" label-width="160px">
+        <el-form-item label="允许用户注册">
+          <el-switch v-model="config.EnableRegistration" />
         </el-form-item>
-        <el-form-item label="Logo">
-          <Upload v-model="config.Logo" :is-image="true" title="上传Logo" />
+        <el-form-item label="需要验证邮箱">
+          <el-switch v-model="config.ValidateEmail" />
         </el-form-item>
-        <el-form-item label="Logo (深色)">
-          <Upload v-model="config.LogoDark" :is-image="true" title="上传深色Logo" />
-        </el-form-item>
-        <el-form-item label="App标题">
-          <el-input v-model="config.Title" />
-        </el-form-item>
-        <el-form-item label="App关键词">
-          <el-input v-model="config.Keywords" />
-        </el-form-item>
-        <el-form-item label="App描述">
-          <el-input v-model="config.Description" type="textarea" :rows="3" />
-        </el-form-item>
-        <el-form-item label="版权信息">
-          <el-input v-model="config.Copyright" type="textarea" :rows="3" />
+        <el-form-item label="需要验证手机号">
+          <el-switch v-model="config.ValidatePhoneNumber" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -41,12 +29,10 @@
 </template>
 
 <script>
-import Upload from '@/components/Upload/FileInput'
 import { getConfig, setConfig } from '@/api/config'
 
 export default {
-  name: 'SiteConfig',
-  components: { Upload },
+  name: 'MemberConfig',
   props: {
     show: {
       type: Boolean,
@@ -64,13 +50,9 @@ export default {
   data() {
     return {
       config: {
-        AppName: '',
-        Title: '',
-        Keywords: '',
-        Description: '',
-        Logo: '',
-        LogoDark: '',
-        Copyright: ''
+        EnableRegistration: true,
+        ValidateEmail: false,
+        ValidatePhoneNumber: false
       },
       loading: false
     }
@@ -144,13 +126,9 @@ export default {
     },
     resetForm() {
       this.config = {
-        AppName: '',
-        Title: '',
-        Keywords: '',
-        Description: '',
-        Logo: '',
-        LogoDark: '',
-        Copyright: ''
+        EnableRegistration: true,
+        ValidateEmail: false,
+        ValidatePhoneNumber: false
       }
     }
   }

@@ -18,21 +18,30 @@
       </el-col>
     </el-row>
     <SiteConfig :show.sync="showSiteConfig" :item="item" @closed="showSiteConfig = false" />
+    <UploadConfig :show.sync="showUploadConfig" :item="item" @closed="showUploadConfig = false" />
+    <MemberConfig :show.sync="showMemberConfig" :item="item" @closed="showMemberConfig = false" />
+    <StorageConfig :show.sync="showStorageConfig" :item="item" @closed="showStorageConfig = false" />
   </div>
 </template>
 
 <script>
 import SiteConfig from './components/SiteConfig.vue'
+import UploadConfig from './components/UploadConfig.vue'
+import MemberConfig from './components/MemberConfig.vue'
+import StorageConfig from './components/StorageConfig.vue'
 import { getKeys } from '@/api/config'
 
 export default {
   name: 'ConfigManagement',
-  components: { SiteConfig },
+  components: { SiteConfig, UploadConfig, MemberConfig, StorageConfig },
   data() {
     return {
       keys: [],
       item: {},
-      showSiteConfig: false
+      showSiteConfig: false,
+      showUploadConfig: false,
+      showMemberConfig: false,
+      showStorageConfig: false
     }
   },
   created() {
@@ -48,6 +57,15 @@ export default {
       switch (row.key) {
         case 'site':
           this.showSiteConfig = true
+          break
+        case 'uploadfile':
+          this.showUploadConfig = true
+          break
+        case 'member':
+          this.showMemberConfig = true
+          break
+        case 'storage':
+          this.showStorageConfig = true
           break
         default:
           break

@@ -7,28 +7,42 @@
       width="600px"
       @close="handleCancel"
     >
-      <el-form :model="config" label-width="120px">
-        <el-form-item label="App名称">
-          <el-input v-model="config.AppName" />
-        </el-form-item>
-        <el-form-item label="Logo">
-          <Upload v-model="config.Logo" :is-image="true" title="上传Logo" />
-        </el-form-item>
-        <el-form-item label="Logo (深色)">
-          <Upload v-model="config.LogoDark" :is-image="true" title="上传深色Logo" />
-        </el-form-item>
-        <el-form-item label="App标题">
-          <el-input v-model="config.Title" />
-        </el-form-item>
-        <el-form-item label="App关键词">
-          <el-input v-model="config.Keywords" />
-        </el-form-item>
-        <el-form-item label="App描述">
-          <el-input v-model="config.Description" type="textarea" :rows="3" />
-        </el-form-item>
-        <el-form-item label="版权信息">
-          <el-input v-model="config.Copyright" type="textarea" :rows="3" />
-        </el-form-item>
+      <el-form :model="config" label-width="160px">
+        <el-tabs v-model="activeName">
+          <el-tab-pane label="图片上传设置" name="first">
+            <el-form-item label="允许上传图片">
+              <el-switch v-model="config.ImageUploadEnabled" />
+            </el-form-item>
+            <el-form-item label="允许的图片格式">
+              <el-input v-model="config.ImageExtensions" />
+            </el-form-item>
+            <el-form-item label="最大图片大小 (Bytes)">
+              <el-input v-model.number="config.ImageMaxSize" type="number" />
+            </el-form-item>
+          </el-tab-pane>
+          <el-tab-pane label="视频上传设置" name="second">
+            <el-form-item label="允许上传视频">
+              <el-switch v-model="config.VideoUploadEnabled" />
+            </el-form-item>
+            <el-form-item label="允许的视频格式">
+              <el-input v-model="config.VideoExtensions" />
+            </el-form-item>
+            <el-form-item label="最大视频大小 (Bytes)">
+              <el-input v-model.number="config.VideoMaxSize" type="number" />
+            </el-form-item>
+          </el-tab-pane>
+          <el-tab-pane label="附件上传设置" name="third">
+            <el-form-item label="允许上传附件">
+              <el-switch v-model="config.FileUploadEnabled" />
+            </el-form-item>
+            <el-form-item label="允许的附件格式">
+              <el-input v-model="config.FileExtensions" />
+            </el-form-item>
+            <el-form-item label="最大附件大小 (Bytes)">
+              <el-input v-model.number="config.FileMaxSize" type="number" />
+            </el-form-item>
+          </el-tab-pane>
+        </el-tabs>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleCancel">取 消</el-button>
@@ -41,12 +55,10 @@
 </template>
 
 <script>
-import Upload from '@/components/Upload/FileInput'
 import { getConfig, setConfig } from '@/api/config'
 
 export default {
-  name: 'SiteConfig',
-  components: { Upload },
+  name: 'UploadConfig',
   props: {
     show: {
       type: Boolean,
@@ -64,15 +76,18 @@ export default {
   data() {
     return {
       config: {
-        AppName: '',
-        Title: '',
-        Keywords: '',
-        Description: '',
-        Logo: '',
-        LogoDark: '',
-        Copyright: ''
+        ImageUploadEnabled: true,
+        ImageExtensions: '.jpg,.jpeg,.png,.gif,.webp',
+        ImageMaxSize: 1024000,
+        VideoUploadEnabled: false,
+        VideoExtensions: '.mp4',
+        VideoMaxSize: 102400000,
+        FileUploadEnabled: false,
+        FileExtensions: '.pdf,.doc,.docx,.xls,.xlsx,.txt,.zip',
+        FileMaxSize: 2048000
       },
-      loading: false
+      loading: false,
+      activeName: 'first'
     }
   },
   computed: {
@@ -144,13 +159,15 @@ export default {
     },
     resetForm() {
       this.config = {
-        AppName: '',
-        Title: '',
-        Keywords: '',
-        Description: '',
-        Logo: '',
-        LogoDark: '',
-        Copyright: ''
+        ImageUploadEnabled: true,
+        ImageExtensions: '.jpg,.jpeg,.png,.gif,.webp',
+        ImageMaxSize: 1024000,
+        VideoUploadEnabled: false,
+        VideoExtensions: '.mp4',
+        VideoMaxSize: 102400000,
+        FileUploadEnabled: false,
+        FileExtensions: '.pdf,.doc,.docx,.xls,.xlsx,.txt,.zip',
+        FileMaxSize: 2048000
       }
     }
   }

@@ -7,13 +7,6 @@ export function getAllConfigs() {
   })
 }
 
-export function getKeys() {
-  return request({
-    url: '/api/Config/GetKeys',
-    method: 'get'
-  })
-}
-
 export function getConfig(key) {
   return request({
     url: '/api/Config/Get',
@@ -28,5 +21,19 @@ export function setConfig(key, data) {
     method: 'post',
     params: { key },
     data
+  })
+}
+
+export function getKeys() {
+  return request({
+    url: '/api/Config/GetKeys',
+    method: 'get'
+  })
+}
+
+export function getStorageTypes() {
+  return request({
+    url: '/api/Config/GetStorageTypes',
+    method: 'get'
   })
 }
