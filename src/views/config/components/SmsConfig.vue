@@ -9,23 +9,60 @@
     >
       <el-form :model="config" label-width="120px">
         <el-form-item label="是否启用">
-          <el-switch v-model="config.EnableSms" />
+          <el-switch v-model="config.enableSms" />
         </el-form-item>
-        <el-form-item label="提供商">
-          <el-input v-model="config.Provider" />
+        <el-form-item label="服务商">
+          <el-select v-model="config.provider" placeholder="服务商">
+            <el-option
+              v-for="(v, k) in providers"
+              :key="k"
+              :label="v.title"
+              :value="v.type"
+            />
+          </el-select>
         </el-form-item>
-        <el-form-item label="AppKey">
-          <el-input v-model="config.AppKey" />
-        </el-form-item>
-        <el-form-item label="AppSecret">
-          <el-input v-model="config.AppSecret" />
-        </el-form-item>
-        <el-form-item label="模板ID">
-          <el-input v-model="config.TemplateId" />
-        </el-form-item>
-        <el-form-item label="API结点地址">
-          <el-input v-model="config.Endpoint" />
-        </el-form-item>
+        <div v-if="config.provider === 0">
+          <el-form-item label="AccountSid">
+            <el-input v-model="config.twilio.accountSid" />
+          </el-form-item>
+          <el-form-item label="AuthToken">
+            <el-input v-model="config.twilio.authToken" />
+          </el-form-item>
+          <el-form-item label="发送人手机号">
+            <el-input v-model="config.twilio.fromPhoneNumber" />
+          </el-form-item>
+        </div>
+        <div v-if="config.provider === 1">
+          <el-form-item label="KeyId">
+            <el-input v-model="config.alibaba.accessKeyId" />
+          </el-form-item>
+          <el-form-item label="Key密钥">
+            <el-input v-model="config.alibaba.accessKeySecret" />
+          </el-form-item>
+          <el-form-item label="签名">
+            <el-input v-model="config.alibaba.signName" />
+          </el-form-item>
+          <el-form-item label="模板代号">
+            <el-input v-model="config.alibaba.templateCode" />
+          </el-form-item>
+        </div>
+        <div v-if="config.provider === 2">
+          <el-form-item label="SecretId">
+            <el-input v-model="config.tencent.secretId" />
+          </el-form-item>
+          <el-form-item label="Secret密钥">
+            <el-input v-model="config.tencent.secretKey" />
+          </el-form-item>
+          <el-form-item label="SmsSdkAppId">
+            <el-input v-model="config.tencent.smsSdkAppId" />
+          </el-form-item>
+          <el-form-item label="签名">
+            <el-input v-model="config.tencent.signName" />
+          </el-form-item>
+          <el-form-item label="模板ID">
+            <el-input v-model="config.tencent.templateId" />
+          </el-form-item>
+        </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleCancel">取 消</el-button>
@@ -59,13 +96,41 @@ export default {
   data() {
     return {
       config: {
-        EnableSms: false,
-        Provider: '',
-        AppKey: '',
-        AppSecret: '',
-        TemplateId: '',
-        Endpoint: ''
+        enableSms: false,
+        provider: 0,
+        alibaba: {
+          accessKeyId: '',
+          accessKeySecret: '',
+          signName: '',
+          templateCode: ''
+        },
+        tencent: {
+          secretId: '',
+          secretKey: '',
+          smsSdkAppId: '1400XXXXXX',
+          signName: '',
+          templateId: ''
+        },
+        twilio: {
+          accountSid: '',
+          authToken: '',
+          fromPhoneNumber: ''
+        }
       },
+      providers: [
+        {
+          type: 0,
+          title: 'Twilio'
+        },
+        {
+          type: 1,
+          title: '阿里短信'
+        },
+        {
+          type: 2,
+          title: '腾讯短信'
+        }
+      ],
       loading: false
     }
   },
@@ -138,12 +203,26 @@ export default {
     },
     resetForm() {
       this.config = {
-        EnableSms: false,
-        Provider: '',
-        AppKey: '',
-        AppSecret: '',
-        TemplateId: '',
-        Endpoint: ''
+        enableSms: false,
+        provider: 0,
+        alibaba: {
+          accessKeyId: '',
+          accessKeySecret: '',
+          signName: '',
+          templateCode: ''
+        },
+        tencent: {
+          secretId: '',
+          secretKey: '',
+          smsSdkAppId: '1400XXXXXX',
+          signName: '',
+          templateId: ''
+        },
+        twilio: {
+          accountSid: '',
+          authToken: '',
+          fromPhoneNumber: ''
+        }
       }
     }
   }

@@ -8,24 +8,44 @@
       @close="handleCancel"
     >
       <el-form :model="config" label-width="120px">
-        <el-form-item label="邮件服务器">
-          <el-input v-model="config.Host" />
+        <el-form-item label="发送方式">
+          <el-select v-model="config.mailer" placeholder="发送方式">
+            <el-option
+              v-for="(v, k) in mailers"
+              :key="k"
+              :label="v.title"
+              :value="v.type"
+            />
+          </el-select>
         </el-form-item>
-        <el-form-item label="端口">
-          <el-input v-model="config.Port" />
-        </el-form-item>
-        <el-form-item label="开启SSL">
-          <el-switch v-model="config.EnableSsl" />
-        </el-form-item>
-        <el-form-item label="用户名">
-          <el-input v-model="config.UserName" />
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="config.Password" />
-        </el-form-item>
-        <el-form-item label="发件人Email">
-          <el-input v-model="config.FromAddress" />
-        </el-form-item>
+        <div v-if="config.mailer === 0">
+          <el-form-item label="邮件服务器">
+            <el-input v-model="config.smtp.host" />
+          </el-form-item>
+          <el-form-item label="端口">
+            <el-input v-model="config.smtp.port" />
+          </el-form-item>
+          <el-form-item label="开启SSL">
+            <el-switch v-model="config.smtp.enableSsl" />
+          </el-form-item>
+          <el-form-item label="用户名">
+            <el-input v-model="config.smtp.userName" />
+          </el-form-item>
+          <el-form-item label="密码">
+            <el-input v-model="config.smtp.password" />
+          </el-form-item>
+          <el-form-item label="发件人Email">
+            <el-input v-model="config.smtp.fromAddress" />
+          </el-form-item>
+        </div>
+        <div v-if="config.mailer === 1">
+          <el-form-item label="Api Token">
+            <el-input v-model="config.resend.apiToken" />
+          </el-form-item>
+          <el-form-item label="发送人Email">
+            <el-input v-model="config.resend.fromAddress" />
+          </el-form-item>
+        </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleCancel">取 消</el-button>
@@ -59,13 +79,30 @@ export default {
   data() {
     return {
       config: {
-        Host: '',
-        Port: 25,
-        EnableSsl: false,
-        UserName: '',
-        Password: '',
-        FromAddress: ''
+        mailer: 0,
+        smtp: {
+          host: '',
+          port: 25,
+          enableSsl: false,
+          userName: '',
+          password: '',
+          fromAddress: ''
+        },
+        resend: {
+          apiToken: '',
+          fromAddress: ''
+        }
       },
+      mailers: [
+        {
+          type: 0,
+          title: 'SMTP'
+        },
+        {
+          type: 1,
+          title: 'RESEND'
+        }
+      ],
       loading: false
     }
   },
@@ -138,12 +175,19 @@ export default {
     },
     resetForm() {
       this.config = {
-        Host: '',
-        Port: 25,
-        EnableSsl: false,
-        UserName: '',
-        Password: '',
-        FromAddress: ''
+        mailer: 0,
+        smtp: {
+          host: '',
+          port: 25,
+          enableSsl: false,
+          userName: '',
+          password: '',
+          fromAddress: ''
+        },
+        resend: {
+          apiToken: '',
+          fromAddress: ''
+        }
       }
     }
   }

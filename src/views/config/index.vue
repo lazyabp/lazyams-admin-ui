@@ -79,7 +79,7 @@ export default {
         case 'socialitelogin':
           this.showSocialiteLoginConfig = true
           break
-        case 'smtp':
+        case 'mailer':
           this.showSmtpConfig = true
           break
         case 'sms':
