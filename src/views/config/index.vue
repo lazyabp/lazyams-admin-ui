@@ -22,6 +22,8 @@
     <MemberConfig :show.sync="showMemberConfig" :item="item" @closed="showMemberConfig = false" />
     <StorageConfig :show.sync="showStorageConfig" :item="item" @closed="showStorageConfig = false" />
     <SocialiteLoginConfig :show.sync="showSocialiteLoginConfig" :item="item" @closed="showSocialiteLoginConfig = false" />
+    <SmtpConfig :show.sync="showSmtpConfig" :item="item" @closed="showSmtpConfig = false" />
+    <SmsConfig :show.sync="showSmsConfig" :item="item" @closed="showSmsConfig = false" />
   </div>
 </template>
 
@@ -31,11 +33,13 @@ import UploadConfig from './components/UploadConfig.vue'
 import MemberConfig from './components/MemberConfig.vue'
 import StorageConfig from './components/StorageConfig.vue'
 import SocialiteLoginConfig from './components/SocialiteLoginConfig.vue'
+import SmtpConfig from './components/SmtpConfig.vue'
+import SmsConfig from './components/SmsConfig.vue'
 import { getKeys } from '@/api/config'
 
 export default {
   name: 'ConfigManagement',
-  components: { SiteConfig, UploadConfig, MemberConfig, StorageConfig, SocialiteLoginConfig },
+  components: { SiteConfig, UploadConfig, MemberConfig, StorageConfig, SocialiteLoginConfig, SmtpConfig, SmsConfig },
   data() {
     return {
       keys: [],
@@ -44,7 +48,9 @@ export default {
       showUploadConfig: false,
       showMemberConfig: false,
       showStorageConfig: false,
-      showSocialiteLoginConfig: false
+      showSocialiteLoginConfig: false,
+      showSmtpConfig: false,
+      showSmsConfig: false
     }
   },
   created() {
@@ -72,6 +78,12 @@ export default {
           break
         case 'socialitelogin':
           this.showSocialiteLoginConfig = true
+          break
+        case 'smtp':
+          this.showSmtpConfig = true
+          break
+        case 'sms':
+          this.showSmsConfig = true
           break
         default:
           break
