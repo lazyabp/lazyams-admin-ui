@@ -21,6 +21,7 @@
     <UploadConfig :show.sync="showUploadConfig" :item="item" @closed="showUploadConfig = false" />
     <MemberConfig :show.sync="showMemberConfig" :item="item" @closed="showMemberConfig = false" />
     <StorageConfig :show.sync="showStorageConfig" :item="item" @closed="showStorageConfig = false" />
+    <SocialiteLoginConfig :show.sync="showSocialiteLoginConfig" :item="item" @closed="showSocialiteLoginConfig = false" />
   </div>
 </template>
 
@@ -29,11 +30,12 @@ import SiteConfig from './components/SiteConfig.vue'
 import UploadConfig from './components/UploadConfig.vue'
 import MemberConfig from './components/MemberConfig.vue'
 import StorageConfig from './components/StorageConfig.vue'
+import SocialiteLoginConfig from './components/SocialiteLoginConfig.vue'
 import { getKeys } from '@/api/config'
 
 export default {
   name: 'ConfigManagement',
-  components: { SiteConfig, UploadConfig, MemberConfig, StorageConfig },
+  components: { SiteConfig, UploadConfig, MemberConfig, StorageConfig, SocialiteLoginConfig },
   data() {
     return {
       keys: [],
@@ -41,7 +43,8 @@ export default {
       showSiteConfig: false,
       showUploadConfig: false,
       showMemberConfig: false,
-      showStorageConfig: false
+      showStorageConfig: false,
+      showSocialiteLoginConfig: false
     }
   },
   created() {
@@ -66,6 +69,9 @@ export default {
           break
         case 'storage':
           this.showStorageConfig = true
+          break
+        case 'socialitelogin':
+          this.showSocialiteLoginConfig = true
           break
         default:
           break

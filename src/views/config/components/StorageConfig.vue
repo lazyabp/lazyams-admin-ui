@@ -281,12 +281,6 @@ export default {
           this.resetForm()
         }
       }
-    },
-    'config.type': {
-      immediate: true,
-      handler(newVal) {
-
-      }
     }
   },
   methods: {
@@ -318,7 +312,57 @@ export default {
     },
     resetForm() {
       this.config = {
-        Type: 0
+        type: 0,
+        local: {
+          uploadDir: 'uploads',
+          baseUrl: 'http://localhost:9000'
+        },
+        aliyun: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'https://oss-example.oss-cn-hangzhou.aliyuncs.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        qiniu: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'http://upload.qiniup.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        tencent: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'https://cos.ap-guangzhou.myqcloud.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        minio: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'http://api.minio-server.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        awsS3: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'my-bucket.s3.us-east-1.amazonaws.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        custom: {
+          token: '',
+          endPoint: 'http://api.customer-domain.com',
+          fieldName: 'file',
+          baseUrl: 'http://im.demo.com'
+        }
       }
     }
   }
