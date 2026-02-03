@@ -9,7 +9,7 @@
     >
       <el-form :model="config" label-width="120px">
         <el-form-item label="存储方式">
-          <el-select v-model="config.Type" placeholder="存储方式" @change="handleTypeChanged">
+          <el-select v-model="config.type" placeholder="存储方式">
             <el-option
               v-for="(v, k) in types"
               :key="k"
@@ -18,127 +18,126 @@
             />
           </el-select>
         </el-form-item>
-        <el-divider>{{ storageName }}</el-divider>
-        <div v-if="config.Type === 0">
+        <div v-if="config.type === 0">
           <el-form-item label="文件存储目录">
-            <el-input v-model="localStorage.UploadDir" />
+            <el-input v-model="config.local.uploadDir" />
           </el-form-item>
           <el-form-item label="访问基地址">
-            <el-input v-model="localStorage.BaseUrl" />
+            <el-input v-model="config.local.baseUrl" />
           </el-form-item>
         </div>
-        <div v-if="config.Type === 1">
+        <div v-if="config.type === 1">
           <el-form-item label="ID">
-            <el-input v-model="storage.AccessKey" />
+            <el-input v-model="config.aliyun.accessKey" />
           </el-form-item>
           <el-form-item label="Secret">
-            <el-input v-model="storage.SecretKey" />
+            <el-input v-model="config.aliyun.secretKey" />
           </el-form-item>
           <el-form-item label="桶名">
-            <el-input v-model="storage.Bucket" />
+            <el-input v-model="config.aliyun.bucket" />
           </el-form-item>
           <el-form-item label="区域">
-            <el-input v-model="storage.Region" />
+            <el-input v-model="config.aliyun.region" />
           </el-form-item>
           <el-form-item label="API地址">
-            <el-input v-model="storage.EndPoint" />
+            <el-input v-model="config.aliyun.endPoint" />
           </el-form-item>
           <el-form-item label="访问基地址">
-            <el-input v-model="storage.BaseUrl" />
+            <el-input v-model="config.aliyun.baseUrl" />
           </el-form-item>
         </div>
-        <div v-if="config.Type === 2">
+        <div v-if="config.type === 2">
           <el-form-item label="AccessKey">
-            <el-input v-model="storage.AccessKey" />
+            <el-input v-model="config.qiniu.accessKey" />
           </el-form-item>
           <el-form-item label="SecretKey">
-            <el-input v-model="storage.SecretKey" />
+            <el-input v-model="config.qiniu.secretKey" />
           </el-form-item>
           <el-form-item label="桶名">
-            <el-input v-model="storage.Bucket" />
+            <el-input v-model="config.qiniu.bucket" />
           </el-form-item>
           <el-form-item label="区域">
-            <el-input v-model="storage.Region" />
+            <el-input v-model="config.qiniu.region" />
           </el-form-item>
           <el-form-item label="API地址">
-            <el-input v-model="storage.EndPoint" />
+            <el-input v-model="config.qiniu.endPoint" />
           </el-form-item>
           <el-form-item label="访问基地址">
-            <el-input v-model="storage.BaseUrl" />
+            <el-input v-model="config.qiniu.baseUrl" />
           </el-form-item>
         </div>
-        <div v-if="config.Type === 3">
+        <div v-if="config.type === 3">
           <el-form-item label="SecretID">
-            <el-input v-model="storage.AccessKey" />
+            <el-input v-model="config.tencent.accessKey" />
           </el-form-item>
           <el-form-item label="SecretKey">
-            <el-input v-model="storage.SecretKey" />
+            <el-input v-model="config.tencent.secretKey" />
           </el-form-item>
           <el-form-item label="桶名">
-            <el-input v-model="storage.Bucket" />
+            <el-input v-model="config.tencent.bucket" />
           </el-form-item>
           <el-form-item label="区域">
-            <el-input v-model="storage.Region" />
+            <el-input v-model="config.tencent.region" />
           </el-form-item>
           <el-form-item label="API地址">
-            <el-input v-model="storage.EndPoint" />
+            <el-input v-model="config.tencent.endPoint" />
           </el-form-item>
           <el-form-item label="访问基地址">
-            <el-input v-model="storage.BaseUrl" />
+            <el-input v-model="config.tencent.baseUrl" />
           </el-form-item>
         </div>
-        <div v-if="config.Type === 4">
+        <div v-if="config.type === 4">
           <el-form-item label="用户名">
-            <el-input v-model="storage.AccessKey" />
+            <el-input v-model="config.minio.accessKey" />
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="storage.SecretKey" />
+            <el-input v-model="config.minio.secretKey" />
           </el-form-item>
           <el-form-item label="桶名">
-            <el-input v-model="storage.Bucket" />
+            <el-input v-model="config.minio.bucket" />
           </el-form-item>
           <el-form-item label="区域">
-            <el-input v-model="storage.Region" />
+            <el-input v-model="config.minio.region" />
           </el-form-item>
           <el-form-item label="API地址">
-            <el-input v-model="storage.EndPoint" />
+            <el-input v-model="config.minio.endPoint" />
           </el-form-item>
           <el-form-item label="访问基地址">
-            <el-input v-model="storage.BaseUrl" />
+            <el-input v-model="config.minio.baseUrl" />
           </el-form-item>
         </div>
-        <div v-if="config.Type === 5">
+        <div v-if="config.type === 5">
           <el-form-item label="AccessKey">
-            <el-input v-model="storage.AccessKey" />
+            <el-input v-model="config.awsS3.accessKey" />
           </el-form-item>
           <el-form-item label="SecretKey">
-            <el-input v-model="storage.SecretKey" />
+            <el-input v-model="config.awsS3.secretKey" />
           </el-form-item>
           <el-form-item label="桶名">
-            <el-input v-model="storage.Bucket" />
+            <el-input v-model="config.awsS3.bucket" />
           </el-form-item>
           <el-form-item label="区域">
-            <el-input v-model="storage.Region" />
+            <el-input v-model="config.awsS3.region" />
           </el-form-item>
           <el-form-item label="API地址">
-            <el-input v-model="storage.EndPoint" />
+            <el-input v-model="config.awsS3.endPoint" />
           </el-form-item>
           <el-form-item label="访问基地址">
-            <el-input v-model="storage.BaseUrl" />
+            <el-input v-model="config.awsS3.baseUrl" />
           </el-form-item>
         </div>
-        <div v-if="config.Type === 99">
+        <div v-if="config.type === 99">
           <el-form-item label="文件域(file)">
-            <el-input v-model="customStorage.FieldName" />
+            <el-input v-model="config.custom.fieldName" />
           </el-form-item>
           <el-form-item label="授权令牌">
-            <el-input v-model="customStorage.Token" />
+            <el-input v-model="config.custom.token" />
           </el-form-item>
           <el-form-item label="API地址">
-            <el-input v-model="customStorage.EndPoint" />
+            <el-input v-model="config.custom.endPoint" />
           </el-form-item>
           <el-form-item label="访问基地址">
-            <el-input v-model="customStorage.BaseUrl" />
+            <el-input v-model="config.custom.baseUrl" />
           </el-form-item>
         </div>
       </el-form>
@@ -174,64 +173,88 @@ export default {
   data() {
     return {
       config: {
-        Type: 0
+        type: 0,
+        local: {
+          uploadDir: 'uploads',
+          baseUrl: 'http://localhost:9000'
+        },
+        aliyun: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'https://oss-example.oss-cn-hangzhou.aliyuncs.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        qiniu: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'http://upload.qiniup.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        tencent: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'https://cos.ap-guangzhou.myqcloud.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        minio: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'http://api.minio-server.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        awsS3: {
+          accessKey: '',
+          secretKey: '',
+          bucket: '',
+          endPoint: 'my-bucket.s3.us-east-1.amazonaws.com',
+          region: '',
+          baseUrl: 'http://im.demo.com'
+        },
+        custom: {
+          token: '',
+          endPoint: 'http://api.customer-domain.com',
+          fieldName: 'file',
+          baseUrl: 'http://im.demo.com'
+        }
       },
       types: [
         {
           type: 0,
-          key: 'storage.local',
           title: '本地存储'
         },
         {
           type: 1,
-          key: 'storage.aliyunoss',
           title: '阿里OSS'
         },
         {
           type: 2,
-          key: 'storage.qiniukodo',
           title: '七牛KODO'
         },
         {
           type: 3,
-          key: 'storage.tencentcos',
           title: '腾讯COS'
         },
         {
           type: 4,
-          key: 'storage.minio',
           title: 'Minio'
         },
         {
           type: 5,
-          key: 'storage.awss3',
           title: 'AWS S3'
         },
         {
           type: 99,
-          key: 'storage.custom',
           title: '自定义'
         }
       ],
-      storage: {
-        AccessKey: '',
-        SecretKey: '',
-        Bucket: '',
-        EndPoint: '',
-        Region: '',
-        BaseUrl: ''
-      },
-      localStorage: {
-        UploadDir: '',
-        BaseUrl: ''
-      },
-      customStorage: {
-        Token: '',
-        EndPoint: '',
-        FieldName: '',
-        BaseUrl: ''
-      },
-      storageKey: '',
       storageName: '本地存储',
       loading: false
     }
@@ -251,13 +274,18 @@ export default {
     show: {
       immediate: true,
       handler(newVal) {
-        // console.log('show 变化:', newVal, 'item.key:', this.item.key)
         if (newVal && this.item.key) {
           this.fetchConfig()
         } else if (!newVal) {
           // 对话框关闭时重置表单
           this.resetForm()
         }
+      }
+    },
+    'config.type': {
+      immediate: true,
+      handler(newVal) {
+
       }
     }
   },
@@ -266,35 +294,7 @@ export default {
       const res = await getConfig(this.item.key)
       if (res && res.data) {
         this.config = res.data
-        this.handleTypeChanged(this.config.Type)
       }
-    },
-    async handleTypeChanged(value) {
-      const type = this.types.find(x => x.type === value)
-      const key = type.key
-      // console.log('type', type)
-      for (const d of this.types) {
-        if (d.key === key) {
-          this.storageKey = d.key
-          this.storageName = d.title
-        }
-      }
-      this.loading = true
-      const res = await getConfig(key)
-      if (res && res.data) {
-        switch (key) {
-          case 'storage.local':
-            this.localStorage = res.data
-            break
-          case 'storage.custom':
-            this.customStorage = res.data
-            break
-          default:
-            this.storage = res.data
-            break
-        }
-      }
-      this.loading = false
     },
     handleCancel() {
       this.dialogVisible = false
@@ -305,17 +305,6 @@ export default {
         this.loading = true
         // console.log('正在保存配置:', this.config)
         await setConfig(this.item.key, this.config)
-        switch (this.storageKey) {
-          case 'storage.local':
-            await setConfig(this.storageKey, this.localStorage)
-            break
-          case 'storage.custom':
-            await setConfig(this.storageKey, this.customStorage)
-            break
-          default:
-            await setConfig(this.storageKey, this.storage)
-            break
-        }
         this.$message.success('配置保存成功')
         this.dialogVisible = false
         // 触发保存成功事件

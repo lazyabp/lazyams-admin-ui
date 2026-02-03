@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getAllConfigs() {
   return request({
-    url: '/api/Config/All',
+    url: '/api/Config/GetAll',
     method: 'get'
   })
 }
@@ -27,13 +27,6 @@ export function setConfig(key, data) {
 export function getKeys() {
   return request({
     url: '/api/Config/GetKeys',
-    method: 'get'
-  })
-}
-
-export function getStorageTypes() {
-  return request({
-    url: '/api/Config/GetStorageTypes',
     method: 'get'
   })
 }
