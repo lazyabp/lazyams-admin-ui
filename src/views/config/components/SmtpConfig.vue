@@ -46,10 +46,16 @@
             <el-input v-model="config.resend.fromAddress" />
           </el-form-item>
         </div>
+        <el-divider>测试</el-divider>
+        <el-form-item label="收件人邮箱">
+          <el-input v-model="test.to">
+            <el-button slot="append" icon="el-icon-s-promotion" @click="handleTest">测试</el-button>
+          </el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleCancel">取 消</el-button>
-        <el-button type="primary" :loading="loading" @click="handelSave">
+        <el-button type="primary" :loading="loading" @click="handleSave">
           确 定
         </el-button>
       </div>
@@ -58,7 +64,7 @@
 </template>
 
 <script>
-import { getConfig, setConfig } from '@/api/config'
+import { getConfig, setConfig, testMailer } from '@/api/config'
 
 export default {
   name: 'SmtpConfig',
@@ -92,6 +98,9 @@ export default {
           apiToken: '',
           fromAddress: ''
         }
+      },
+      test: {
+        to: ''
       },
       mailers: [
         {
@@ -157,7 +166,7 @@ export default {
       this.dialogVisible = false
       this.$emit('closed')
     },
-    async handelSave() {
+    async handleSave() {
       try {
         this.loading = true
         // console.log('正在保存配置:', this.config)
@@ -166,6 +175,22 @@ export default {
         this.dialogVisible = false
         // 触发保存成功事件
         this.$emit('saved', this.config)
+      } catch (error) {
+        // console.error('保存配置失败:', error)
+        this.$message.error('保存配置失败: ' + (error.message || '未知错误'))
+      } finally {
+        this.loading = false
+      }
+    },
+    async handleTest() {
+      try {
+        this.loading = true
+        const res = await testMailer(this.test)
+        if (res.data) {
+          this.$message.success('发送邮件成功！')
+        } else {
+          this.$message.error('发送邮件失败，请检查配置是否正确！')
+        }
       } catch (error) {
         // console.error('保存配置失败:', error)
         this.$message.error('保存配置失败: ' + (error.message || '未知错误'))

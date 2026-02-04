@@ -32,7 +32,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleCancel">取 消</el-button>
-        <el-button type="primary" :loading="loading" @click="handelSave">
+        <el-button type="primary" :loading="loading" @click="handleSave">
           确 定
         </el-button>
       </div>
@@ -126,7 +126,7 @@ export default {
       this.dialogVisible = false
       this.$emit('closed')
     },
-    async handelSave() {
+    async handleSave() {
       try {
         this.loading = true
         // console.log('正在保存配置:', this.config)
