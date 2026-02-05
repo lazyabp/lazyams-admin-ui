@@ -58,7 +58,11 @@
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-dialog
+      :title="textMap[dialogStatus]"
+      :visible.sync="dialogFormVisible"
+      :close-on-click-modal="false"
+    >
       <el-form ref="dataForm" :model="tempRole" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
         <el-form-item label="Role Name" prop="roleName">
           <el-input v-model="tempRole.roleName" />
@@ -85,7 +89,11 @@
       </div>
     </el-dialog>
 
-    <el-dialog title="Assign Permissions" :visible.sync="dialogPermissionVisible">
+    <el-dialog
+      title="Assign Permissions"
+      :visible.sync="dialogPermissionVisible"
+      :close-on-click-modal="false"
+    >
       <el-tree
         ref="menuTree"
         :data="menuTree"

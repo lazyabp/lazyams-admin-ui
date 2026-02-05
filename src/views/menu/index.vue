@@ -90,7 +90,11 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog :visible.sync="dialogVisible" :name="dialogType==='edit'?'Edit Menu':'New Menu'">
+    <el-dialog
+      :visible.sync="dialogVisible"
+      :close-on-click-modal="false"
+      :name="dialogType === 'edit'?'Edit Menu':'New Menu'"
+    >
       <el-form :model="menu" label-width="120px" label-position="left">
         <el-form-item label="菜单类型">
           <el-select v-model="menu.menuType" placeholder="请选择">
