@@ -68,7 +68,7 @@
           {{ scope.row.component }}
         </template>
       </el-table-column>
-      <el-table-column label="启用" min-width="100px">
+      <el-table-column label="启用">
         <template slot-scope="{row}">
           <el-switch
             v-model="row.isActive"
@@ -78,12 +78,17 @@
           />
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="180" fixed="right">
+      <el-table-column label="排序">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" @click="handleUpdate(scope)">
+          {{ scope.row.orderNum }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="180" fixed="right">
+        <template slot-scope="{row}">
+          <el-button type="primary" size="small" @click="handleUpdate(row)">
             编辑
           </el-button>
-          <el-button type="danger" size="small" @click="handleDelete(scope)">
+          <el-button type="danger" size="small" @click="handleDelete(row)">
             删除
           </el-button>
         </template>
@@ -121,6 +126,9 @@
         <el-form-item v-if="menu.menuType !== 3" label="部件路径">
           <el-input v-model="menu.component" placeholder="部件路径" />
         </el-form-item>
+        <el-form-item label="排序">
+          <el-input v-model="menu.orderNum" placeholder="排序" />
+        </el-form-item>
         <el-form-item label="父菜单">
           <el-cascader
             v-model="menu.parentId"
@@ -147,7 +155,7 @@
 </template>
 
 <script>
-import { addMenu, updateMenu, deleteMenu, activeMenu, getMenuTree } from '@/api/menu'
+import { getMenuById, addMenu, updateMenu, deleteMenu, activeMenu, getMenuTree } from '@/api/menu'
 
 export default {
   name: 'MenuManagement',
@@ -156,7 +164,18 @@ export default {
       list: [],
       dialogVisible: false,
       dialogType: 'new',
-      menu: {},
+      menu: {
+        name: '',
+        permission: 'Permission.',
+        icon: 'el-icon-menu',
+        menuType: 2,
+        description: '',
+        orderNum: 2,
+        route: '',
+        component: '',
+        parentId: null,
+        isActive: true
+      },
       menuTypes: [
         {
           value: 1,
@@ -212,14 +231,26 @@ export default {
       this.list = res.data
     },
     handleCreate() {
-      this.menu = {}
+      this.menu = {
+        name: '',
+        permission: 'Permission.',
+        icon: 'el-icon-menu',
+        menuType: 2,
+        description: '',
+        orderNum: 2,
+        route: '',
+        component: '',
+        parentId: null,
+        isActive: true
+      }
       this.dialogType = 'new'
       this.dialogVisible = true
     },
-    handleUpdate(scope) {
+    async handleUpdate(row) {
+      const res = await getMenuById(row.id)
       this.dialogType = 'edit'
       this.dialogVisible = true
-      this.menu = { ...scope.row }
+      this.menu = res.data
     },
     handleActive(row) {
       activeMenu(row.id, { isActive: row.isActive }).then(res => {
@@ -233,13 +264,13 @@ export default {
         })
       })
     },
-    handleDelete(scope) {
+    handleDelete(row) {
       this.$confirm('Confirm to delete the menu?', 'Warning', {
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
         type: 'warning'
       }).then(async() => {
-        await deleteMenu(scope.row.id)
+        await deleteMenu(row.id)
         this.fetchMenuTree()
         this.$message({
           type: 'success',

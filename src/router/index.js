@@ -7,14 +7,14 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
-import nestedRouter from './modules/nested'
-import userRouter from './modules/user'
-import roleRouter from './modules/role'
-import menuRouter from './modules/menu'
-import configRouter from './modules/config'
+// import componentsRouter from './modules/components'
+// import chartsRouter from './modules/charts'
+// import tableRouter from './modules/table'
+// import nestedRouter from './modules/nested'
+// import userRouter from './modules/user'
+// import roleRouter from './modules/role'
+// import menuRouter from './modules/menu'
+// import configRouter from './modules/config'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -82,8 +82,8 @@ export const constantRoutes = [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        name: '仪表盘',
+        meta: { title: '仪表盘', icon: 'dashboard', affix: true }
       }
     ]
   },
@@ -122,7 +122,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/profile/index'),
         name: 'Profile',
-        meta: { title: 'Profile', icon: 'user', noCache: true }
+        meta: { title: '我的信息', icon: 'user', noCache: true }
       }
     ]
   }
@@ -189,14 +189,14 @@ export const asyncRoutes = [
   },
 
   /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
-  userRouter,
-  roleRouter,
-  menuRouter,
-  configRouter,
+  // componentsRouter,
+  // chartsRouter,
+  // nestedRouter,
+  // tableRouter,
+  // userRouter,
+  // roleRouter,
+  // menuRouter,
+  // configRouter,
 
   {
     path: '/example',

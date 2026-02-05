@@ -10,7 +10,7 @@ export function menuListToRoutes(menuList) {
 
   return menuList.map(menuItem => {
     // 过滤掉menuType为3的菜单项（按钮类型）
-    if (menuItem.menuType === 3) {
+    if (menuItem.menuType === 3 || !menuItem.isActive) {
       return null
     }
 
@@ -20,7 +20,7 @@ export function menuListToRoutes(menuList) {
       component: loadView(menuItem.component),
       name: menuItem.name,
       meta: {
-        title: menuItem.description || menuItem.name,
+        title: menuItem.name || menuItem.description,
         permission: menuItem.permission,
         icon: menuItem.icon || 'el-icon-menu',
         menuId: menuItem.id // 存储菜单ID用于后续操作

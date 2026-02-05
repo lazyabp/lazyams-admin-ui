@@ -133,9 +133,13 @@ const actions = {
   logout({ commit, dispatch }) {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
-      commit('SET_ROLES', [])
       commit('SET_AVATAR', '')
       commit('SET_EMAIL', '')
+      commit('SET_USERID', '')
+      commit('SET_INFO', {})
+      commit('SET_ROLES', [])
+      commit('SET_PERMISSIONS', [])
+      commit('SET_MENUS', [])
       removeToken()
       resetRouter()
 
@@ -151,9 +155,13 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
-      commit('SET_ROLES', [])
       commit('SET_AVATAR', '')
       commit('SET_EMAIL', '')
+      commit('SET_USERID', '')
+      commit('SET_INFO', {})
+      commit('SET_ROLES', [])
+      commit('SET_PERMISSIONS', [])
+      commit('SET_MENUS', [])
       removeToken()
       resolve()
     })
