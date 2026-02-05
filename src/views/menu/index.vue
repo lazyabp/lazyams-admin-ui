@@ -18,6 +18,11 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
+      <el-table-column align="center" label="菜单标题">
+        <template slot-scope="scope">
+          {{ scope.row.title }}
+        </template>
+      </el-table-column>
       <el-table-column align="center" label="菜单类型">
         <template slot-scope="scope">
           <span
@@ -112,7 +117,10 @@
           </el-select>
         </el-form-item>
         <el-form-item label="名称">
-          <el-input v-model="menu.name" placeholder="菜单名称" />
+          <el-input v-model="menu.name" placeholder="菜单名称(唯一)" />
+        </el-form-item>
+        <el-form-item label="标题">
+          <el-input v-model="menu.title" placeholder="菜单标题" />
         </el-form-item>
         <el-form-item label="图标">
           <el-input v-model="menu.icon" placeholder="Icon" />
@@ -169,8 +177,8 @@ export default {
         permission: 'Permission.',
         icon: 'el-icon-menu',
         menuType: 2,
-        description: '',
-        orderNum: 2,
+        title: '',
+        orderNum: 1,
         route: '',
         component: '',
         parentId: null,
@@ -236,8 +244,8 @@ export default {
         permission: 'Permission.',
         icon: 'el-icon-menu',
         menuType: 2,
-        description: '',
-        orderNum: 2,
+        title: '',
+        orderNum: 1,
         route: '',
         component: '',
         parentId: null,

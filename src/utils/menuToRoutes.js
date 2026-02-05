@@ -20,7 +20,7 @@ export function menuListToRoutes(menuList) {
       component: loadView(menuItem.component),
       name: menuItem.name,
       meta: {
-        title: menuItem.name || menuItem.description,
+        title: menuItem.title || menuItem.name,
         permission: menuItem.permission,
         icon: menuItem.icon || 'el-icon-menu',
         menuId: menuItem.id // 存储菜单ID用于后续操作
