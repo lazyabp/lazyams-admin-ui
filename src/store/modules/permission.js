@@ -51,10 +51,9 @@ const actions = {
   generateRoutes({ commit }, obj) {
     const { permissions, menus } = obj // 从这里获取菜单
     return new Promise(resolve => {
-      const accessedRoutes = filterAsyncRoutes([], permissions)
-      const newAccessedRoutes = accessedRoutes.concat(menus) // 将基础菜单与获取的菜单合并，左侧菜单才会渲染
-      commit('SET_ROUTES', newAccessedRoutes || [])
-      resolve(newAccessedRoutes)
+      const accessedRoutes = filterAsyncRoutes(menus, permissions)
+      commit('SET_ROUTES', accessedRoutes || [])
+      resolve(accessedRoutes)
     })
   }
 }
