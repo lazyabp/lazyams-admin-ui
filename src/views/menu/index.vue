@@ -205,7 +205,7 @@ export default {
     },
     async fetchMenuTree() {
       const res = await getMenuTree()
-      this.list = res.data.items
+      this.list = res.data
     },
     handleCreate() {
       this.menu = {}

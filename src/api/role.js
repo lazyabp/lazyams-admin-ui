@@ -46,20 +46,6 @@ export function getRoleById(id) {
   })
 }
 
-export function getMenuTree() {
-  return request({
-    url: '/api/Menu/GetMenuTree',
-    method: 'get'
-  })
-}
-
-export function getMenuIdsByRoleId(id) {
-  return request({
-    url: `/api/Menu/GetMenuIdsByRoleId/${id}`,
-    method: 'get'
-  })
-}
-
 export function rolePermission(data) {
   return request({
     url: '/api/Role/RolePermission',

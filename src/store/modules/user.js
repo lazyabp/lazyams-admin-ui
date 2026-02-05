@@ -1,36 +1,48 @@
 import { login } from '@/api/auth'
-import { getUserInfo } from '@/api/user'
+import { getCurrentUser } from '@/api/user'
 import { weixinCallback, googleCallback } from '@/api/socialite'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import router, { resetRouter } from '@/router'
+import { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
+  userId: '',
   name: '',
   avatar: '',
-  roles: [],
   email: '',
-  permissions: []
+  info: {},
+  roles: [],
+  permissions: [],
+  menus: []
 }
 
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_PERMISSIONS: (state, permissions) => {
-    state.permissions = permissions
-  },
   SET_NAME: (state, name) => {
     state.name = name
+  },
+  SET_USERID: (state, userId) => {
+    state.userId = userId
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
   },
+  SET_EMAIL: (state, email) => {
+    state.email = email
+  },
+  SET_INFO: (state, info) => {
+    state.info = info
+  },
   SET_ROLES: (state, roles) => {
     state.roles = roles
   },
-  SET_EMAIL: (state, email) => {
-    state.email = email
+  SET_PERMISSIONS: (state, permissions) => {
+    state.permissions = permissions
+  },
+  SET_MENUS: (state, menus) => {
+    state.menus = menus
   }
 }
 
@@ -43,7 +55,7 @@ const actions = {
         // console.log(response)
         const { data } = response
         commit('SET_TOKEN', data.token)
-        commit('SET_PERMISSIONS', data.permissions)
+        commit('SET_USERID', data.userId)
         setToken(data.token)
         commit('SET_NAME', username.trim())
         resolve()
@@ -58,7 +70,7 @@ const actions = {
       weixinCallback({ code: code }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
-        commit('SET_PERMISSIONS', data.permissions)
+        commit('SET_USERID', data.userId)
         setToken(data.token)
         resolve()
       }).catch(error => {
@@ -72,7 +84,7 @@ const actions = {
       googleCallback({ code: code }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
-        commit('SET_PERMISSIONS', data.permissions)
+        commit('SET_USERID', data.userId)
         setToken(data.token)
         resolve()
       }).catch(error => {
@@ -82,15 +94,15 @@ const actions = {
   },
 
   // get user info
-  getInfo({ commit }) {
+  getInfo({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
-      getUserInfo().then(response => {
+      getCurrentUser().then(response => {
         const data = response.data
         if (!data) {
           reject('Verification failed, please Login again.')
         }
 
-        const { roleIds, nickName, avatar, email } = data
+        const { user, roleIds, permissions, menus } = data
 
         const roles = roleIds.map(String)
 
@@ -99,10 +111,17 @@ const actions = {
           reject('getInfo: roles must be a non-null array!')
         }
 
+        commit('SET_NAME', user.nickName)
+        commit('SET_AVATAR', user.avatar)
+        commit('SET_EMAIL', user.email)
+        commit('SET_INFO', user)
         commit('SET_ROLES', roles)
-        commit('SET_NAME', nickName)
-        commit('SET_AVATAR', avatar)
-        commit('SET_EMAIL', email)
+        commit('SET_PERMISSIONS', permissions)
+        commit('SET_MENUS', menus)
+
+        // 获取动态路由
+        dispatch('permission/generateRoutes', roles, { root: true })
+
         resolve({ ...data, roles })
       }).catch(error => {
         reject(error)
@@ -146,15 +165,6 @@ const actions = {
 
     commit('SET_TOKEN', token)
     setToken(token)
-
-    const { roles } = await dispatch('getInfo')
-
-    resetRouter()
-
-    // generate accessible routes map based on roles
-    const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
-    // dynamically add accessible routes
-    router.addRoutes(accessRoutes)
 
     // reset visited views and cached views
     dispatch('tagsView/delAllViews', null, { root: true })

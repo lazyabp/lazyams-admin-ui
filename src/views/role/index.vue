@@ -108,7 +108,8 @@
 </template>
 
 <script>
-import { getRoles, addRole, updateRole, deleteRole, activeRole, batchDeleteRoles, getMenuTree, getMenuIdsByRoleId, rolePermission } from '@/api/role'
+import { getRoles, addRole, updateRole, deleteRole, activeRole, batchDeleteRoles, rolePermission } from '@/api/role'
+import { getMenuTree, getMenuIdsByRoleId } from '@/api/menu'
 import waves from '@/directive/waves' // waves directive
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 

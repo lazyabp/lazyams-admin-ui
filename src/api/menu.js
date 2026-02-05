@@ -59,3 +59,10 @@ export function getMenuTypes() {
     method: 'get'
   })
 }
+
+export function getMenuIdsByRoleId(id) {
+  return request({
+    url: `/api/Menu/GetMenuIdsByRoleId/${id}`,
+    method: 'get'
+  })
+}

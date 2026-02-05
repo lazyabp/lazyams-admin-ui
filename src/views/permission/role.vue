@@ -62,7 +62,7 @@
 <script>
 import path from 'path'
 import { deepClone } from '@/utils'
-import { getRoutes, getRoles, addRole, deleteRole, updateRole } from '@/api/role'
+import { getRoles, addRole, deleteRole, updateRole } from '@/api/role'
 
 const defaultRole = {
   key: '',
@@ -93,15 +93,15 @@ export default {
   },
   created() {
     // Mock: get all routes and roles list from server
-    this.getRoutes()
+    // this.getRoutes()
     this.getRoles()
   },
   methods: {
-    async getRoutes() {
-      const res = await getRoutes()
-      this.serviceRoutes = res.data
-      this.routes = this.generateRoutes(res.data)
-    },
+    // async getRoutes() {
+    //   const res = await getRoutes()
+    //   this.serviceRoutes = res.data
+    //   this.routes = this.generateRoutes(res.data)
+    // },
     async getRoles() {
       const res = await getRoles()
       this.rolesList = res.data
@@ -124,7 +124,6 @@ export default {
         const data = {
           path: path.resolve(basePath, route.path),
           title: route.meta && route.meta.title
-
         }
 
         // recursive child routes
