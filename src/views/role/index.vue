@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
-        Add
+        新增
       </el-button>
     </div>
 
@@ -16,22 +16,22 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="ID" prop="id" sortable="custom" align="center" width="80">
+      <!-- <el-table-column label="ID" prop="id" sortable="custom" align="center" width="80">
         <template slot-scope="{row}">
           <span>{{ row.id }}</span>
         </template>
-      </el-table-column>
-      <el-table-column label="Role Name" min-width="150px">
+      </el-table-column> -->
+      <el-table-column label="角色名" min-width="150px">
         <template slot-scope="{row}">
           <span>{{ row.roleName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Description" min-width="150px">
+      <el-table-column label="角色描述" min-width="150px">
         <template slot-scope="{row}">
           <span>{{ row.description }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="IsActive" min-width="100px">
+      <el-table-column label="启用" min-width="100px">
         <template slot-scope="{row}">
           <el-switch
             v-model="row.isActive"
@@ -41,16 +41,16 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="Actions" align="center" width="300" class-name="small-padding fixed-width" fixed="right">
+      <el-table-column label="操作" align="center" width="300" class-name="small-padding fixed-width" fixed="right">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
-            Edit
+            编辑
           </el-button>
           <el-button type="info" size="mini" @click="handlePermission(row)">
-            Permission
+            权限
           </el-button>
           <el-button size="mini" type="danger" @click="handleDelete(row)">
-            Delete
+            删除
           </el-button>
         </template>
       </el-table-column>
@@ -64,51 +64,51 @@
       :close-on-click-modal="false"
     >
       <el-form ref="dataForm" :model="tempRole" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="Role Name" prop="roleName">
+        <el-form-item label="角色名" prop="roleName">
           <el-input v-model="tempRole.roleName" />
         </el-form-item>
-        <el-form-item label="Description" prop="description">
+        <el-form-item label="角色描述" prop="description">
           <el-input
             v-model="tempRole.description"
-            :autosize="{ minRows: 2, maxRows: 4}"
-            type="textarea"
-            placeholder="Role Description"
+            placeholder="角色描述"
           />
         </el-form-item>
-        <el-form-item label="IsActive" prop="isActive">
+        <el-form-item label="启用" prop="isActive">
           <el-switch v-model="tempRole.isActive" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
-          Cancel
+          取消
         </el-button>
         <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
-          Confirm
+          确定
         </el-button>
       </div>
     </el-dialog>
 
     <el-dialog
-      title="Assign Permissions"
+      title="角色权限"
       :visible.sync="dialogPermissionVisible"
       :close-on-click-modal="false"
     >
-      <el-tree
-        ref="menuTree"
-        :data="menuTree"
-        show-checkbox
-        node-key="id"
-        highlight-current
-        :props="{ children: 'children', label: 'title' }"
-        default-expand-all
-      />
+      <div style="height: 520px; overflow:auto">
+        <el-tree
+          ref="menuTree"
+          :data="menuTree"
+          show-checkbox
+          node-key="id"
+          highlight-current
+          :props="{ children: 'children', label: 'title' }"
+          default-expand-all
+        />
+      </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogPermissionVisible = false">
-          Cancel
+          取消
         </el-button>
         <el-button type="primary" @click="confirmPermission">
-          Confirm
+          确定
         </el-button>
       </div>
     </el-dialog>
@@ -143,13 +143,13 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
-        update: 'Edit',
-        create: 'Create'
+        update: '编辑',
+        create: '创建'
       },
       downloadLoading: false,
       selectedRoles: [], // For batch delete
       menuTree: [], // All menus for permission assignment
-      checkedMenuKeys: [], // Menus currently assigned to the role
+      // checkedMenuKeys: [], // Menus currently assigned to the role
       dialogPermissionVisible: false,
       currentRoleId: undefined // ID of the role for which permissions are being edited
     }
@@ -189,8 +189,8 @@ export default {
             this.getList()
             this.dialogFormVisible = false
             this.$notify({
-              title: 'Success',
-              message: 'Created Successfully',
+              title: '提示',
+              message: '创建成功',
               type: 'success',
               duration: 2000
             })
@@ -211,8 +211,8 @@ export default {
         this.getList()
         this.dialogFormVisible = false
         this.$notify({
-          title: 'Success',
-          message: 'Created Successfully',
+          title: '提示',
+          message: '更新成功',
           type: 'success',
           duration: 2000
         })
@@ -226,8 +226,8 @@ export default {
             this.getList()
             this.dialogFormVisible = false
             this.$notify({
-              title: 'Success',
-              message: 'Update Successfully',
+              title: '提示',
+              message: '更新成功',
               type: 'success',
               duration: 2000
             })
@@ -236,16 +236,16 @@ export default {
       })
     },
     handleDelete(row) {
-      this.$confirm('This will permanently delete the role. Continue?', 'Warning', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+      this.$confirm('确定要删除此角色吗？', 'Warning', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         deleteRole(row.id).then(() => {
           this.getList()
           this.$notify({
-            title: 'Success',
-            message: 'Delete Successfully',
+            title: '提示',
+            message: '删除成功',
             type: 'success',
             duration: 2000
           })
@@ -258,21 +258,21 @@ export default {
     handleBatchDelete() {
       if (this.selectedRoles.length === 0) {
         this.$message({
-          message: 'Please select at least one role',
+          message: '没有选择任何角色',
           type: 'warning'
         })
         return
       }
-      this.$confirm('This will permanently delete the selected roles. Continue?', 'Warning', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+      this.$confirm('删除选择的角色，确定吗？', 'Warning', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         batchDeleteRoles(this.selectedRoles).then(() => {
           this.getList()
           this.$notify({
-            title: 'Success',
-            message: 'Batch Delete Successfully',
+            title: '提示',
+            message: '删除成功',
             type: 'success',
             duration: 2000
           })
@@ -284,48 +284,24 @@ export default {
       this.dialogPermissionVisible = true
       // Fetch menu tree
       const menuRes = await getMenuTree()
-      this.menuTree = this.normalizeMenuTree(menuRes.data.items)
+      this.menuTree = menuRes.data
 
       // Fetch currently assigned menu IDs
       const checkedRes = await getMenuIdsByRoleId(row.id)
-      this.checkedMenuKeys = checkedRes.data.items
-
-      this.$nextTick(() => {
-        this.$refs.menuTree.setCheckedKeys(this.checkedMenuKeys)
-      })
-    },
-    normalizeMenuTree(menuList) {
-      // Assuming menuList is a flat array or has a structure that needs to be
-      // converted to Element UI's tree format (children, label)
-      // This is a placeholder and might need adjustment based on actual menu data structure
-      const map = {}
-      menuList.forEach(item => {
-        item.children = []
-        map[item.id] = item
-      })
-
-      const tree = []
-      menuList.forEach(item => {
-        if (item.parentId === 0) { // Assuming 0 is the root parent ID
-          tree.push(item)
-        } else {
-          if (map[item.parentId]) {
-            map[item.parentId].children.push(item)
-          }
-        }
-      })
-      return tree
+      for (const id of checkedRes.data) {
+        this.$refs.menuTree.setChecked(id, true, false)
+      }
     },
     confirmPermission() {
       const checkedKeys = this.$refs.menuTree.getCheckedKeys()
       const halfCheckedKeys = this.$refs.menuTree.getHalfCheckedKeys()
       const menuIds = [...checkedKeys, ...halfCheckedKeys] // Include half-checked for parent permissions
 
-      rolePermission({ roleId: this.currentRoleId, menuIds: menuIds }).then(() => {
+      rolePermission({ id: this.currentRoleId, menuIds: menuIds }).then(() => {
         this.dialogPermissionVisible = false
         this.$notify({
-          title: 'Success',
-          message: 'Permissions Updated Successfully',
+          title: '提示',
+          message: '更新权限成功',
           type: 'success',
           duration: 2000
         })

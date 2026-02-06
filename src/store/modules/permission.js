@@ -22,15 +22,17 @@ function hasPermission(permissions, route) {
 export function filterAsyncRoutes(routes, permissions) {
   const res = []
 
-  routes.forEach(route => {
-    const tmp = { ...route }
-    if (hasPermission(permissions, tmp)) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, permissions)
+  if (routes) {
+    routes.forEach(route => {
+      const tmp = { ...route }
+      if (hasPermission(permissions, tmp)) {
+        if (tmp.children) {
+          tmp.children = filterAsyncRoutes(tmp.children, permissions)
+        }
+        res.push(tmp)
       }
-      res.push(tmp)
-    }
-  })
+    })
+  }
 
   return res
 }

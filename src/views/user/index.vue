@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
-        Add
+        新增
       </el-button>
     </div>
 
@@ -14,22 +14,57 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="ID" prop="id" sortable="custom" align="center" width="80">
+      <!-- <el-table-column label="ID" prop="id" sortable="custom" align="center" width="80">
         <template slot-scope="{row}">
           <span>{{ row.id }}</span>
         </template>
-      </el-table-column>
-      <el-table-column label="Username" min-width="150px">
+      </el-table-column> -->
+      <el-table-column label="用户名">
         <template slot-scope="{row}">
           <span>{{ row.userName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Nickname" min-width="150px">
+      <el-table-column label="昵称">
         <template slot-scope="{row}">
           <span>{{ row.nickName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Is Administrator" min-width="150px">
+      <el-table-column label="Email" min-width="150px">
+        <template slot-scope="{row}">
+          <span>{{ row.email }}</span>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="类型">
+        <template slot-scope="{row}">
+          <span v-for="item in types" :key="item.value">
+            <span v-if="item.value === row.access">
+              {{ item.label }}
+            </span>
+          </span>
+        </template>
+      </el-table-column> -->
+      <el-table-column label="所属角色">
+        <template slot-scope="{row}">
+          <el-tag
+            v-for="item in row.roles"
+            :key="item.id"
+            effect="dark"
+            style="margin-right:5px"
+          >
+            {{ item.roleName }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="性别" min-width="80px">
+        <template slot-scope="{row}">
+          <span v-for="item in genders" :key="item.value">
+            <span v-if="item.value === row.gender">
+              {{ item.label }}
+            </span>
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column label="超级管理员">
         <template slot-scope="{row}">
           <el-switch
             v-model="row.isAdministrator"
@@ -39,7 +74,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="Is Active" min-width="150px">
+      <el-table-column label="启用">
         <template slot-scope="{row}">
           <el-switch
             v-model="row.isActive"
@@ -49,18 +84,13 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="Email" min-width="150px">
-        <template slot-scope="{row}">
-          <span>{{ row.email }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width" fixed="right">
+      <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width" fixed="right">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
-            Edit
+            编辑
           </el-button>
           <el-button size="mini" type="danger" @click="handleDelete(row)">
-            Delete
+            删除
           </el-button>
         </template>
       </el-table-column>
@@ -73,32 +103,62 @@
       :visible.sync="dialogFormVisible"
       :close-on-click-modal="false"
     >
-      <el-form ref="dataForm" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="Username" prop="userName">
+      <el-form ref="dataForm" :model="temp" label-position="left" label-width="100px" style="width:400px;margin-left:50px;">
+        <el-form-item label="用户名" prop="userName">
           <el-input v-model="temp.userName" />
         </el-form-item>
-        <el-form-item label="Nickname" prop="nickName">
+        <el-form-item label="昵称" prop="nickName">
           <el-input v-model="temp.nickName" />
         </el-form-item>
-        <el-form-item label="Password" prop="password">
+        <el-form-item label="密码" prop="password">
           <el-input v-model="temp.password" type="password" />
-        </el-form-item>
-        <el-form-item label="Is Administrator" prop="isAdministrator">
-          <el-switch v-model="temp.isAdministrator" />
-        </el-form-item>
-        <el-form-item label="Is Active" prop="isActive">
-          <el-switch v-model="temp.isActive" />
         </el-form-item>
         <el-form-item label="Email" prop="email">
           <el-input v-model="temp.email" />
         </el-form-item>
+        <!-- <el-form-item label="类型" prop="access">
+          <el-select v-model="temp.access" placeholder="请选择">
+            <el-option
+              v-for="t in types"
+              :key="t.value"
+              :label="t.label"
+              :value="t.value"
+            />
+          </el-select>
+        </el-form-item> -->
+        <el-form-item label="所属角色" prop="roleIds">
+          <el-select v-model="temp.roleIds" multiple placeholder="请选择">
+            <el-option
+              v-for="item in roles"
+              :key="item.id"
+              :label="item.description"
+              :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="性别" prop="gender">
+          <el-select v-model="temp.gender" placeholder="请选择">
+            <el-option
+              v-for="t in genders"
+              :key="t.value"
+              :label="t.label"
+              :value="t.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="超级管理员" prop="isAdministrator">
+          <el-switch v-model="temp.isAdministrator" />
+        </el-form-item>
+        <el-form-item label="启用" prop="isActive">
+          <el-switch v-model="temp.isActive" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
-          Cancel
+          取消
         </el-button>
         <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
-          Confirm
+          确认
         </el-button>
       </div>
     </el-dialog>
@@ -106,7 +166,8 @@
 </template>
 
 <script>
-import { getUsers, addUser, updateUser, activeUser, deleteUser } from '@/api/user'
+import { getUsers, getUserById, addUser, updateUser, activeUser, deleteUser } from '@/api/user'
+import { getRoles } from '@/api/role'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
@@ -128,29 +189,69 @@ export default {
         userName: '',
         nickName: '',
         email: '',
-        password: ''
+        password: '',
+        access: 0,
+        gender: 0,
+        roleIds: [],
+        address: ''
       },
+      roles: [],
+      types: [
+        {
+          value: 0,
+          label: '游客'
+        },
+        {
+          value: 1,
+          label: '会员'
+        },
+        {
+          value: 2,
+          label: '管理员'
+        }
+      ],
+      genders: [
+        {
+          value: 0,
+          label: '其它'
+        },
+        {
+          value: 1,
+          label: '男'
+        },
+        {
+          value: 2,
+          label: '女'
+        }
+      ],
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
-        update: 'Edit',
-        create: 'Create'
+        update: '编辑',
+        create: '创建'
       }
     }
   },
   created() {
+    this.loadRoles()
     this.getList()
   },
   methods: {
     getList() {
       this.listLoading = true
-      getUsers({ PageIndex: this.listQuery.page, PageSize: this.listQuery.limit }).then(response => {
+      getUsers({ PageIndex: this.listQuery.page, PageSize: this.listQuery.limit, Access: 2 }).then(response => {
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
       })
     },
-    resetTemp() {
+    loadRoles() {
+      getRoles({ PageIndex: 1, PageSize: 1000 })
+        .then(res => {
+          this.roles = res.data.items
+        })
+    },
+    resetForm() {
       this.temp = {
         id: undefined,
         isAdministrator: false,
@@ -158,11 +259,15 @@ export default {
         userName: '',
         nickName: '',
         email: '',
-        password: ''
+        password: '',
+        access: 0,
+        gender: 0,
+        roleIds: [],
+        address: ''
       }
     },
     handleCreate() {
-      this.resetTemp()
+      this.resetForm()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -176,8 +281,8 @@ export default {
             this.getList()
             this.dialogFormVisible = false
             this.$notify({
-              title: 'Success',
-              message: 'Created Successfully',
+              title: '提示',
+              message: '创建成功',
               type: 'success',
               duration: 2000
             })
@@ -186,21 +291,22 @@ export default {
       })
     },
     handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
-      this.temp.password = ''
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
+      getUserById(row.id).then(res => {
+        this.temp = res.data
+        this.dialogStatus = 'update'
+        this.dialogFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['dataForm'].clearValidate()
+        })
       })
     },
     handleActive(row) {
-      activeUser(row.id, { isActive: row.isActive }).then(res => {
+      activeUser(row.id, { isActive: row.isActive }).then(_ => {
         this.getList()
         this.dialogFormVisible = false
         this.$notify({
-          title: 'Success',
-          message: 'Created Successfully',
+          title: '提示',
+          message: '更新成功',
           type: 'success',
           duration: 2000
         })
@@ -214,8 +320,8 @@ export default {
             this.getList()
             this.dialogFormVisible = false
             this.$notify({
-              title: 'Success',
-              message: 'Update Successfully',
+              title: '提示',
+              message: '更新成功',
               type: 'success',
               duration: 2000
             })
@@ -224,16 +330,16 @@ export default {
       })
     },
     handleDelete(row) {
-      this.$confirm('This will permanently delete the user. Continue?', 'Warning', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+      this.$confirm('确定要删除吗？', 'Warning', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         deleteUser(row.id).then(() => {
           this.getList()
           this.$notify({
-            title: 'Success',
-            message: 'Delete Successfully',
+            title: '提示',
+            message: '删除成功',
             type: 'success',
             duration: 2000
           })

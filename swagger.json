@@ -356,7 +356,46 @@
         }
       }
     },
-    "/api/Config/All": {
+    "/api/Config/GetKeys": {
+      "get": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "配置键信息",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigKeyDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigKeyDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigKeyDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Config/GetAll": {
       "get": {
         "tags": [
           "Config"
@@ -407,27 +446,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -452,21 +471,111 @@
           "description": "",
           "content": {
             "application/json": {
+              "schema": { }
+            },
+            "text/json": {
+              "schema": { }
+            },
+            "application/*+json": {
+              "schema": { }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Config/TestMailer": {
+      "post": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "邮局配置测试",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
               "schema": {
-                "type": "object",
-                "additionalProperties": { }
+                "$ref": "#/components/schemas/SendMailerDto"
               }
             },
             "text/json": {
               "schema": {
-                "type": "object",
-                "additionalProperties": { }
+                "$ref": "#/components/schemas/SendMailerDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "object",
-                "additionalProperties": { }
+                "$ref": "#/components/schemas/SendMailerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Config/TestSms": {
+      "post": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "短信配置测试",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendSmsDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendSmsDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendSmsDto"
               }
             }
           }
@@ -938,17 +1047,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoListResultDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MenuDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoListResultDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MenuDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuDtoListResultDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MenuDto"
+                  }
                 }
               }
             }
@@ -1019,17 +1137,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuIdDtoListResultDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MenuIdDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuIdDtoListResultDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MenuIdDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MenuIdDtoListResultDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MenuIdDto"
+                  }
                 }
               }
             }
@@ -1088,17 +1215,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoPagedResultDto"
+                  "$ref": "#/components/schemas/RoleListDtoPagedResultDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoPagedResultDto"
+                  "$ref": "#/components/schemas/RoleListDtoPagedResultDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleDtoPagedResultDto"
+                  "$ref": "#/components/schemas/RoleListDtoPagedResultDto"
                 }
               }
             }
@@ -1414,7 +1541,7 @@
         }
       }
     },
-    "/api/Role": {
+    "/api/Role/RolePermission": {
       "post": {
         "tags": [
           "Role"
@@ -2036,69 +2163,29 @@
         }
       }
     },
-    "/api/User/Get/{userName}": {
+    "/api/User/GetCurrentUser": {
       "get": {
         "tags": [
           "User"
         ],
         "summary": "通过用户名获取用户信息",
-        "parameters": [
-          {
-            "name": "userName",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
+                  "$ref": "#/components/schemas/UserLoginDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
+                  "$ref": "#/components/schemas/UserLoginDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/User/Info": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
+                  "$ref": "#/components/schemas/UserLoginDto"
                 }
               }
             }
@@ -2187,6 +2274,24 @@
         },
         "additionalProperties": false
       },
+      "ConfigKeyDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateCarouselDto": {
         "type": "object",
         "properties": {
@@ -2237,6 +2342,10 @@
             "type": "integer",
             "format": "int64"
           },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
           "title": {
             "type": "string",
             "nullable": true
@@ -2245,12 +2354,12 @@
             "type": "string",
             "nullable": true
           },
-          "menuType": {
-            "$ref": "#/components/schemas/MenuType"
-          },
-          "description": {
+          "icon": {
             "type": "string",
             "nullable": true
+          },
+          "menuType": {
+            "$ref": "#/components/schemas/MenuType"
           },
           "orderNum": {
             "type": "integer",
@@ -2412,7 +2521,7 @@
           "storage": {
             "$ref": "#/components/schemas/StorageType"
           },
-          "domain": {
+          "baseUrl": {
             "type": "string",
             "nullable": true
           },
@@ -2494,123 +2603,9 @@
             "type": "string",
             "nullable": true
           },
-          "permissions": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Menu": {
-        "required": [
-          "menuType",
-          "title"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
+          "userId": {
             "type": "integer",
             "format": "int64",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
-          "deletedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "title": {
-            "maxLength": 100,
-            "minLength": 0,
-            "type": "string"
-          },
-          "permission": {
-            "maxLength": 100,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          },
-          "menuType": {
-            "$ref": "#/components/schemas/MenuType"
-          },
-          "description": {
-            "maxLength": 200,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          },
-          "orderNum": {
-            "maximum": 2147483647,
-            "minimum": 0,
-            "type": "integer",
-            "format": "int32"
-          },
-          "route": {
-            "maxLength": 200,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          },
-          "component": {
-            "maxLength": 200,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          },
-          "parentId": {
-            "maximum": 9.223372036854776E+18,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "children": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Menu"
-            },
-            "nullable": true
-          },
-          "parent": {
-            "$ref": "#/components/schemas/Menu"
-          },
-          "roleMenus": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RoleMenu"
-            },
             "nullable": true
           }
         },
@@ -2643,6 +2638,10 @@
             "format": "date-time",
             "nullable": true
           },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
           "title": {
             "type": "string",
             "nullable": true
@@ -2651,12 +2650,12 @@
             "type": "string",
             "nullable": true
           },
-          "menuType": {
-            "$ref": "#/components/schemas/MenuType"
-          },
-          "description": {
+          "icon": {
             "type": "string",
             "nullable": true
+          },
+          "menuType": {
+            "$ref": "#/components/schemas/MenuType"
           },
           "orderNum": {
             "type": "integer",
@@ -2670,6 +2669,14 @@
             "type": "string",
             "nullable": true
           },
+          "parentId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
           "children": {
             "type": "array",
             "items": {
@@ -2677,34 +2684,10 @@
             },
             "nullable": true
           },
-          "parentId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "parent": {
-            "$ref": "#/components/schemas/Menu"
-          },
-          "roleMenus": {
+          "roles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/RoleMenu"
-            },
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "MenuDtoListResultDto": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MenuDto"
+              "$ref": "#/components/schemas/RoleDto"
             },
             "nullable": true
           }
@@ -2738,19 +2721,6 @@
         },
         "additionalProperties": false
       },
-      "MenuIdDtoListResultDto": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MenuIdDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "MenuType": {
         "enum": [
           1,
@@ -2773,74 +2743,6 @@
           },
           "password": {
             "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Role": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
-          "deletedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "roleName": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "roleMenus": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RoleMenu"
-            },
-            "nullable": true
-          },
-          "userRoles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/UserRole"
-            },
             "nullable": true
           }
         },
@@ -2888,58 +2790,79 @@
           "isActive": {
             "type": "boolean"
           },
-          "roleMenus": {
+          "menus": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/RoleMenu"
+              "$ref": "#/components/schemas/MenuDto"
             },
             "nullable": true
           },
-          "userRoles": {
+          "users": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserRole"
+              "$ref": "#/components/schemas/UserDto"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "RoleDtoPagedResultDto": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RoleDto"
-            },
-            "nullable": true
-          },
-          "total": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "RoleMenu": {
+      "RoleListDto": {
+        "required": [
+          "roleName"
+        ],
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int64"
           },
-          "menu": {
-            "$ref": "#/components/schemas/Menu"
-          },
-          "menuId": {
+          "createdBy": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
-          "role": {
-            "$ref": "#/components/schemas/Role"
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
           },
-          "roleId": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "roleName": {
+            "maxLength": 50,
+            "minLength": 3,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleListDtoPagedResultDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleListDto"
+            },
+            "nullable": true
+          },
+          "total": {
             "type": "integer",
             "format": "int64"
           }
@@ -2959,6 +2882,41 @@
               "type": "integer",
               "format": "int64"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SendMailerDto": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "subject": {
+            "type": "string",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "isHtml": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SendSmsDto": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -3077,6 +3035,10 @@
             "type": "integer",
             "format": "int64"
           },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
           "title": {
             "type": "string",
             "nullable": true
@@ -3085,12 +3047,12 @@
             "type": "string",
             "nullable": true
           },
-          "menuType": {
-            "$ref": "#/components/schemas/MenuType"
-          },
-          "description": {
+          "icon": {
             "type": "string",
             "nullable": true
+          },
+          "menuType": {
+            "$ref": "#/components/schemas/MenuType"
           },
           "orderNum": {
             "type": "integer",
@@ -3209,97 +3171,6 @@
         },
         "additionalProperties": false
       },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
-          "deletedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
-          },
-          "nickName": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "isAdministrator": {
-            "type": "boolean"
-          },
-          "access": {
-            "$ref": "#/components/schemas/Access"
-          },
-          "gender": {
-            "$ref": "#/components/schemas/Gender"
-          },
-          "avatar": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "userRoles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/UserRole"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "UserDto": {
         "type": "object",
         "properties": {
@@ -3367,6 +3238,13 @@
           },
           "isActive": {
             "type": "boolean"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleDto"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3388,62 +3266,22 @@
         },
         "additionalProperties": false
       },
-      "UserRole": {
+      "UserInfoDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int64"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "role": {
-            "$ref": "#/components/schemas/Role"
-          },
-          "roleId": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserWithRoleIdsDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
           },
           "userName": {
             "type": "string",
             "nullable": true
           },
           "nickName": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
             "type": "string",
             "nullable": true
           },
@@ -3475,11 +3313,88 @@
           },
           "isActive": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserLoginDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/UserInfoDto"
+          },
+          "roleIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "nullable": true
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "menus": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MenuDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserWithRoleIdsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "nickName": {
+            "type": "string",
+            "nullable": true
           },
           "password": {
             "type": "string",
-            "nullable": true,
-            "readOnly": true
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "isAdministrator": {
+            "type": "boolean"
+          },
+          "access": {
+            "$ref": "#/components/schemas/Access"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "avatar": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           },
           "roleIds": {
             "type": "array",

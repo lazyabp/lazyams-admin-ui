@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
-        Add
+        新增
       </el-button>
     </div>
 
@@ -142,6 +142,7 @@
             v-model="menu.parentId"
             :options="filteredTreeData"
             :props="{ value: 'id', label: 'name', children: 'children', emitPath: false, checkStrictly: true }"
+            clearable
             placeholder="Select Parent"
             style="width: 100%"
           />

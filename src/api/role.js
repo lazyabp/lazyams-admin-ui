@@ -24,6 +24,14 @@ export function updateRole(data) {
   })
 }
 
+export function activeRole(id, data) {
+  return request({
+    url: `/api/Role/Active/${id}`,
+    method: 'post',
+    data
+  })
+}
+
 export function deleteRole(id) {
   return request({
     url: `/api/Role/Delete/${id}`,
@@ -49,14 +57,6 @@ export function getRoleById(id) {
 export function rolePermission(data) {
   return request({
     url: '/api/Role/RolePermission',
-    method: 'post',
-    data
-  })
-}
-
-export function activeRole(id, data) {
-  return request({
-    url: `/api/Role/Active/${id}`,
     method: 'post',
     data
   })
