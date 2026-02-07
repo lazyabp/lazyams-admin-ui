@@ -13,6 +13,18 @@ const componentsRouter = {
   },
   children: [
     {
+      path: 'icon',
+      component: () => import('@/views/icons/index'),
+      name: 'Icons',
+      meta: { title: 'Icons', icon: 'icon', noCache: true }
+    },
+    {
+      path: 'chat',
+      component: () => import('@/views/components-demo/wss'),
+      name: 'Wss',
+      meta: { title: 'Chat' }
+    },
+    {
       path: 'tinymce',
       component: () => import('@/views/components-demo/tinymce'),
       name: 'TinymceDemo',
