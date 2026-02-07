@@ -190,7 +190,7 @@ export default {
         nickName: '',
         email: '',
         password: '',
-        access: 0,
+        access: 2,
         gender: 0,
         roleIds: [],
         address: ''
@@ -255,12 +255,12 @@ export default {
       this.temp = {
         id: undefined,
         isAdministrator: false,
-        isActive: false,
+        isActive: true,
         userName: '',
         nickName: '',
         email: '',
         password: '',
-        access: 0,
+        access: 2,
         gender: 0,
         roleIds: [],
         address: ''
