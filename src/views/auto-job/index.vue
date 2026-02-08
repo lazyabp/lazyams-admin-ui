@@ -29,18 +29,23 @@
           <span>{{ row.cronExpression }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="任务状态" prop="jobStatus" align="center" width="100">
+      <el-table-column label="停止/运行" prop="jobStatus" align="center" width="100">
         <template slot-scope="{row}">
-          <el-tag :type="jobStatusType(row.jobStatus)" size="mini" effect="dark">
-            {{ jobStatusText(row.jobStatus) }}
-          </el-tag>
+          <el-switch
+            v-model="row.jobStatus"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            :active-value="1"
+            :inactive-value="2"
+            @change="handleExecute(row)"
+          />
         </template>
       </el-table-column>
-      <el-table-column label="下次执行时间" prop="nextStartAt" align="center" width="160">
+      <!-- <el-table-column label="下次执行时间" prop="nextStartAt" align="center" width="160">
         <template slot-scope="{row}">
           <span>{{ row.nextStartAt | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="开始时间" prop="startAt" align="center" width="160">
         <template slot-scope="{row}">
           <span>{{ row.startAt | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
@@ -56,14 +61,14 @@
           <span>{{ row.remark }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="220" class-name="small-padding fixed-width" fixed="right">
+      <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width" fixed="right">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             编辑
           </el-button>
-          <el-button :type="row.jobStatus === 1 ? 'info' : 'success'" size="mini" @click="handleExecute(row)">
+          <!-- <el-button :type="row.jobStatus === 1 ? 'warning' : 'success'" size="mini" @click="handleExecute(row)">
             {{ row.jobStatus === 1 ? '停止' : '启动' }}
-          </el-button>
+          </el-button> -->
           <el-button size="mini" type="danger" @click="handleDelete(row)">
             删除
           </el-button>
@@ -263,20 +268,20 @@ export default {
     handleExecute(row) {
       const executeData = {
         id: row.id,
-        jobStatus: row.jobStatus === 1 ? 0 : 1 // 如果当前是运行状态则改为暂停，否则改为运行
+        jobAction: row.jobStatus
       }
       executeAutoJob(executeData).then(() => {
         this.getList()
         this.$notify({
           title: '提示',
-          message: row.jobStatus === 1 ? '任务已停止' : '任务已启动',
+          message: row.jobStatus === 2 ? '任务已停止' : '任务已启动',
           type: 'success',
           duration: 2000
         })
       })
     },
     handleDelete(row) {
-      this.$confirm('确定要删除此定时任务吗？', 'Warning', {
+      this.$confirm('确定要删除此定时任务吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

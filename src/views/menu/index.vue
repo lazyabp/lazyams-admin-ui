@@ -277,24 +277,24 @@ export default {
         this.fetchMenuTree()
         this.dialogFormVisible = false
         this.$notify({
-          name: 'Success',
-          message: 'Created Successfully',
+          name: '提示',
+          message: '更新成功',
           type: 'success',
           duration: 2000
         })
       })
     },
     handleDelete(row) {
-      this.$confirm('Confirm to delete the menu?', 'Warning', {
-        confirmButtonText: 'Confirm',
-        cancelButtonText: 'Cancel',
+      this.$confirm('确定要删除菜单吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
         type: 'warning'
       }).then(async() => {
         await deleteMenu(row.id)
         this.fetchMenuTree()
         this.$message({
           type: 'success',
-          message: 'Delete succed!'
+          message: '删除成功'
         })
       }).catch(err => { console.error(err) })
     },
@@ -311,7 +311,7 @@ export default {
       this.dialogVisible = false
       this.$message({
         type: 'success',
-        message: 'Save succed!'
+        message: '保存成功'
       })
     }
   }

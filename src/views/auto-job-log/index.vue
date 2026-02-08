@@ -149,7 +149,7 @@ export default {
       })
     },
     handleDelete(row) {
-      this.$confirm('确定要删除此日志记录吗？', 'Warning', {
+      this.$confirm('确定要删除此日志记录吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -166,7 +166,7 @@ export default {
       })
     },
     handleClearAll() {
-      this.$confirm('确定要清空所有日志记录吗？此操作不可恢复！', 'Warning', {
+      this.$confirm('确定要清空所有日志记录吗？此操作不可恢复！', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

@@ -236,7 +236,7 @@ export default {
       })
     },
     handleDelete(row) {
-      this.$confirm('确定要删除此角色吗？', 'Warning', {
+      this.$confirm('确定要删除此角色吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -263,7 +263,7 @@ export default {
         })
         return
       }
-      this.$confirm('删除选择的角色，确定吗？', 'Warning', {
+      this.$confirm('删除选择的角色，确定吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -305,13 +305,6 @@ export default {
           type: 'success',
           duration: 2000
         })
-      })
-    },
-    handleDownload() {
-      // This is a placeholder for export functionality
-      this.$message({
-        message: 'Export functionality not yet implemented.',
-        type: 'info'
       })
     }
   }
