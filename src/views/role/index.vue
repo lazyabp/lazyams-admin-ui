@@ -63,7 +63,7 @@
       :visible.sync="dialogFormVisible"
       :close-on-click-modal="false"
     >
-      <el-form ref="dataForm" :model="tempRole" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
+      <el-form ref="dataForm" :model="tempRole" label-width="100px" style="width: 400px;">
         <el-form-item label="角色名" prop="roleName">
           <el-input v-model="tempRole.roleName" />
         </el-form-item>

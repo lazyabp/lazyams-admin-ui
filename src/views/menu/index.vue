@@ -70,7 +70,12 @@
       </el-table-column>
       <el-table-column label="部件">
         <template slot-scope="scope">
-          {{ scope.row.component }}
+          <span v-if="scope.row.component">
+            {{ scope.row.component }}
+          </span>
+          <span v-else>
+            Layout
+          </span>
         </template>
       </el-table-column>
       <el-table-column label="启用">
@@ -105,7 +110,7 @@
       :close-on-click-modal="false"
       :name="dialogType === 'edit'?'Edit Menu':'New Menu'"
     >
-      <el-form :model="menu" label-width="120px" label-position="left">
+      <el-form :model="menu" label-width="120px">
         <el-form-item label="菜单类型">
           <el-select v-model="menu.menuType" placeholder="请选择">
             <el-option
@@ -132,7 +137,9 @@
           <el-input v-model="menu.route" placeholder="路由" />
         </el-form-item>
         <el-form-item v-if="menu.menuType === 2" label="部件路径">
-          <el-input v-model="menu.component" placeholder="部件路径" />
+          <el-input v-model="menu.component" placeholder="部件路径">
+            <template slot="prepend">@/views/</template>
+          </el-input>
         </el-form-item>
         <el-form-item label="排序">
           <el-input v-model="menu.orderNum" placeholder="排序" />

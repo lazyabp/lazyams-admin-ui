@@ -56,11 +56,11 @@
           <span>{{ row.endAt | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="备注" prop="remark" align="center">
+      <!-- <el-table-column label="备注" prop="remark" align="center">
         <template slot-scope="{row}">
           <span>{{ row.remark }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width" fixed="right">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
@@ -83,7 +83,7 @@
       :visible.sync="dialogFormVisible"
       :close-on-click-modal="false"
     >
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width:500px;margin-left:50px;">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-width="120px" style="width:500px;">
         <el-form-item label="任务名称" prop="jobName">
           <el-input v-model="temp.jobName" placeholder="请输入任务名称" />
         </el-form-item>

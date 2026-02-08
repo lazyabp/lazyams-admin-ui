@@ -103,7 +103,7 @@
       :visible.sync="dialogFormVisible"
       :close-on-click-modal="false"
     >
-      <el-form ref="dataForm" :model="temp" label-position="left" label-width="100px" style="width:400px;margin-left:50px;">
+      <el-form ref="dataForm" :model="temp" label-width="100px" style="width:400px;">
         <el-form-item label="用户名" prop="userName">
           <el-input v-model="temp.userName" />
         </el-form-item>

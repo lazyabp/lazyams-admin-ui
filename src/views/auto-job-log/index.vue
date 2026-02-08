@@ -24,21 +24,16 @@
           <span>{{ row.jobGroupName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="日志状态" prop="logStatus" align="center" width="100">
+      <el-table-column label="日志状态" prop="logStatus" align="center">
         <template slot-scope="{row}">
           <el-tag :type="logStatusType(row.logStatus)" size="mini" effect="dark">
             {{ logStatusText(row.logStatus) }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" prop="createdAt" align="center" width="160">
+      <el-table-column label="创建时间" prop="createdAt" align="center">
         <template slot-scope="{row}">
           <span>{{ row.createdAt | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="备注" prop="remark" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.remark }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="120" class-name="small-padding fixed-width" fixed="right">
