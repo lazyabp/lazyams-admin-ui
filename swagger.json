@@ -110,6 +110,478 @@
         }
       }
     },
+    "/api/AutoJob/GetByPage": {
+      "get": {
+        "tags": [
+          "AutoJob"
+        ],
+        "summary": "分页获取定时任务列表",
+        "parameters": [
+          {
+            "name": "Filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Sorting",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDtoPagedResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDtoPagedResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDtoPagedResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AutoJob/GetById/{id}": {
+      "get": {
+        "tags": [
+          "AutoJob"
+        ],
+        "summary": "通过ID获取定时任务",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AutoJob/Add": {
+      "get": {
+        "tags": [
+          "AutoJob"
+        ],
+        "summary": "添加定时任务",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAutoJobDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAutoJobDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAutoJobDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AutoJob/Update": {
+      "post": {
+        "tags": [
+          "AutoJob"
+        ],
+        "summary": "更新定时任务",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAutoJobDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAutoJobDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAutoJobDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AutoJob/Execute": {
+      "post": {
+        "tags": [
+          "AutoJob"
+        ],
+        "summary": "运行/停止定时任务",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecuteAutoJobDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecuteAutoJobDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecuteAutoJobDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AutoJob/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "AutoJob"
+        ],
+        "summary": "删除定时任务",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AutoJobLog/GetByPage": {
+      "get": {
+        "tags": [
+          "AutoJobLog"
+        ],
+        "summary": "分页获取定时任务运行日志列表",
+        "parameters": [
+          {
+            "name": "Filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Sorting",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobLogListDtoPagedResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobLogListDtoPagedResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobLogListDtoPagedResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AutoJobLog/GetById/{id}": {
+      "get": {
+        "tags": [
+          "AutoJobLog"
+        ],
+        "summary": "通过ID获取定时任务运行日志",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobLogDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobLogDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoJobLogDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AutoJobLog/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "AutoJobLog"
+        ],
+        "summary": "删除定时任务运行日志",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AutoJobLog/Clear": {
+      "delete": {
+        "tags": [
+          "AutoJobLog"
+        ],
+        "summary": "清空定时任务运行日志",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Carousel/GetByPage": {
       "get": {
         "tags": [
@@ -1139,7 +1611,8 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MenuIdDto"
+                    "type": "integer",
+                    "format": "int64"
                   }
                 }
               },
@@ -1147,7 +1620,8 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MenuIdDto"
+                    "type": "integer",
+                    "format": "int64"
                   }
                 }
               },
@@ -1155,7 +1629,8 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MenuIdDto"
+                    "type": "integer",
+                    "format": "int64"
                   }
                 }
               }
@@ -2214,6 +2689,174 @@
         },
         "additionalProperties": false
       },
+      "AutoJobDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "jobGroupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobStatus": {
+            "$ref": "#/components/schemas/JobStatus"
+          },
+          "cronExpression": {
+            "type": "string",
+            "nullable": true
+          },
+          "startAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "nextStartAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "remark": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutoJobDtoPagedResultDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutoJobDto"
+            },
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutoJobLogDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "jobGroupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobName": {
+            "type": "string",
+            "nullable": true
+          },
+          "logStatus": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "remark": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutoJobLogListDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "jobGroupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobName": {
+            "type": "string",
+            "nullable": true
+          },
+          "logStatus": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutoJobLogListDtoPagedResultDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutoJobLogListDto"
+            },
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
       "CarouselDto": {
         "type": "object",
         "properties": {
@@ -2286,6 +2929,50 @@
             "nullable": true
           },
           "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateAutoJobDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "jobGroupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobStatus": {
+            "$ref": "#/components/schemas/JobStatus"
+          },
+          "cronExpression": {
+            "type": "string",
+            "nullable": true
+          },
+          "startAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "nextStartAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "remark": {
             "type": "string",
             "nullable": true
           }
@@ -2478,6 +3165,19 @@
         },
         "additionalProperties": false
       },
+      "ExecuteAutoJobDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "jobAction": {
+            "$ref": "#/components/schemas/JobAction"
+          }
+        },
+        "additionalProperties": false
+      },
       "FileDto": {
         "type": "object",
         "properties": {
@@ -2490,14 +3190,14 @@
             "format": "int64",
             "nullable": true
           },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
             "nullable": true
           },
           "updatedAt": {
@@ -2578,6 +3278,23 @@
         "type": "integer",
         "format": "int32"
       },
+      "JobAction": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "JobStatus": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "LoginRequestDto": {
         "type": "object",
         "properties": {
@@ -2623,14 +3340,14 @@
             "format": "int64",
             "nullable": true
           },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
             "nullable": true
           },
           "updatedAt": {
@@ -2711,16 +3428,6 @@
         },
         "additionalProperties": false
       },
-      "MenuIdDto": {
-        "type": "object",
-        "properties": {
-          "menuId": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
       "MenuType": {
         "enum": [
           1,
@@ -2763,14 +3470,14 @@
             "format": "int64",
             "nullable": true
           },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
             "nullable": true
           },
           "updatedAt": {
@@ -2822,14 +3529,14 @@
             "format": "int64",
             "nullable": true
           },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
             "nullable": true
           },
           "updatedAt": {
@@ -2985,6 +3692,50 @@
         "type": "integer",
         "format": "int32"
       },
+      "UpdateAutoJobDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "jobGroupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobStatus": {
+            "$ref": "#/components/schemas/JobStatus"
+          },
+          "cronExpression": {
+            "type": "string",
+            "nullable": true
+          },
+          "startAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "nextStartAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "remark": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateCarouselDto": {
         "type": "object",
         "properties": {
@@ -3104,7 +3855,6 @@
       },
       "UpdateUserDto": {
         "required": [
-          "password",
           "userName"
         ],
         "type": "object",
@@ -3166,7 +3916,8 @@
           "password": {
             "maxLength": 100,
             "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3183,14 +3934,14 @@
             "format": "int64",
             "nullable": true
           },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
             "nullable": true
           },
           "updatedAt": {
@@ -3446,6 +4197,14 @@
     {
       "name": "Auth",
       "description": "授权登录"
+    },
+    {
+      "name": "AutoJob",
+      "description": "定时任务"
+    },
+    {
+      "name": "AutoJobLog",
+      "description": "定时任务运行日志"
     },
     {
       "name": "Carousel",

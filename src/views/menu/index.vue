@@ -33,7 +33,7 @@
               <el-tag
                 v-if="scope.row.menuType === 1"
                 type=""
-                size="medium"
+                size="mini"
                 effect="dark"
               >
                 目录
@@ -41,7 +41,7 @@
               <el-tag
                 v-else-if="scope.row.menuType === 2"
                 type="success"
-                size="medium"
+                size="mini"
                 effect="dark"
               >
                 菜单
@@ -49,7 +49,7 @@
               <el-tag
                 v-else
                 type="warning"
-                size="medium"
+                size="mini"
                 effect="dark"
               >
                 按钮
@@ -141,14 +141,19 @@
           <el-cascader
             v-model="menu.parentId"
             :options="filteredTreeData"
-            :props="{ value: 'id', label: 'name', children: 'children', emitPath: false, checkStrictly: true }"
+            :props="{ value: 'id', label: 'title', children: 'children', emitPath: false, checkStrictly: true }"
             clearable
-            placeholder="Select Parent"
+            placeholder="所属父菜单"
             style="width: 100%"
           />
         </el-form-item>
         <el-form-item label="启用" prop="isActive">
           <el-switch v-model="menu.isActive" />
+        </el-form-item>
+        <el-form-item v-if="menu.menuType === 2 && !menu.id" label="按钮">
+          <el-checkbox v-model="menu.createAddButton">添加</el-checkbox>
+          <el-checkbox v-model="menu.createUpdateButton">更新</el-checkbox>
+          <el-checkbox v-model="menu.createDeleteButton">删除</el-checkbox>
         </el-form-item>
       </el-form>
       <div style="text-align:right;">
@@ -183,7 +188,10 @@ export default {
         route: '',
         component: '',
         parentId: null,
-        isActive: true
+        isActive: true,
+        createAddButton: false,
+        createUpdateButton: false,
+        createDeleteButton: false
       },
       menuTypes: [
         {
@@ -250,7 +258,10 @@ export default {
         route: '',
         component: '',
         parentId: null,
-        isActive: true
+        isActive: true,
+        createAddButton: false,
+        createUpdateButton: false,
+        createDeleteButton: false
       }
       this.dialogType = 'new'
       this.dialogVisible = true

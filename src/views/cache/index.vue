@@ -1,0 +1,47 @@
+<template>
+  <div class="app-container">
+    <el-row :gutter="20" style="margin-top:50px;">
+      <el-col v-for="(row, key) in tags" :key="key" :span="6">
+        <el-card class="box-card" style="margin-bottom:20px;">
+          <div slot="header" class="clearfix">
+            <span>{{ row.label }}</span>
+          </div>
+          <div class="component-item">
+            <el-button type="danger" size="small" @click="handleDelete(row)">
+              删除缓存
+            </el-button>
+            <div style="margin-top:10px;color:#999;">
+              {{ row.description }}
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import { getCacheTags, deleteCache } from '@/api/cache'
+
+export default {
+  name: 'CacheManagement',
+  data() {
+    return {
+      tags: []
+    }
+  },
+  created() {
+    this.fetchCaches()
+  },
+  methods: {
+    async fetchCaches() {
+      const res = await getCacheTags()
+      this.tags = res.data
+    },
+    async handleDelete(row) {
+      await deleteCache(row.value)
+      this.$message.success('清除缓存成功')
+    }
+  }
+}
+</script>
