@@ -215,7 +215,7 @@
       }
     },
     "/api/AutoJob/Add": {
-      "get": {
+      "post": {
         "tags": [
           "AutoJob"
         ],
@@ -558,6 +558,116 @@
           "AutoJobLog"
         ],
         "summary": "清空定时任务运行日志",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Cache/GetCacheTags": {
+      "get": {
+        "tags": [
+          "Cache"
+        ],
+        "summary": "获取缓存列表",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KeyValueDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KeyValueDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KeyValueDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Cache/Delete/{tag}": {
+      "delete": {
+        "tags": [
+          "Cache"
+        ],
+        "summary": "删除缓存",
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Cache/Clear": {
+      "delete": {
+        "tags": [
+          "Cache"
+        ],
+        "summary": "清空缓存",
         "responses": {
           "200": {
             "description": "OK",
@@ -1076,6 +1186,68 @@
         }
       }
     },
+    "/api/File/GetByPage": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "分页获取文件列表",
+        "parameters": [
+          {
+            "name": "Filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Sorting",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileDtoPagedResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileDtoPagedResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileDtoPagedResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/File/Upload": {
       "post": {
         "tags": [
@@ -1159,6 +1331,48 @@
               "text/json": {
                 "schema": {
                   "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/File/{id}": {
+      "delete": {
+        "tags": [
+          "File"
+        ],
+        "summary": "删除文件",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
@@ -3067,6 +3281,15 @@
           },
           "isActive": {
             "type": "boolean"
+          },
+          "createAddButton": {
+            "type": "boolean"
+          },
+          "createUpdateButton": {
+            "type": "boolean"
+          },
+          "createDeleteButton": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -3259,6 +3482,23 @@
         },
         "additionalProperties": false
       },
+      "FileDtoPagedResultDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileDto"
+            },
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
       "FileType": {
         "enum": [
           0,
@@ -3294,6 +3534,24 @@
         ],
         "type": "integer",
         "format": "int32"
+      },
+      "KeyValueDto": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "label": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "LoginRequestDto": {
         "type": "object",
@@ -4205,6 +4463,10 @@
     {
       "name": "AutoJobLog",
       "description": "定时任务运行日志"
+    },
+    {
+      "name": "Cache",
+      "description": "缓存"
     },
     {
       "name": "Carousel",

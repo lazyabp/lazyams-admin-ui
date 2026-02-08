@@ -21,10 +21,6 @@ export function parseTime(time, cFormat) {
       if ((/^[0-9]+$/.test(time))) {
         // support "1548221490638"
         time = parseInt(time)
-      } else {
-        // support safari
-        // https://stackoverflow.com/questions/4310953/invalid-date-in-safari
-        time = time.replace(new RegExp(/-/gm), '/')
       }
     }
 
@@ -62,6 +58,7 @@ export function formatTime(time, option) {
   } else {
     time = +time
   }
+
   const d = new Date(time)
   const now = Date.now()
 
