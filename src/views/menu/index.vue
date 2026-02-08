@@ -13,17 +13,17 @@
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
       border
     >
-      <el-table-column align="center" label="菜单名称">
+      <el-table-column label="菜单名称">
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="菜单标题">
+      <el-table-column label="菜单标题">
         <template slot-scope="scope">
           {{ scope.row.title }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="菜单类型">
+      <el-table-column label="菜单类型">
         <template slot-scope="scope">
           <span
             v-for="item in menuTypes"
@@ -58,17 +58,17 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="权限名称">
+      <el-table-column label="权限名称">
         <template slot-scope="scope">
           {{ scope.row.permission }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="路由">
+      <el-table-column label="路由">
         <template slot-scope="scope">
           {{ scope.row.route }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="部件">
+      <el-table-column label="部件">
         <template slot-scope="scope">
           {{ scope.row.component }}
         </template>
@@ -128,10 +128,10 @@
         <el-form-item label="权限名">
           <el-input v-model="menu.permission" placeholder="权限名" />
         </el-form-item>
-        <el-form-item v-if="menu.menuType !== 3" label="路由">
+        <el-form-item v-if="menu.menuType === 2" label="路由">
           <el-input v-model="menu.route" placeholder="路由" />
         </el-form-item>
-        <el-form-item v-if="menu.menuType !== 3" label="部件路径">
+        <el-form-item v-if="menu.menuType === 2" label="部件路径">
           <el-input v-model="menu.component" placeholder="部件路径" />
         </el-form-item>
         <el-form-item label="排序">
