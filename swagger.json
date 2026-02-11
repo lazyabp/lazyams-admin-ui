@@ -10,112 +10,188 @@
     "version": "V1.0"
   },
   "paths": {
-    "/api/Auth/Login": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "用户登录",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequestDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequestDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Auth/Register": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "用户注册",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/AutoJob/GetByPage": {
+    "/api/Order/GetByPage": {
       "get": {
         "tags": [
-          "AutoJob"
+          "Order"
         ],
-        "summary": "分页获取定时任务列表",
+        "summary": "分页获取订单列表",
+        "parameters": [
+          {
+            "name": "UserId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "PackageId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "OrderType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/OrderType"
+            }
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/OrderStatus"
+            }
+          },
+          {
+            "name": "Filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Sorting",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDtoPagedResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDtoPagedResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDtoPagedResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Order/GetById/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "通过ID获取订单",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Order/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "删除订单",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Package/GetByPage": {
+      "get": {
+        "tags": [
+          "Package"
+        ],
+        "summary": "分页获取套餐列表",
         "parameters": [
           {
             "name": "Filter",
@@ -154,17 +230,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDtoPagedResultDto"
+                  "$ref": "#/components/schemas/PackageDtoPagedResultDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDtoPagedResultDto"
+                  "$ref": "#/components/schemas/PackageDtoPagedResultDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDtoPagedResultDto"
+                  "$ref": "#/components/schemas/PackageDtoPagedResultDto"
                 }
               }
             }
@@ -172,12 +248,12 @@
         }
       }
     },
-    "/api/AutoJob/GetById/{id}": {
+    "/api/Package/GetById/{id}": {
       "get": {
         "tags": [
-          "AutoJob"
+          "Package"
         ],
-        "summary": "通过ID获取定时任务",
+        "summary": "通过ID获取套餐",
         "parameters": [
           {
             "name": "id",
@@ -196,17 +272,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
+                  "$ref": "#/components/schemas/PackageDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
+                  "$ref": "#/components/schemas/PackageDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
+                  "$ref": "#/components/schemas/PackageDto"
                 }
               }
             }
@@ -214,28 +290,28 @@
         }
       }
     },
-    "/api/AutoJob/Add": {
+    "/api/Package/Add": {
       "post": {
         "tags": [
-          "AutoJob"
+          "Package"
         ],
-        "summary": "添加定时任务",
+        "summary": "添加套餐",
         "requestBody": {
           "description": "",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateAutoJobDto"
+                "$ref": "#/components/schemas/CreatePackageDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateAutoJobDto"
+                "$ref": "#/components/schemas/CreatePackageDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateAutoJobDto"
+                "$ref": "#/components/schemas/CreatePackageDto"
               }
             }
           }
@@ -246,17 +322,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
+                  "$ref": "#/components/schemas/PackageDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
+                  "$ref": "#/components/schemas/PackageDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
+                  "$ref": "#/components/schemas/PackageDto"
                 }
               }
             }
@@ -264,28 +340,28 @@
         }
       }
     },
-    "/api/AutoJob/Update": {
+    "/api/Package/Update": {
       "post": {
         "tags": [
-          "AutoJob"
+          "Package"
         ],
-        "summary": "更新定时任务",
+        "summary": "更新套餐",
         "requestBody": {
           "description": "",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateAutoJobDto"
+                "$ref": "#/components/schemas/UpdatePackageDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateAutoJobDto"
+                "$ref": "#/components/schemas/UpdatePackageDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateAutoJobDto"
+                "$ref": "#/components/schemas/UpdatePackageDto"
               }
             }
           }
@@ -296,17 +372,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
+                  "$ref": "#/components/schemas/PackageDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
+                  "$ref": "#/components/schemas/PackageDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
+                  "$ref": "#/components/schemas/PackageDto"
                 }
               }
             }
@@ -314,62 +390,12 @@
         }
       }
     },
-    "/api/AutoJob/Execute": {
-      "post": {
-        "tags": [
-          "AutoJob"
-        ],
-        "summary": "运行/停止定时任务",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExecuteAutoJobDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExecuteAutoJobDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExecuteAutoJobDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AutoJobDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/AutoJob/Delete/{id}": {
+    "/api/Package/Delete/{id}": {
       "delete": {
         "tags": [
-          "AutoJob"
+          "Package"
         ],
-        "summary": "删除定时任务",
+        "summary": "删除套餐",
         "parameters": [
           {
             "name": "id",
@@ -406,13 +432,21 @@
         }
       }
     },
-    "/api/AutoJobLog/GetByPage": {
+    "/api/PackageFeature/GetByPage": {
       "get": {
         "tags": [
-          "AutoJobLog"
+          "PackageFeature"
         ],
-        "summary": "分页获取定时任务运行日志列表",
+        "summary": "分页获取套餐功能列表",
         "parameters": [
+          {
+            "name": "PackageId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
           {
             "name": "Filter",
             "in": "query",
@@ -450,17 +484,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobLogListDtoPagedResultDto"
+                  "$ref": "#/components/schemas/PackageFeatureDtoPagedResultDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobLogListDtoPagedResultDto"
+                  "$ref": "#/components/schemas/PackageFeatureDtoPagedResultDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobLogListDtoPagedResultDto"
+                  "$ref": "#/components/schemas/PackageFeatureDtoPagedResultDto"
                 }
               }
             }
@@ -468,12 +502,12 @@
         }
       }
     },
-    "/api/AutoJobLog/GetById/{id}": {
+    "/api/PackageFeature/GetById/{id}": {
       "get": {
         "tags": [
-          "AutoJobLog"
+          "PackageFeature"
         ],
-        "summary": "通过ID获取定时任务运行日志",
+        "summary": "通过ID获取套餐功能",
         "parameters": [
           {
             "name": "id",
@@ -492,17 +526,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobLogDto"
+                  "$ref": "#/components/schemas/PackageFeatureDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobLogDto"
+                  "$ref": "#/components/schemas/PackageFeatureDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AutoJobLogDto"
+                  "$ref": "#/components/schemas/PackageFeatureDto"
                 }
               }
             }
@@ -510,15 +544,15 @@
         }
       }
     },
-    "/api/AutoJobLog/Delete/{id}": {
-      "delete": {
+    "/api/PackageFeature/GetByPackageId/{packageId}": {
+      "get": {
         "tags": [
-          "AutoJobLog"
+          "PackageFeature"
         ],
-        "summary": "删除定时任务运行日志",
+        "summary": "通过套餐ID获取功能列表",
         "parameters": [
           {
-            "name": "id",
+            "name": "packageId",
             "in": "path",
             "description": "",
             "required": true,
@@ -534,69 +568,9 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/AutoJobLog/Clear": {
-      "delete": {
-        "tags": [
-          "AutoJobLog"
-        ],
-        "summary": "清空定时任务运行日志",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Cache/GetCacheTags": {
-      "get": {
-        "tags": [
-          "Cache"
-        ],
-        "summary": "获取缓存列表",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/KeyValueDto"
+                    "$ref": "#/components/schemas/PackageFeatureDto"
                   }
                 }
               },
@@ -604,7 +578,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/KeyValueDto"
+                    "$ref": "#/components/schemas/PackageFeatureDto"
                   }
                 }
               },
@@ -612,7 +586,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/KeyValueDto"
+                    "$ref": "#/components/schemas/PackageFeatureDto"
                   }
                 }
               }
@@ -621,253 +595,28 @@
         }
       }
     },
-    "/api/Cache/Delete/{tag}": {
-      "delete": {
-        "tags": [
-          "Cache"
-        ],
-        "summary": "删除缓存",
-        "parameters": [
-          {
-            "name": "tag",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Cache/Clear": {
-      "delete": {
-        "tags": [
-          "Cache"
-        ],
-        "summary": "清空缓存",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Carousel/GetByPage": {
-      "get": {
-        "tags": [
-          "Carousel"
-        ],
-        "summary": "分页获取轮播内容列表",
-        "parameters": [
-          {
-            "name": "Filter",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "PageIndex",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Sorting",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoPagedResultDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoPagedResultDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CarouselDtoPagedResultDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Carousel/GetById/{id}": {
-      "get": {
-        "tags": [
-          "Carousel"
-        ],
-        "summary": "通过ID获取轮播内容",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CarouselDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CarouselDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CarouselDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Carousel/Add": {
-      "get": {
-        "tags": [
-          "Carousel"
-        ],
-        "summary": "添加轮播内容",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCarouselDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCarouselDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCarouselDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CarouselDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CarouselDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CarouselDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Carousel/Update": {
+    "/api/PackageFeature/Add": {
       "post": {
         "tags": [
-          "Carousel"
+          "PackageFeature"
         ],
-        "summary": "更新轮播内容",
+        "summary": "添加套餐功能",
         "requestBody": {
           "description": "",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateCarouselDto"
+                "$ref": "#/components/schemas/CreatePackageFeatureDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateCarouselDto"
+                "$ref": "#/components/schemas/CreatePackageFeatureDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateCarouselDto"
+                "$ref": "#/components/schemas/CreatePackageFeatureDto"
               }
             }
           }
@@ -878,17 +627,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDto"
+                  "$ref": "#/components/schemas/PackageFeatureDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDto"
+                  "$ref": "#/components/schemas/PackageFeatureDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarouselDto"
+                  "$ref": "#/components/schemas/PackageFeatureDto"
                 }
               }
             }
@@ -896,12 +645,142 @@
         }
       }
     },
-    "/api/Carousel/Delete/{id}": {
+    "/api/PackageFeature/BatchAdd/{packageId}": {
+      "post": {
+        "tags": [
+          "PackageFeature"
+        ],
+        "summary": "批量添加套餐功能",
+        "parameters": [
+          {
+            "name": "packageId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CreatePackageFeatureDto"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CreatePackageFeatureDto"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CreatePackageFeatureDto"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PackageFeatureDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PackageFeatureDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PackageFeatureDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/PackageFeature/Update": {
+      "post": {
+        "tags": [
+          "PackageFeature"
+        ],
+        "summary": "更新套餐功能",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePackageFeatureDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePackageFeatureDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePackageFeatureDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageFeatureDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageFeatureDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageFeatureDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/PackageFeature/Delete/{id}": {
       "delete": {
         "tags": [
-          "Carousel"
+          "PackageFeature"
         ],
-        "summary": "删除轮播内容",
+        "summary": "删除套餐功能",
         "parameters": [
           {
             "name": "id",
@@ -938,12 +817,74 @@
         }
       }
     },
-    "/api/Config/GetKeys": {
+    "/api/PackageFeature/BatchDelete": {
+      "post": {
+        "tags": [
+          "PackageFeature"
+        ],
+        "summary": "批量删除套餐功能",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Payment/GetProviders": {
       "get": {
         "tags": [
-          "Config"
+          "Payment"
         ],
-        "summary": "配置键信息",
+        "summary": "获取所有的支付方式",
         "responses": {
           "200": {
             "description": "OK",
@@ -952,7 +893,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ConfigKeyDto"
+                    "$ref": "#/components/schemas/PaymentProviderDto"
                   }
                 }
               },
@@ -960,7 +901,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ConfigKeyDto"
+                    "$ref": "#/components/schemas/PaymentProviderDto"
                   }
                 }
               },
@@ -968,7 +909,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ConfigKeyDto"
+                    "$ref": "#/components/schemas/PaymentProviderDto"
                   }
                 }
               }
@@ -977,50 +918,112 @@
         }
       }
     },
-    "/api/Config/GetAll": {
-      "get": {
+    "/api/Payment/create/{provider}": {
+      "post": {
         "tags": [
-          "Config"
+          "Payment"
         ],
-        "summary": "获取所有公开的配置信息",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": { }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Config/Get": {
-      "get": {
-        "tags": [
-          "Config"
-        ],
-        "summary": "获取配置信息",
+        "summary": "统一创建支付接口：/api/payment/create/{provider}",
         "parameters": [
           {
-            "name": "key",
-            "in": "query",
+            "name": "provider",
+            "in": "path",
             "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PaymentProvider"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResultDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResultDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Payment/notify/{provider}": {
+      "post": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "统一 Webhook 处理入口：/api/payment/notify/{provider}",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PaymentProvider"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Payment/check/{provider}/{outTradeNo}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "统一查询接口：/api/payment/check/{provider}/{outTradeNo}",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PaymentProvider"
+            }
+          },
+          {
+            "name": "outTradeNo",
+            "in": "path",
+            "description": "",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -1033,383 +1036,15 @@
         }
       }
     },
-    "/api/Config/Set": {
-      "post": {
-        "tags": [
-          "Config"
-        ],
-        "summary": "更新配置信息",
-        "parameters": [
-          {
-            "name": "key",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": { }
-            },
-            "text/json": {
-              "schema": { }
-            },
-            "application/*+json": {
-              "schema": { }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Config/TestMailer": {
-      "post": {
-        "tags": [
-          "Config"
-        ],
-        "summary": "邮局配置测试",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendMailerDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendMailerDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendMailerDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Config/TestSms": {
-      "post": {
-        "tags": [
-          "Config"
-        ],
-        "summary": "短信配置测试",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendSmsDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendSmsDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendSmsDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/File/GetByPage": {
+    "/api/UserSubscription/GetByPage": {
       "get": {
         "tags": [
-          "File"
+          "UserSubscription"
         ],
-        "summary": "分页获取文件列表",
+        "summary": "分页获取用户订阅列表",
         "parameters": [
           {
-            "name": "Filter",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "PageIndex",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Sorting",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FileDtoPagedResultDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FileDtoPagedResultDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FileDtoPagedResultDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/File/Upload": {
-      "post": {
-        "tags": [
-          "File"
-        ],
-        "summary": "执行上传",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FileDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FileDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FileDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/File/Avatar/Upload": {
-      "post": {
-        "tags": [
-          "File"
-        ],
-        "summary": "上传头像",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/File/{id}": {
-      "delete": {
-        "tags": [
-          "File"
-        ],
-        "summary": "删除文件",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Menu/GetByPage": {
-      "get": {
-        "tags": [
-          "Menu"
-        ],
-        "summary": "分页获取菜单列表",
-        "parameters": [
-          {
-            "name": "Permission",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Route",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "MenuType",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/MenuType"
-            }
-          },
-          {
-            "name": "ParentId",
+            "name": "UserId",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -1417,1126 +1052,15 @@
             }
           },
           {
-            "name": "IsActive",
+            "name": "PackageId",
             "in": "query",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "name": "Filter",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "PageIndex",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Sorting",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDtoPagedResultDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDtoPagedResultDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDtoPagedResultDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Menu/Add": {
-      "post": {
-        "tags": [
-          "Menu"
-        ],
-        "summary": "添加菜单",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateMenuDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateMenuDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateMenuDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Menu/Update": {
-      "post": {
-        "tags": [
-          "Menu"
-        ],
-        "summary": "更新菜单",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMenuDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMenuDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMenuDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Menu/Active/{id}": {
-      "post": {
-        "tags": [
-          "Menu"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
             "schema": {
               "type": "integer",
               "format": "int64"
             }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActiveDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActiveDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActiveDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Menu/Delete/{id}": {
-      "delete": {
-        "tags": [
-          "Menu"
-        ],
-        "summary": "删除菜单",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Menu/GetById/{id}": {
-      "get": {
-        "tags": [
-          "Menu"
-        ],
-        "summary": "通过ID获取菜单",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenuDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Menu/GetMenuTree": {
-      "get": {
-        "tags": [
-          "Menu"
-        ],
-        "summary": "获取菜单树",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MenuDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MenuDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MenuDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Menu/GetMenuType": {
-      "get": {
-        "tags": [
-          "Menu"
-        ],
-        "summary": "获取菜单类型",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Menu/GetMenuIdsByRoleId/{id}": {
-      "get": {
-        "tags": [
-          "Menu"
-        ],
-        "summary": "通过角色ID获取菜单列表",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "integer",
-                    "format": "int64"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "integer",
-                    "format": "int64"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "integer",
-                    "format": "int64"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Role/GetByPage": {
-      "get": {
-        "tags": [
-          "Role"
-        ],
-        "summary": "分页获取角色列表",
-        "parameters": [
-          {
-            "name": "IsActive",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            }
           },
           {
-            "name": "Filter",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "PageIndex",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Sorting",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleListDtoPagedResultDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleListDtoPagedResultDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleListDtoPagedResultDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Role/Add": {
-      "post": {
-        "tags": [
-          "Role"
-        ],
-        "summary": "添加角色",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRoleDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRoleDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRoleDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Role/Update": {
-      "post": {
-        "tags": [
-          "Role"
-        ],
-        "summary": "更新角色",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateRoleDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateRoleDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateRoleDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Role/Active/{id}": {
-      "post": {
-        "tags": [
-          "Role"
-        ],
-        "summary": "修改状态",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActiveDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActiveDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActiveDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Role/Delete/{id}": {
-      "delete": {
-        "tags": [
-          "Role"
-        ],
-        "summary": "删除角色",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Role/BatchDelete": {
-      "delete": {
-        "tags": [
-          "Role"
-        ],
-        "summary": "批量删除角色",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              }
-            },
-            "text/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Role/GetById/{id}": {
-      "get": {
-        "tags": [
-          "Role"
-        ],
-        "summary": "通过ID获取角色信息",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RoleDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Role/RolePermission": {
-      "post": {
-        "tags": [
-          "Role"
-        ],
-        "summary": "给角色赋权",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RolePermissionInput"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RolePermissionInput"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RolePermissionInput"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Socialite/Weixin/Login": {
-      "get": {
-        "tags": [
-          "SocialiteUser"
-        ],
-        "summary": "微信登录",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinConfigModel"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinConfigModel"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinConfigModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Socialite/WeixinMini/Login": {
-      "get": {
-        "tags": [
-          "SocialiteUser"
-        ],
-        "summary": "微信小程序登录",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniConfigModel"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniConfigModel"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginWeixinMiniConfigModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Socialite/Google/Login": {
-      "get": {
-        "tags": [
-          "SocialiteUser"
-        ],
-        "summary": "Google登录",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginGoogleConfigModel"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginGoogleConfigModel"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SocialiteLoginGoogleConfigModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Socialite/Weixin/Callback": {
-      "get": {
-        "tags": [
-          "SocialiteUser"
-        ],
-        "summary": "微信登录回调",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Socialite/WeixinMini/Callback": {
-      "post": {
-        "tags": [
-          "SocialiteUser"
-        ],
-        "summary": "微信小程序登录回调",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WeixinMiniInfo"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WeixinMiniInfo"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/WeixinMiniInfo"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Socialite/Google/Callback": {
-      "get": {
-        "tags": [
-          "SocialiteUser"
-        ],
-        "summary": "Google登录回调",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/User/GetByPage": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "分页获取用户列表",
-        "parameters": [
-          {
-            "name": "Email",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "IsAdministrator",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "name": "Access",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/Access"
-            }
-          },
-          {
-            "name": "IsActive",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "name": "CreateBegin",
+            "name": "BeginStartAt",
             "in": "query",
             "schema": {
               "type": "string",
@@ -2544,11 +1068,34 @@
             }
           },
           {
-            "name": "CreateEnd",
+            "name": "LastStartAt",
             "in": "query",
             "schema": {
               "type": "string",
               "format": "date-time"
+            }
+          },
+          {
+            "name": "BeginEndAt",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "LastEndAt",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/SubscriptionStatus"
             }
           },
           {
@@ -2588,17 +1135,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoPagedResultDto"
+                  "$ref": "#/components/schemas/UserSubscriptionDtoPagedResultDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoPagedResultDto"
+                  "$ref": "#/components/schemas/UserSubscriptionDtoPagedResultDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDtoPagedResultDto"
+                  "$ref": "#/components/schemas/UserSubscriptionDtoPagedResultDto"
                 }
               }
             }
@@ -2606,112 +1153,12 @@
         }
       }
     },
-    "/api/User/Add": {
-      "post": {
+    "/api/UserSubscription/GetById/{id}": {
+      "get": {
         "tags": [
-          "User"
+          "UserSubscription"
         ],
-        "summary": "添加用户",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/User/Update": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "更新用户",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/User/Active/{id}": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "更新用户",
+        "summary": "通过ID获取用户订阅",
         "parameters": [
           {
             "name": "id",
@@ -2724,43 +1171,23 @@
             }
           }
         ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActiveDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActiveDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActiveDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
                 }
               }
             }
@@ -2768,12 +1195,138 @@
         }
       }
     },
-    "/api/User/Delete/{id}": {
+    "/api/UserSubscription/SetAsExpired/{id}": {
+      "post": {
+        "tags": [
+          "UserSubscription"
+        ],
+        "summary": "设置订阅为过期状态",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserSubscription/SetAsFreezed/{id}": {
+      "post": {
+        "tags": [
+          "UserSubscription"
+        ],
+        "summary": "设置订阅为冻结状态",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserSubscription/SetAsActive/{id}": {
+      "post": {
+        "tags": [
+          "UserSubscription"
+        ],
+        "summary": "设置订阅为激活状态",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserSubscription/Delete/{id}": {
       "delete": {
         "tags": [
-          "User"
+          "UserSubscription"
         ],
-        "summary": "删除用户",
+        "summary": "删除订阅",
         "parameters": [
           {
             "name": "id",
@@ -2803,78 +1356,6 @@
               "text/json": {
                 "schema": {
                   "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/User/GetUserById/{id}": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "通过ID获取用户信息",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserWithRoleIdsDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/User/GetCurrentUser": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "通过用户名获取用户信息",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserLoginDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserLoginDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserLoginDto"
                 }
               }
             }
@@ -2894,349 +1375,7 @@
         "type": "integer",
         "format": "int32"
       },
-      "ActiveDto": {
-        "type": "object",
-        "properties": {
-          "isActive": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "AutoJobDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "jobGroupName": {
-            "type": "string",
-            "nullable": true
-          },
-          "jobName": {
-            "type": "string",
-            "nullable": true
-          },
-          "jobStatus": {
-            "$ref": "#/components/schemas/JobStatus"
-          },
-          "cronExpression": {
-            "type": "string",
-            "nullable": true
-          },
-          "startAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "endAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "nextStartAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "remark": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "AutoJobDtoPagedResultDto": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AutoJobDto"
-            },
-            "nullable": true
-          },
-          "total": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "AutoJobLogDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "jobGroupName": {
-            "type": "string",
-            "nullable": true
-          },
-          "jobName": {
-            "type": "string",
-            "nullable": true
-          },
-          "logStatus": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "remark": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "AutoJobLogListDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "jobGroupName": {
-            "type": "string",
-            "nullable": true
-          },
-          "jobName": {
-            "type": "string",
-            "nullable": true
-          },
-          "logStatus": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "AutoJobLogListDtoPagedResultDto": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AutoJobLogListDto"
-            },
-            "nullable": true
-          },
-          "total": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CarouselDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "imageUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "redirectUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "position": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "startDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CarouselDtoPagedResultDto": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CarouselDto"
-            },
-            "nullable": true
-          },
-          "total": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ConfigKeyDto": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateAutoJobDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "jobGroupName": {
-            "type": "string",
-            "nullable": true
-          },
-          "jobName": {
-            "type": "string",
-            "nullable": true
-          },
-          "jobStatus": {
-            "$ref": "#/components/schemas/JobStatus"
-          },
-          "cronExpression": {
-            "type": "string",
-            "nullable": true
-          },
-          "startAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "endAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "nextStartAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "remark": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateCarouselDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "imageUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "redirectUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "position": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "startDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateMenuDto": {
+      "CreatePackageDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -3247,264 +1386,86 @@
             "type": "string",
             "nullable": true
           },
-          "title": {
+          "code": {
             "type": "string",
             "nullable": true
           },
-          "permission": {
+          "version": {
             "type": "string",
             "nullable": true
           },
-          "icon": {
-            "type": "string",
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountedPrice": {
+            "type": "number",
+            "format": "double",
             "nullable": true
           },
-          "menuType": {
-            "$ref": "#/components/schemas/MenuType"
-          },
-          "orderNum": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "route": {
-            "type": "string",
-            "nullable": true
-          },
-          "component": {
-            "type": "string",
-            "nullable": true
-          },
-          "parentId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
+          "durationUnit": {
+            "$ref": "#/components/schemas/DurationUnit"
           },
           "isActive": {
             "type": "boolean"
           },
-          "createAddButton": {
-            "type": "boolean"
-          },
-          "createUpdateButton": {
-            "type": "boolean"
-          },
-          "createDeleteButton": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateRoleDto": {
-        "required": [
-          "roleName"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
+          "sortOrder": {
             "type": "integer",
-            "format": "int64"
-          },
-          "roleName": {
-            "maxLength": 50,
-            "minLength": 3,
-            "type": "string"
+            "format": "int32"
           },
           "description": {
             "type": "string",
             "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false
       },
-      "CreateUserDto": {
-        "required": [
-          "password",
-          "userName"
+      "CreatePackageFeatureDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "packageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "featureKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "featureValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "featureType": {
+            "$ref": "#/components/schemas/FeatureType"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DurationUnit": {
+        "enum": [
+          1,
+          2,
+          3,
+          4
         ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "userName": {
-            "maxLength": 100,
-            "minLength": 0,
-            "type": "string"
-          },
-          "nickName": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "isAdministrator": {
-            "type": "boolean"
-          },
-          "access": {
-            "$ref": "#/components/schemas/Access"
-          },
-          "gender": {
-            "$ref": "#/components/schemas/Gender"
-          },
-          "createdDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "roleIds": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "nullable": true
-          },
-          "avatar": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "maxLength": 100,
-            "minLength": 0,
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
+        "type": "integer",
+        "format": "int32"
       },
-      "ExecuteAutoJobDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "jobAction": {
-            "$ref": "#/components/schemas/JobAction"
-          }
-        },
-        "additionalProperties": false
-      },
-      "FileDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
-          "deletedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "storage": {
-            "$ref": "#/components/schemas/StorageType"
-          },
-          "baseUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "fileType": {
-            "$ref": "#/components/schemas/FileType"
-          },
-          "mimeType": {
-            "type": "string",
-            "nullable": true
-          },
-          "fileSize": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fileExt": {
-            "type": "string",
-            "nullable": true
-          },
-          "fileMd5": {
-            "type": "string",
-            "nullable": true
-          },
-          "fileHash": {
-            "type": "string",
-            "nullable": true
-          },
-          "fileName": {
-            "type": "string",
-            "nullable": true
-          },
-          "filePath": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "FileDtoPagedResultDto": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/FileDto"
-            },
-            "nullable": true
-          },
-          "total": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "FileType": {
+      "FeatureType": {
         "enum": [
           0,
           1,
           2,
-          3
+          3,
+          4
         ],
         "type": "integer",
         "format": "int32"
@@ -3517,74 +1478,6 @@
         ],
         "type": "integer",
         "format": "int32"
-      },
-      "JobAction": {
-        "enum": [
-          1,
-          2
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
-      "JobStatus": {
-        "enum": [
-          0,
-          1,
-          2
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
-      "KeyValueDto": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string",
-            "nullable": true
-          },
-          "label": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "LoginRequestDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "LoginResponseDto": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string",
-            "nullable": true
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       },
       "MenuDto": {
         "type": "object",
@@ -3669,13 +1562,150 @@
         },
         "additionalProperties": false
       },
-      "MenuDtoPagedResultDto": {
+      "MenuType": {
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "OrderDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "deletedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "orderNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "tradeNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "packageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "orderType": {
+            "$ref": "#/components/schemas/OrderType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "payType": {
+            "$ref": "#/components/schemas/PaymentProvider"
+          },
+          "paidAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "canceledAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "failedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "failReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "refundedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "refundAmount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "refundReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserDto"
+          },
+          "package": {
+            "$ref": "#/components/schemas/PackageDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderDtoPagedResultDto": {
         "type": "object",
         "properties": {
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MenuDto"
+              "$ref": "#/components/schemas/OrderDto"
             },
             "nullable": true
           },
@@ -3686,32 +1716,264 @@
         },
         "additionalProperties": false
       },
-      "MenuType": {
+      "OrderStatus": {
         "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "OrderType": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "PackageDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "deletedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountedPrice": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "durationUnit": {
+            "$ref": "#/components/schemas/DurationUnit"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageFeatureDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PackageDtoPagedResultDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageDto"
+            },
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PackageFeatureDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "packageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "featureKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "featureValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "featureType": {
+            "$ref": "#/components/schemas/FeatureType"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "package": {
+            "$ref": "#/components/schemas/PackageDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PackageFeatureDtoPagedResultDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageFeatureDto"
+            },
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentProvider": {
+        "enum": [
+          11,
+          12,
+          21,
+          22,
+          31
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "PaymentProviderDto": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "$ref": "#/components/schemas/PaymentProvider"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentRequestDto": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/PaymentProvider"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentResultDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "outTradeNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "outTradeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "string",
+            "nullable": true
+          },
+          "resultType": {
+            "$ref": "#/components/schemas/PaymentResultType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentResultType": {
+        "enum": [
+          0,
           1,
           2,
           3
         ],
         "type": "integer",
         "format": "int32"
-      },
-      "RegisterRequest": {
-        "required": [
-          "email",
-          "password"
-        ],
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       },
       "RoleDto": {
         "required": [
@@ -3772,272 +2034,16 @@
         },
         "additionalProperties": false
       },
-      "RoleListDto": {
-        "required": [
-          "roleName"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "roleName": {
-            "maxLength": 50,
-            "minLength": 3,
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "RoleListDtoPagedResultDto": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RoleListDto"
-            },
-            "nullable": true
-          },
-          "total": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "RolePermissionInput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "menuIds": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SendMailerDto": {
-        "type": "object",
-        "properties": {
-          "to": {
-            "type": "string",
-            "nullable": true
-          },
-          "subject": {
-            "type": "string",
-            "nullable": true
-          },
-          "body": {
-            "type": "string",
-            "nullable": true
-          },
-          "isHtml": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SendSmsDto": {
-        "type": "object",
-        "properties": {
-          "phoneNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SocialiteLoginGoogleConfigModel": {
-        "type": "object",
-        "properties": {
-          "clientId": {
-            "type": "string",
-            "nullable": true
-          },
-          "clientSecret": {
-            "type": "string",
-            "nullable": true
-          },
-          "redirectUrl": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SocialiteLoginWeixinConfigModel": {
-        "type": "object",
-        "properties": {
-          "appId": {
-            "type": "string",
-            "nullable": true
-          },
-          "appSecret": {
-            "type": "string",
-            "nullable": true
-          },
-          "redirectUrl": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SocialiteLoginWeixinMiniConfigModel": {
-        "type": "object",
-        "properties": {
-          "appId": {
-            "type": "string",
-            "nullable": true
-          },
-          "appSecret": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "StorageType": {
+      "SubscriptionStatus": {
         "enum": [
           0,
           1,
-          2,
-          3,
-          4,
-          5,
-          99
+          2
         ],
         "type": "integer",
         "format": "int32"
       },
-      "UpdateAutoJobDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "jobGroupName": {
-            "type": "string",
-            "nullable": true
-          },
-          "jobName": {
-            "type": "string",
-            "nullable": true
-          },
-          "jobStatus": {
-            "$ref": "#/components/schemas/JobStatus"
-          },
-          "cronExpression": {
-            "type": "string",
-            "nullable": true
-          },
-          "startAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "endAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "nextStartAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "remark": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateCarouselDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "imageUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "redirectUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "position": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "startDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateMenuDto": {
+      "UpdatePackageDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4048,132 +2054,63 @@
             "type": "string",
             "nullable": true
           },
-          "title": {
+          "code": {
             "type": "string",
             "nullable": true
           },
-          "permission": {
+          "version": {
             "type": "string",
             "nullable": true
           },
-          "icon": {
-            "type": "string",
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountedPrice": {
+            "type": "number",
+            "format": "double",
             "nullable": true
           },
-          "menuType": {
-            "$ref": "#/components/schemas/MenuType"
-          },
-          "orderNum": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "route": {
-            "type": "string",
-            "nullable": true
-          },
-          "component": {
-            "type": "string",
-            "nullable": true
-          },
-          "parentId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
+          "durationUnit": {
+            "$ref": "#/components/schemas/DurationUnit"
           },
           "isActive": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateRoleDto": {
-        "required": [
-          "roleName"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
           },
-          "roleName": {
-            "maxLength": 50,
-            "minLength": 3,
-            "type": "string"
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
           },
           "description": {
             "type": "string",
             "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false
       },
-      "UpdateUserDto": {
-        "required": [
-          "userName"
-        ],
+      "UpdatePackageFeatureDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int64"
           },
-          "userName": {
-            "maxLength": 100,
-            "minLength": 0,
-            "type": "string"
-          },
-          "nickName": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
+          "packageId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
-          "email": {
+          "featureKey": {
             "type": "string",
             "nullable": true
           },
-          "isAdministrator": {
-            "type": "boolean"
-          },
-          "access": {
-            "$ref": "#/components/schemas/Access"
-          },
-          "gender": {
-            "$ref": "#/components/schemas/Gender"
-          },
-          "createdDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "address": {
+          "featureValue": {
             "type": "string",
             "nullable": true
           },
-          "isActive": {
-            "type": "boolean"
+          "featureType": {
+            "$ref": "#/components/schemas/FeatureType"
           },
-          "roleIds": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "nullable": true
-          },
-          "avatar": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "maxLength": 100,
-            "minLength": 0,
+          "description": {
             "type": "string",
             "nullable": true
           }
@@ -4212,10 +2149,6 @@
             "nullable": true
           },
           "nickName": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
             "type": "string",
             "nullable": true
           },
@@ -4258,182 +2191,92 @@
         },
         "additionalProperties": false
       },
-      "UserDtoPagedResultDto": {
+      "UserSubscriptionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "deletedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "packageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "lastOrderId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "startAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SubscriptionStatus"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserDto"
+          },
+          "package": {
+            "$ref": "#/components/schemas/PackageDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserSubscriptionDtoPagedResultDto": {
         "type": "object",
         "properties": {
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserDto"
+              "$ref": "#/components/schemas/UserSubscriptionDto"
             },
             "nullable": true
           },
           "total": {
             "type": "integer",
             "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserInfoDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
-          },
-          "nickName": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "isAdministrator": {
-            "type": "boolean"
-          },
-          "access": {
-            "$ref": "#/components/schemas/Access"
-          },
-          "gender": {
-            "$ref": "#/components/schemas/Gender"
-          },
-          "avatar": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserLoginDto": {
-        "type": "object",
-        "properties": {
-          "user": {
-            "$ref": "#/components/schemas/UserInfoDto"
-          },
-          "roleIds": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "nullable": true
-          },
-          "permissions": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "menus": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MenuDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserWithRoleIdsDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
-          },
-          "nickName": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "isAdministrator": {
-            "type": "boolean"
-          },
-          "access": {
-            "$ref": "#/components/schemas/Access"
-          },
-          "gender": {
-            "$ref": "#/components/schemas/Gender"
-          },
-          "avatar": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "roleIds": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "WeixinMiniInfo": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "nullable": true
-          },
-          "userInfo": {
-            "type": "string",
-            "nullable": true
-          },
-          "iv": {
-            "type": "string",
-            "nullable": true
-          },
-          "encryptedData": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -4453,48 +2296,23 @@
   ],
   "tags": [
     {
-      "name": "Auth",
-      "description": "授权登录"
+      "name": "Order",
+      "description": "订单管理"
     },
     {
-      "name": "AutoJob",
-      "description": "定时任务"
+      "name": "Package",
+      "description": "套餐管理"
     },
     {
-      "name": "AutoJobLog",
-      "description": "定时任务运行日志"
+      "name": "PackageFeature",
+      "description": "套餐功能管理"
     },
     {
-      "name": "Cache",
-      "description": "缓存"
+      "name": "Payment"
     },
     {
-      "name": "Carousel",
-      "description": "轮播内容"
-    },
-    {
-      "name": "Config",
-      "description": "配置管理控制器"
-    },
-    {
-      "name": "File",
-      "description": "文件上传"
-    },
-    {
-      "name": "Menu",
-      "description": "菜单管理"
-    },
-    {
-      "name": "Role",
-      "description": "角色管理"
-    },
-    {
-      "name": "SocialiteUser",
-      "description": "第三方授权登录"
-    },
-    {
-      "name": "User",
-      "description": "用户管理"
+      "name": "UserSubscription",
+      "description": "用户订阅管理"
     }
   ]
 }

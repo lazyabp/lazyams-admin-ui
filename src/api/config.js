@@ -9,17 +9,15 @@ export function getAllConfigs() {
 
 export function getConfig(key) {
   return request({
-    url: '/api/Config/Get',
-    method: 'get',
-    params: { key }
+    url: `/api/Config/Get/${key}`,
+    method: 'get'
   })
 }
 
 export function setConfig(key, data) {
   return request({
-    url: '/api/Config/Set',
+    url: `/api/Config/Set/${key}`,
     method: 'post',
-    params: { key },
     data
   })
 }
