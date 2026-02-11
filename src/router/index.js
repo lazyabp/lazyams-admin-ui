@@ -8,16 +8,17 @@ import Layout from '@/layout'
 
 /* Router Modules */
 import componentsRouter from './modules/components'
+import userRouter from './modules/user'
+import roleRouter from './modules/role'
+import menuRouter from './modules/menu'
+import configRouter from './modules/config'
+import packageRouter from './modules/package'
 // import autoJobRouter from './modules/auto-job'
 // import autoJobLogRouter from './modules/auto-job-log'
 // import fileRouter from './modules/file'
 // import chartsRouter from './modules/charts'
 // import tableRouter from './modules/table'
 // import nestedRouter from './modules/nested'
-// import userRouter from './modules/user'
-// import roleRouter from './modules/role'
-// import menuRouter from './modules/menu'
-// import configRouter from './modules/config'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -113,17 +114,17 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   /** when your routing map is too long, you can split it into small modules **/
+  userRouter,
+  roleRouter,
+  menuRouter,
+  configRouter,
+  packageRouter,
   // autoJobRouter,
   // autoJobLogRouter,
   // fileRouter,
-  // componentsRouter,
   // chartsRouter,
   // nestedRouter,
   // tableRouter,
-  // userRouter,
-  // roleRouter,
-  // menuRouter,
-  // configRouter,
 
   {
     path: '/error',
