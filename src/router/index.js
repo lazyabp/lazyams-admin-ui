@@ -13,6 +13,7 @@ import roleRouter from './modules/role'
 import menuRouter from './modules/menu'
 import configRouter from './modules/config'
 import packageRouter from './modules/package'
+import orderRouter from './modules/order'
 // import autoJobRouter from './modules/auto-job'
 // import autoJobLogRouter from './modules/auto-job-log'
 // import fileRouter from './modules/file'
@@ -119,6 +120,7 @@ export const asyncRoutes = [
   menuRouter,
   configRouter,
   packageRouter,
+  orderRouter,
   // autoJobRouter,
   // autoJobLogRouter,
   // fileRouter,

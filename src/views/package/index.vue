@@ -44,6 +44,11 @@
           <span>{{ row.discountedPrice }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="货币">
+        <template slot-scope="{row}">
+          <span>{{ row.currency }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="启用">
         <template slot-scope="{row}">
           <el-switch
@@ -115,6 +120,9 @@
         <el-form-item label="排序" prop="sortOrder">
           <el-input-number v-model="temp.sortOrder" :min="1" />
         </el-form-item>
+        <el-form-item label="货币" prop="currency">
+          <el-input v-model="temp.currency" />
+        </el-form-item>
         <el-form-item label="套餐描述" prop="description">
           <el-input
             v-model="temp.description"
@@ -171,6 +179,7 @@ export default {
         price: 0,
         discountedPrice: 0,
         durationUnit: 3,
+        currency: 'USD',
         sortOrder: 1,
         isActive: true
       },
@@ -225,6 +234,7 @@ export default {
         price: 0,
         discountedPrice: 0,
         durationUnit: 3,
+        currency: 'USD',
         sortOrder: 1,
         isActive: true
       }
