@@ -137,51 +137,22 @@
       </div>
     </el-dialog>
 
-    <!-- 功能分配对话框 -->
-    <el-dialog
-      title="套餐功能"
+    <!-- 套餐功能管理 -->
+    <PackageFeature
+      :package-id="currentPackageId"
       :visible.sync="dialogFeaturesVisible"
-      :close-on-click-modal="false"
-      width="60%"
-    >
-      <div>
-        <el-table
-          :data="allFeatures"
-          style="width: 100%"
-          @selection-change="handleFeatureSelectionChange"
-        >
-          <el-table-column type="selection" width="55" :selectable="featureSelectable" />
-          <el-table-column prop="name" label="功能名称" width="200" />
-          <el-table-column prop="description" label="功能描述" />
-          <el-table-column prop="isEnabled" label="已启用" width="100">
-            <template slot-scope="{row}">
-              <el-tag :type="row.isEnabled ? 'success' : 'info'">
-                {{ row.isEnabled ? '是' : '否' }}
-              </el-tag>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFeaturesVisible = false">
-          取消
-        </el-button>
-        <el-button type="primary" @click="confirmFeatures">
-          确定
-        </el-button>
-      </div>
-    </el-dialog>
+    />
   </div>
 </template>
 
 <script>
 import { activePackage, getPackages, getPackageById, addPackage, updatePackage, deletePackage } from '@/api/package'
-import { getPackageFeatures, getPackageFeaturesByPackageId, batchAddPackageFeatures, batchDeletePackageFeatures } from '@/api/package-feature'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import PackageFeature from './components/PackageFeature.vue'
 
 export default {
   name: 'PackageTable',
-  components: { Pagination },
+  components: { Pagination, PackageFeature },
   data() {
     return {
       list: null,
@@ -229,10 +200,7 @@ export default {
       },
       // 功能相关数据
       dialogFeaturesVisible: false,
-      currentPackageId: undefined,
-      allFeatures: [], // 所有可用功能
-      selectedFeatures: [], // 当前选中的功能
-      packageFeatures: [] // 当前套餐已有的功能
+      currentPackageId: undefined
     }
   },
   created() {
@@ -349,83 +317,10 @@ export default {
         })
       })
     },
-    // 功能管理相关方法
-    async handleFeatures(row) {
+    // 显示功能分配对话框
+    handleFeatures(row) {
       this.currentPackageId = row.id
       this.dialogFeaturesVisible = true
-
-      try {
-        // 获取所有功能和当前套餐的功能
-        const [allFeaturesRes, packageFeaturesRes] = await Promise.all([
-          getPackageFeatures({ PageIndex: 1, PageSize: 1000 }),
-          getPackageFeaturesByPackageId(row.id)
-        ])
-
-        this.allFeatures = allFeaturesRes.data.items || []
-        this.packageFeatures = packageFeaturesRes.data || []
-
-        // 设置默认选中状态
-        this.$nextTick(() => {
-          this.allFeatures.forEach(feature => {
-            const isSelected = this.packageFeatures.some(pf => pf.featureId === feature.id)
-            if (isSelected) {
-              this.$refs['dataForm']?.toggleRowSelection?.(feature, true)
-            }
-          })
-        })
-      } catch (error) {
-        console.error('加载功能失败:', error)
-        this.$message.error('加载功能失败')
-      }
-    },
-
-    handleFeatureSelectionChange(selection) {
-      this.selectedFeatures = selection
-    },
-
-    featureSelectable(row) {
-      // 如果功能已被禁用，则不允许选择
-      return row.isEnabled !== false
-    },
-
-    async confirmFeatures() {
-      try {
-        // 计算需要添加和删除的功能
-        const currentFeatureIds = this.packageFeatures.map(f => f.featureId)
-        const selectedFeatureIds = this.selectedFeatures.map(f => f.id)
-
-        // 需要添加的功能
-        const toAdd = selectedFeatureIds.filter(id => !currentFeatureIds.includes(id))
-        // 需要删除的功能
-        const toRemove = currentFeatureIds.filter(id => !selectedFeatureIds.includes(id))
-
-        // 执行添加操作
-        if (toAdd.length > 0) {
-          const featuresToAdd = toAdd.map(featureId => ({
-            packageId: this.currentPackageId,
-            featureId: featureId,
-            isEnabled: true
-          }))
-
-          await batchAddPackageFeatures(this.currentPackageId, featuresToAdd)
-        }
-
-        // 执行删除操作
-        if (toRemove.length > 0) {
-          await batchDeletePackageFeatures(toRemove)
-        }
-
-        this.dialogFeaturesVisible = false
-        this.$notify({
-          title: '提示',
-          message: '功能更新成功',
-          type: 'success',
-          duration: 2000
-        })
-      } catch (error) {
-        console.error('更新功能失败:', error)
-        this.$message.error('更新功能失败')
-      }
     }
   }
 }

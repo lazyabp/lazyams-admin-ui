@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getPackageFeatures(params) {
   return request({
-    url: '/api/PackageFeature/GetByPage',
+    url: '/api/Package/Feature/GetByPage',
     method: 'get',
     params
   })
@@ -10,14 +10,21 @@ export function getPackageFeatures(params) {
 
 export function getPackageFeaturesByPackageId(packageId) {
   return request({
-    url: `/api/PackageFeature/GetByPackageId/${packageId}`,
+    url: `/api/Package/Feature/GetByPackageId/${packageId}`,
+    method: 'get'
+  })
+}
+
+export function getPackageFeaturesById(id) {
+  return request({
+    url: `/api/Package/Feature/GetById/${id}`,
     method: 'get'
   })
 }
 
 export function addPackageFeature(data) {
   return request({
-    url: '/api/PackageFeature/Add',
+    url: '/api/Package/Feature/Add',
     method: 'post',
     data
   })
@@ -25,7 +32,7 @@ export function addPackageFeature(data) {
 
 export function updatePackageFeature(data) {
   return request({
-    url: '/api/PackageFeature/Update',
+    url: '/api/Package/Feature/Update',
     method: 'post',
     data
   })
@@ -33,14 +40,14 @@ export function updatePackageFeature(data) {
 
 export function deletePackageFeature(id) {
   return request({
-    url: `/api/PackageFeature/Delete/${id}`,
+    url: `/api/Package/Feature/Delete/${id}`,
     method: 'delete'
   })
 }
 
 export function batchAddPackageFeatures(packageId, data) {
   return request({
-    url: `/api/PackageFeature/BatchAdd/${packageId}`,
+    url: `/api/Package/Feature/BatchAdd/${packageId}`,
     method: 'post',
     data
   })
@@ -48,7 +55,7 @@ export function batchAddPackageFeatures(packageId, data) {
 
 export function batchDeletePackageFeatures(ids) {
   return request({
-    url: '/api/PackageFeature/BatchDelete',
+    url: '/api/Package/Feature/BatchDelete',
     method: 'post',
     data: ids
   })

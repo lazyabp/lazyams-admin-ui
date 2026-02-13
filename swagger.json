@@ -41,7 +41,7 @@
             }
           },
           {
-            "name": "Status",
+            "name": "OrderStatus",
             "in": "query",
             "schema": {
               "$ref": "#/components/schemas/OrderStatus"
@@ -140,6 +140,298 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/Order/Add": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "创建订单（这里是非正常流程创建订单，不建议使用，除非特殊情况，否则请走正常支付流程）",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Order/ChangeDiscountedAmount/{id}": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "修改订单的折扣后的金额",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeDiscountedAmountDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeDiscountedAmountDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeDiscountedAmountDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Order/SetAsPaid/{id}": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "修改的订单的支付状态为已支付（这里是非正常流程修改订单状态，不建议使用，除非特殊情况，否则请走正常支付流程）",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsPaidDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsPaidDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsPaidDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Order/SetAsComplited/{id}": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "处理未能正常完成的订单（这里是非正常流程修改订单状态，不建议使用，除非特殊情况，否则请走正常支付流程）",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsComplitedDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsComplitedDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsComplitedDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Order/SetAsCanceled/{id}": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "设置订单为已取消状态（这里是非正常流程修改订单状态，不建议使用，除非特殊情况，否则请走正常支付流程）",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsComplitedDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsComplitedDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsComplitedDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Order/SetAsRefund/{id}": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "设置订单为已退款状态（这里是非正常流程修改订单状态，不建议使用，除非特殊情况，否则请走正常支付流程）",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsRefundDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsRefundDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAsRefundDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -390,6 +682,68 @@
         }
       }
     },
+    "/api/Package/Active/{id}": {
+      "post": {
+        "tags": [
+          "Package"
+        ],
+        "summary": "更新套餐",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Package/Delete/{id}": {
       "delete": {
         "tags": [
@@ -432,7 +786,7 @@
         }
       }
     },
-    "/api/PackageFeature/GetByPage": {
+    "/api/Package/Feature/GetByPage": {
       "get": {
         "tags": [
           "PackageFeature"
@@ -502,7 +856,7 @@
         }
       }
     },
-    "/api/PackageFeature/GetById/{id}": {
+    "/api/Package/Feature/GetById/{id}": {
       "get": {
         "tags": [
           "PackageFeature"
@@ -544,7 +898,7 @@
         }
       }
     },
-    "/api/PackageFeature/GetByPackageId/{packageId}": {
+    "/api/Package/Feature/GetByPackageId/{packageId}": {
       "get": {
         "tags": [
           "PackageFeature"
@@ -595,7 +949,7 @@
         }
       }
     },
-    "/api/PackageFeature/Add": {
+    "/api/Package/Feature/Add": {
       "post": {
         "tags": [
           "PackageFeature"
@@ -645,7 +999,7 @@
         }
       }
     },
-    "/api/PackageFeature/BatchAdd/{packageId}": {
+    "/api/Package/Feature/BatchAdd/{packageId}": {
       "post": {
         "tags": [
           "PackageFeature"
@@ -725,7 +1079,7 @@
         }
       }
     },
-    "/api/PackageFeature/Update": {
+    "/api/Package/Feature/Update": {
       "post": {
         "tags": [
           "PackageFeature"
@@ -775,7 +1129,7 @@
         }
       }
     },
-    "/api/PackageFeature/Delete/{id}": {
+    "/api/Package/Feature/Delete/{id}": {
       "delete": {
         "tags": [
           "PackageFeature"
@@ -817,7 +1171,7 @@
         }
       }
     },
-    "/api/PackageFeature/BatchDelete": {
+    "/api/Package/Feature/BatchDelete": {
       "post": {
         "tags": [
           "PackageFeature"
@@ -1375,6 +1729,58 @@
         "type": "integer",
         "format": "int32"
       },
+      "ActiveDto": {
+        "type": "object",
+        "properties": {
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChangeDiscountedAmountDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "discountedAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "remark": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateOrderDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "packageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentProvider": {
+            "$ref": "#/components/schemas/PaymentProvider"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreatePackageDto": {
         "type": "object",
         "properties": {
@@ -1571,6 +1977,23 @@
         "type": "integer",
         "format": "int32"
       },
+      "OrderAction": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          90,
+          91,
+          92,
+          100
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "OrderDto": {
         "type": "object",
         "properties": {
@@ -1630,7 +2053,7 @@
           "orderType": {
             "$ref": "#/components/schemas/OrderType"
           },
-          "status": {
+          "orderStatus": {
             "$ref": "#/components/schemas/OrderStatus"
           },
           "price": {
@@ -1645,56 +2068,29 @@
             "type": "number",
             "format": "double"
           },
+          "discountedAmount": {
+            "type": "number",
+            "format": "double"
+          },
           "currency": {
             "type": "string",
             "nullable": true
           },
-          "payType": {
+          "paymentProvider": {
             "$ref": "#/components/schemas/PaymentProvider"
-          },
-          "paidAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "completedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "canceledAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "failedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "failReason": {
-            "type": "string",
-            "nullable": true
-          },
-          "refundedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "refundAmount": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "refundReason": {
-            "type": "string",
-            "nullable": true
           },
           "user": {
             "$ref": "#/components/schemas/UserDto"
           },
           "package": {
             "$ref": "#/components/schemas/PackageDto"
+          },
+          "logs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderLogDto"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1716,6 +2112,40 @@
         },
         "additionalProperties": false
       },
+      "OrderLogDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "orderAction": {
+            "$ref": "#/components/schemas/OrderAction"
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "order": {
+            "$ref": "#/components/schemas/OrderDto"
+          }
+        },
+        "additionalProperties": false
+      },
       "OrderStatus": {
         "enum": [
           0,
@@ -1723,7 +2153,8 @@
           2,
           3,
           4,
-          5
+          5,
+          6
         ],
         "type": "integer",
         "format": "int32"
@@ -2029,6 +2460,48 @@
             "items": {
               "$ref": "#/components/schemas/UserDto"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SetAsComplitedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SetAsPaidDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SetAsRefundDto": {
+        "type": "object",
+        "properties": {
+          "refundAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "reason": {
+            "type": "string",
             "nullable": true
           }
         },
