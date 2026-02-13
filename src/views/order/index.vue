@@ -74,12 +74,12 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="订单号" prop="orderNo" align="center" width="180">
+      <el-table-column label="订单号" prop="orderNo" align="center" width="280">
         <template slot-scope="{row}">
           <span>{{ row.orderNo }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="交易号" prop="tradeNo" align="center" width="180">
+      <el-table-column label="交易号" prop="tradeNo" align="center" width="220">
         <template slot-scope="{row}">
           <span>{{ row.tradeNo }}</span>
         </template>
@@ -138,7 +138,7 @@
           <span>{{ paymentProviderFilter(row.paymentProvider) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" width="150px">
+      <el-table-column label="创建时间" width="180px">
         <template slot-scope="{row}">
           <span>{{ parseTime(row.createdAt) }}</span>
         </template>
@@ -150,19 +150,19 @@
               操作 <i class="el-icon-arrow-down el-icon--right" />
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleSetAsPaid(row)">
+              <el-dropdown-item v-if="row.orderStatus === 0" @click.native="handleSetAsPaid(row)">
                 设置为已支付
               </el-dropdown-item>
-              <el-dropdown-item @click.native="handleSetAsCompleted(row)">
+              <el-dropdown-item v-if="row.orderStatus === 1" @click.native="handleSetAsCompleted(row)">
                 设置为已完成
               </el-dropdown-item>
-              <el-dropdown-item @click.native="handleSetAsCanceled(row)">
+              <el-dropdown-item v-if="row.orderStatus === 0" @click.native="handleSetAsCanceled(row)">
                 设置为已取消
               </el-dropdown-item>
-              <el-dropdown-item @click.native="handleSetAsRefund(row)">
+              <el-dropdown-item v-if="row.orderStatus === 1 || row.orderStatus === 2" @click.native="handleSetAsRefund(row)">
                 设置为已退款
               </el-dropdown-item>
-              <el-dropdown-item @click.native="handleChangeDiscountedAmount(row)">
+              <el-dropdown-item v-if="row.orderStatus === 0" @click.native="handleChangeDiscountedAmount(row)">
                 修改折扣后金额
               </el-dropdown-item>
               <el-dropdown-item @click.native="handleView(row)">

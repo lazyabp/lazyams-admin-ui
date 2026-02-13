@@ -3,6 +3,7 @@
     title="订单详情"
     :visible.sync="dialogVisible"
     :before-close="handleClose"
+    :close-on-click-modal="false"
     width="800px"
   >
     <div v-if="orderDetail" class="order-detail-content">
@@ -242,7 +243,8 @@ export default {
 .detail-table {
   width: 100%;
   td {
-    padding: 3px 5px;
+    padding: 5px 0;
+    border-bottom: 1px solid #efefef;
   }
   .label {
     font-weight: 600;
