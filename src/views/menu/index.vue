@@ -90,7 +90,7 @@
       </el-table-column>
       <el-table-column label="排序">
         <template slot-scope="scope">
-          {{ scope.row.orderNum }}
+          {{ scope.row.sortOrder }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作" width="180" fixed="right">
@@ -142,7 +142,7 @@
           </el-input>
         </el-form-item>
         <el-form-item label="排序">
-          <el-input v-model="menu.orderNum" placeholder="排序" />
+          <el-input v-model="menu.sortOrder" placeholder="排序" />
         </el-form-item>
         <el-form-item label="父菜单">
           <el-cascader
@@ -191,7 +191,7 @@ export default {
         icon: 'el-icon-menu',
         menuType: 2,
         title: '',
-        orderNum: 1,
+        sortOrder: 1,
         route: '',
         component: '',
         parentId: null,
@@ -261,7 +261,7 @@ export default {
         icon: 'el-icon-menu',
         menuType: 2,
         title: '',
-        orderNum: 1,
+        sortOrder: 1,
         route: '',
         component: '',
         parentId: null,

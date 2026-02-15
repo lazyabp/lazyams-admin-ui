@@ -235,8 +235,8 @@ export default {
         access: 2,
         isActive: undefined,
         filter: '',
-        createBegin: undefined,
-        createEnd: undefined
+        beginCreatedAt: undefined,
+        endCreatedAt: undefined
       },
       dateRange: [], // 用于存储日期范围选择器的值
       temp: {
@@ -298,11 +298,11 @@ export default {
       this.listLoading = true
       // 处理日期范围筛选
       if (this.dateRange && this.dateRange.length === 2) {
-        this.listQuery.createBegin = this.dateRange[0] + 'T00:00:00'
-        this.listQuery.createEnd = this.dateRange[1] + 'T23:59:59'
+        this.listQuery.beginCreatedAt = this.dateRange[0] + 'T00:00:00'
+        this.listQuery.endCreatedAt = this.dateRange[1] + 'T23:59:59'
       } else {
-        this.listQuery.createBegin = undefined
-        this.listQuery.createEnd = undefined
+        this.listQuery.beginCreatedAt = undefined
+        this.listQuery.endCreatedAt = undefined
       }
       getUsers(this.listQuery).then(response => {
         this.list = response.data.items
@@ -418,8 +418,8 @@ export default {
         access: 2,
         isActive: undefined,
         filter: '',
-        createBegin: undefined,
-        createEnd: undefined
+        beginCreatedAt: undefined,
+        endCreatedAt: undefined
       }
       this.dateRange = []
       this.getList()
