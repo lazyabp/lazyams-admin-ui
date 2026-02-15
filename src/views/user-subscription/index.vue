@@ -12,16 +12,19 @@
         v-model="listQuery.userId"
         placeholder="用户"
         clearable
-        style="width: 150px"
+        style="width: 150px;margin-right: 0 !important;"
         class="filter-item"
       >
         <el-option
           v-for="item in users"
           :key="item.id"
-          :label="item.userName"
+          :label="item.nickName"
           :value="item.id"
         />
       </el-select>
+      <el-button type="info" class="filter-item" @click="selectUser">
+        选择用户
+      </el-button>
       <el-select
         v-model="listQuery.packageId"
         placeholder="套餐"
@@ -473,11 +476,16 @@ export default {
         const user = selectedRows[0] // 获取数组第一个用户对象
         this.temp.userId = user.id
         this.temp.nickName = user.nickName || user.userName
+        this.users = selectedRows // 更新用户列表以显示选中用户
       } else {
         this.temp.userId = undefined
         this.temp.nickName = ''
+        this.users = [] // 清空用户列表
       }
       this.userSelectorVisible = false
+    },
+    selectUser() {
+      this.userSelectorVisible = true
     }
   }
 }
