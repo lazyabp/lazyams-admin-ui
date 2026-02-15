@@ -34,27 +34,6 @@
           <span>{{ row.email }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="类型">
-        <template slot-scope="{row}">
-          <span v-for="item in types" :key="item.value">
-            <span v-if="item.value === row.access">
-              {{ item.label }}
-            </span>
-          </span>
-        </template>
-      </el-table-column> -->
-      <el-table-column label="所属角色">
-        <template slot-scope="{row}">
-          <el-tag
-            v-for="item in row.roles"
-            :key="item.id"
-            effect="dark"
-            style="margin-right:5px"
-          >
-            {{ item.roleName }}
-          </el-tag>
-        </template>
-      </el-table-column>
       <el-table-column label="性别" min-width="80px">
         <template slot-scope="{row}">
           <span v-for="item in genders" :key="item.value">
@@ -62,16 +41,6 @@
               {{ item.label }}
             </span>
           </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="超级管理员">
-        <template slot-scope="{row}">
-          <el-switch
-            v-model="row.isAdministrator"
-            :disabled="true"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-          />
         </template>
       </el-table-column>
       <el-table-column label="启用">
@@ -82,6 +51,11 @@
             inactive-color="#ff4949"
             @change="handleActive(row)"
           />
+        </template>
+      </el-table-column>
+      <el-table-column label="开始时间" width="160px">
+        <template slot-scope="{row}">
+          <span>{{ row.createdAt | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width" fixed="right">
@@ -116,26 +90,6 @@
         <el-form-item label="Email" prop="email">
           <el-input v-model="temp.email" />
         </el-form-item>
-        <!-- <el-form-item label="类型" prop="access">
-          <el-select v-model="temp.access" placeholder="请选择">
-            <el-option
-              v-for="t in types"
-              :key="t.value"
-              :label="t.label"
-              :value="t.value"
-            />
-          </el-select>
-        </el-form-item> -->
-        <el-form-item label="所属角色" prop="roleIds">
-          <el-select v-model="temp.roleIds" multiple placeholder="请选择">
-            <el-option
-              v-for="item in roles"
-              :key="item.id"
-              :label="item.description"
-              :value="item.id"
-            />
-          </el-select>
-        </el-form-item>
         <el-form-item label="性别" prop="gender">
           <el-select v-model="temp.gender" placeholder="请选择">
             <el-option
@@ -145,9 +99,6 @@
               :value="t.value"
             />
           </el-select>
-        </el-form-item>
-        <el-form-item label="超级管理员" prop="isAdministrator">
-          <el-switch v-model="temp.isAdministrator" />
         </el-form-item>
         <el-form-item label="启用" prop="isActive">
           <el-switch v-model="temp.isActive" />
@@ -167,11 +118,10 @@
 
 <script>
 import { getUsers, getUserById, addUser, updateUser, activeUser, deleteUser } from '@/api/user'
-import { getRoles } from '@/api/role'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination'
 
 export default {
-  name: 'UserTable',
+  name: 'MemberTable',
   components: { Pagination },
   data() {
     return {
@@ -181,7 +131,7 @@ export default {
       listQuery: {
         page: 1,
         limit: 20,
-        access: 2
+        access: 1
       },
       temp: {
         id: undefined,
@@ -191,26 +141,11 @@ export default {
         nickName: '',
         email: '',
         password: '',
-        access: 2,
+        access: 1,
         gender: 0,
         roleIds: [],
         address: ''
       },
-      roles: [],
-      types: [
-        {
-          value: 0,
-          label: '游客'
-        },
-        {
-          value: 1,
-          label: '会员'
-        },
-        {
-          value: 2,
-          label: '管理员'
-        }
-      ],
       genders: [
         {
           value: 0,
@@ -234,7 +169,6 @@ export default {
     }
   },
   created() {
-    this.loadRoles()
     this.getList()
   },
   methods: {
@@ -246,12 +180,6 @@ export default {
         this.listLoading = false
       })
     },
-    loadRoles() {
-      getRoles({})
-        .then(res => {
-          this.roles = res.data.items
-        })
-    },
     resetForm() {
       this.temp = {
         id: undefined,
@@ -261,7 +189,7 @@ export default {
         nickName: '',
         email: '',
         password: '',
-        access: 2,
+        access: 1,
         gender: 0,
         roleIds: [],
         address: ''
