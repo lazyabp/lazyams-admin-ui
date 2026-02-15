@@ -135,7 +135,7 @@ export default {
       listQuery: {
         page: 1,
         limit: 20,
-        access: 2
+        access: 1
       },
       userList: [],
       loading: false,

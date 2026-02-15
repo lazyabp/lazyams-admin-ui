@@ -115,7 +115,7 @@
           <span>{{ row.endAt | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="状态" width="100px">
+      <el-table-column label="状态" width="120px">
         <template slot-scope="{row}">
           <el-tag
             :type="statusTagType(row.status)"
@@ -133,9 +133,9 @@
               <i class="el-icon-arrow-down el-icon--right" />
             </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item :disabled="row.status === 1" @click.native="handleSetActive(row)">设为激活</el-dropdown-item>
-              <el-dropdown-item :disabled="row.status === 2" @click.native="handleSetFreezed(row)">设为冻结</el-dropdown-item>
-              <el-dropdown-item :disabled="row.status === 0" @click.native="handleSetExpired(row)">设为过期</el-dropdown-item>
+              <el-dropdown-item :disabled="row.status === 0" @click.native="handleSetActive(row)">设为激活</el-dropdown-item>
+              <el-dropdown-item :disabled="row.status !== 0" @click.native="handleSetFreezed(row)">设为冻结</el-dropdown-item>
+              <el-dropdown-item :disabled="row.status !== 0" @click.native="handleSetExpired(row)">设为过期</el-dropdown-item>
               <el-dropdown-item @click.native="handleUpdate(row)">编辑</el-dropdown-item>
               <el-dropdown-item @click.native="handleDelete(row)">删除</el-dropdown-item>
             </el-dropdown-menu>
@@ -181,20 +181,20 @@
         <el-form-item label="开始时间" prop="startAt">
           <el-date-picker
             v-model="temp.startAt"
-            type="datetime"
+            type="date"
             placeholder="选择开始时间"
-            format="yyyy-MM-dd HH:mm:ss"
-            value-format="yyyy-MM-dd HH:mm:ss"
+            format="yyyy-MM-dd"
+            value-format="yyyy-MM-ddTHH:mm:ss"
             style="width: 100%"
           />
         </el-form-item>
         <el-form-item label="结束时间" prop="endAt">
           <el-date-picker
             v-model="temp.endAt"
-            type="datetime"
+            type="date"
             placeholder="选择结束时间"
-            format="yyyy-MM-dd HH:mm:ss"
-            value-format="yyyy-MM-dd HH:mm:ss"
+            format="yyyy-MM-dd"
+            value-format="yyyy-MM-ddTHH:mm:ss"
             style="width: 100%"
           />
         </el-form-item>
@@ -219,8 +219,9 @@
       </div>
     </el-dialog>
 
-    <user-selector
+    <member-selector
       :visible.sync="userSelectorVisible"
+      :value="temp.userId ? [temp.userId] : []"
       @changed="handleUserSelected"
     />
   </div>
@@ -230,11 +231,11 @@
 import { getUserSubscriptions, getUserSubscriptionById, addUserSubscription, updateUserSubscription, setUserSubscriptionExpired, setUserSubscriptionFreezed, setUserSubscriptionActive, deleteUserSubscription } from '@/api/user-subscription'
 import { getPackages } from '@/api/package'
 import Pagination from '@/components/Pagination'
-import UserSelector from '../user/components/UserSelector.vue'
+import MemberSelector from '../member/components/MemberSelector.vue'
 
 export default {
   name: 'UserSubscriptionTable',
-  components: { Pagination, UserSelector },
+  components: { Pagination, MemberSelector },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -270,13 +271,13 @@ export default {
         packageId: undefined,
         startAt: undefined,
         endAt: undefined,
-        status: 1
+        status: 0
       },
       users: [],
       packages: [],
       subscriptionStatusOptions: [
-        { value: 0, label: '已过期' },
-        { value: 1, label: '激活中' },
+        { value: 0, label: '激活中' },
+        { value: 1, label: '已过期' },
         { value: 2, label: '已冻结' }
       ],
       dialogFormVisible: false,
@@ -297,8 +298,8 @@ export default {
       this.listLoading = true
       // 处理日期范围筛选
       if (this.dateRange && this.dateRange.length === 2) {
-        this.listQuery.beginStartAt = this.dateRange[0] + ' 00:00:00'
-        this.listQuery.lastStartAt = this.dateRange[1] + ' 23:59:59'
+        this.listQuery.beginStartAt = this.dateRange[0] + 'T00:00:00'
+        this.listQuery.lastStartAt = this.dateRange[1] + 'T23:59:59'
       } else {
         this.listQuery.beginStartAt = undefined
         this.listQuery.lastStartAt = undefined
@@ -324,16 +325,16 @@ export default {
     },
     statusTagType(status) {
       const statusMap = {
-        0: 'danger',
-        1: 'success',
+        0: 'success',
+        1: 'danger',
         2: 'warning'
       }
       return statusMap[status] || 'info'
     },
     statusText(status) {
       const statusMap = {
-        0: '已过期',
-        1: '激活中',
+        0: '激活中',
+        1: '已过期',
         2: '已冻结'
       }
       return statusMap[status] || '未知'
@@ -346,7 +347,7 @@ export default {
         packageId: undefined,
         startAt: undefined,
         endAt: undefined,
-        status: 1
+        status: 0
       }
     },
     handleSave() {
@@ -391,6 +392,7 @@ export default {
     handleUpdate(row) {
       getUserSubscriptionById(row.id).then(response => {
         this.temp = response.data
+        this.temp.nickName = this.temp.user ? this.temp.user.nickName || this.temp.user.userName : ''
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
         this.$nextTick(() => {
@@ -466,10 +468,15 @@ export default {
         })
       })
     },
-    handleUserSelected(user) {
-      // console.log('Selected user:', user)
-      this.temp.userId = user.id
-      this.temp.nickName = user.nickName
+    handleUserSelected(selectedRows) {
+      if (selectedRows && selectedRows.length > 0) {
+        const user = selectedRows[0] // 获取数组第一个用户对象
+        this.temp.userId = user.id
+        this.temp.nickName = user.nickName || user.userName
+      } else {
+        this.temp.userId = undefined
+        this.temp.nickName = ''
+      }
       this.userSelectorVisible = false
     }
   }
