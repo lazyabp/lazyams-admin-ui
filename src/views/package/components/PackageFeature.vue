@@ -99,7 +99,8 @@ export default {
   props: {
     packageId: {
       type: Number,
-      required: true
+      required: false,
+      default: null
     },
     visible: {
       type: Boolean,
