@@ -34,6 +34,22 @@
             }
           },
           {
+            "name": "MinAmount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "MaxAmount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
             "name": "OrderType",
             "in": "query",
             "schema": {
@@ -1549,6 +1565,106 @@
         }
       }
     },
+    "/api/UserSubscription/Add": {
+      "post": {
+        "tags": [
+          "UserSubscription"
+        ],
+        "summary": "添加用户订阅",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserSubscriptionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserSubscriptionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserSubscription/Update": {
+      "post": {
+        "tags": [
+          "UserSubscription"
+        ],
+        "summary": "更新用户订阅",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserSubscriptionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserSubscriptionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSubscriptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/UserSubscription/SetAsExpired/{id}": {
       "post": {
         "tags": [
@@ -1771,10 +1887,6 @@
             "type": "integer",
             "format": "int32"
           },
-          "currency": {
-            "type": "string",
-            "nullable": true
-          },
           "paymentProvider": {
             "$ref": "#/components/schemas/PaymentProvider"
           }
@@ -1807,6 +1919,10 @@
           "discountedPrice": {
             "type": "number",
             "format": "double",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
             "nullable": true
           },
           "durationUnit": {
@@ -1855,6 +1971,40 @@
         },
         "additionalProperties": false
       },
+      "CreateUserSubscriptionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "packageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "lastOrderId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "startAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SubscriptionStatus"
+          }
+        },
+        "additionalProperties": false
+      },
       "DurationUnit": {
         "enum": [
           1,
@@ -1885,98 +2035,6 @@
         "type": "integer",
         "format": "int32"
       },
-      "MenuDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "permission": {
-            "type": "string",
-            "nullable": true
-          },
-          "icon": {
-            "type": "string",
-            "nullable": true
-          },
-          "menuType": {
-            "$ref": "#/components/schemas/MenuType"
-          },
-          "orderNum": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "route": {
-            "type": "string",
-            "nullable": true
-          },
-          "component": {
-            "type": "string",
-            "nullable": true
-          },
-          "parentId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "children": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MenuDto"
-            },
-            "nullable": true
-          },
-          "roles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RoleDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "MenuType": {
-        "enum": [
-          1,
-          2,
-          3
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
       "OrderAction": {
         "enum": [
           0,
@@ -1989,6 +2047,7 @@
           90,
           91,
           92,
+          93,
           100
         ],
         "type": "integer",
@@ -2072,6 +2131,11 @@
             "type": "number",
             "format": "double"
           },
+          "refundAmount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
           "currency": {
             "type": "string",
             "nullable": true
@@ -2080,7 +2144,7 @@
             "$ref": "#/components/schemas/PaymentProvider"
           },
           "user": {
-            "$ref": "#/components/schemas/UserDto"
+            "$ref": "#/components/schemas/UserInfoDto"
           },
           "package": {
             "$ref": "#/components/schemas/PackageDto"
@@ -2154,7 +2218,8 @@
           3,
           4,
           5,
-          6
+          6,
+          90
         ],
         "type": "integer",
         "format": "int32"
@@ -2226,6 +2291,10 @@
           "discountedPrice": {
             "type": "number",
             "format": "double",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
             "nullable": true
           },
           "durationUnit": {
@@ -2406,65 +2475,6 @@
         "type": "integer",
         "format": "int32"
       },
-      "RoleDto": {
-        "required": [
-          "roleName"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "roleName": {
-            "maxLength": 50,
-            "minLength": 3,
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "menus": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MenuDto"
-            },
-            "nullable": true
-          },
-          "users": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/UserDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "SetAsComplitedDto": {
         "type": "object",
         "properties": {
@@ -2544,6 +2554,10 @@
             "format": "double",
             "nullable": true
           },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
           "durationUnit": {
             "$ref": "#/components/schemas/DurationUnit"
           },
@@ -2590,32 +2604,38 @@
         },
         "additionalProperties": false
       },
-      "UserDto": {
+      "UpdateUserSubscriptionDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int64"
           },
-          "createdBy": {
+          "lastOrderId": {
             "type": "integer",
             "format": "int64",
             "nullable": true
           },
-          "createdAt": {
+          "startAt": {
             "type": "string",
-            "format": "date-time",
-            "nullable": true
+            "format": "date-time"
           },
-          "updatedBy": {
+          "endAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SubscriptionStatus"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserInfoDto": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
+            "format": "int64"
           },
           "userName": {
             "type": "string",
@@ -2653,13 +2673,6 @@
           },
           "isActive": {
             "type": "boolean"
-          },
-          "roles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RoleDto"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2729,7 +2742,7 @@
             "$ref": "#/components/schemas/SubscriptionStatus"
           },
           "user": {
-            "$ref": "#/components/schemas/UserDto"
+            "$ref": "#/components/schemas/UserInfoDto"
           },
           "package": {
             "$ref": "#/components/schemas/PackageDto"

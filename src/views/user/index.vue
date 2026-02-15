@@ -49,7 +49,8 @@
             v-for="item in row.roles"
             :key="item.id"
             effect="dark"
-            style="margin-right:5px"
+            size="mini"
+            style="margin-right:5px;margin-bottom:5px;"
           >
             {{ item.roleName }}
           </el-tag>
@@ -168,7 +169,7 @@
 <script>
 import { getUsers, getUserById, addUser, updateUser, activeUser, deleteUser } from '@/api/user'
 import { getRoles } from '@/api/role'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination'
 
 export default {
   name: 'UserTable',

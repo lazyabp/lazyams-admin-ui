@@ -159,14 +159,14 @@
     >
       <el-form ref="dataForm" :model="temp" label-width="120px" style="width: 400px;">
         <el-form-item label="用户" prop="userId">
-          <el-select v-model="temp.userId" placeholder="请选择用户" style="width: 100%">
-            <el-option
-              v-for="item in users"
-              :key="item.id"
-              :label="item.userName"
-              :value="item.id"
-            />
-          </el-select>
+          <el-tag
+            v-if="temp.nickName"
+            style="margin-right: 10px;"
+            effect="dark"
+          >
+            {{ temp.nickName }}
+          </el-tag>
+          <el-button type="info" size="mini" @click="userSelectorVisible = true">选择用户</el-button>
         </el-form-item>
         <el-form-item label="套餐" prop="packageId">
           <el-select v-model="temp.packageId" placeholder="请选择套餐" style="width: 100%">
@@ -218,17 +218,23 @@
         </el-button>
       </div>
     </el-dialog>
+
+    <user-selector
+      :visible.sync="userSelectorVisible"
+      @changed="handleUserSelected"
+    />
   </div>
 </template>
 
 <script>
 import { getUserSubscriptions, getUserSubscriptionById, addUserSubscription, updateUserSubscription, setUserSubscriptionExpired, setUserSubscriptionFreezed, setUserSubscriptionActive, deleteUserSubscription } from '@/api/user-subscription'
 import { getPackages } from '@/api/package'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination'
+import UserSelector from '../user/components/UserSelector.vue'
 
 export default {
   name: 'UserSubscriptionTable',
-  components: { Pagination },
+  components: { Pagination, UserSelector },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -260,6 +266,7 @@ export default {
       temp: {
         id: undefined,
         userId: undefined,
+        nickName: '',
         packageId: undefined,
         startAt: undefined,
         endAt: undefined,
@@ -274,6 +281,7 @@ export default {
       ],
       dialogFormVisible: false,
       dialogStatus: '',
+      userSelectorVisible: false,
       textMap: {
         update: '编辑',
         create: '创建'
@@ -334,6 +342,7 @@ export default {
       this.temp = {
         id: undefined,
         userId: undefined,
+        nickName: '',
         packageId: undefined,
         startAt: undefined,
         endAt: undefined,
@@ -456,6 +465,12 @@ export default {
           })
         })
       })
+    },
+    handleUserSelected(user) {
+      // console.log('Selected user:', user)
+      this.temp.userId = user.id
+      this.temp.nickName = user.nickName
+      this.userSelectorVisible = false
     }
   }
 }
