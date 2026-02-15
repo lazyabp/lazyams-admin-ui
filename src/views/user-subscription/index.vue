@@ -1,13 +1,13 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input
+      <!-- <el-input
         v-model="listQuery.filter"
         placeholder="筛选条件"
         style="width: 200px;"
         class="filter-item"
         @keyup.enter.native="getList"
-      />
+      /> -->
       <el-select
         v-model="listQuery.userId"
         placeholder="用户"
@@ -57,8 +57,8 @@
         v-model="dateRange"
         type="daterange"
         range-separator="至"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
+        start-placeholder="结束日期1"
+        end-placeholder="结束日期2"
         format="yyyy-MM-dd"
         value-format="yyyy-MM-dd"
         class="filter-item"
@@ -150,8 +150,8 @@
     <pagination
       v-show="total>0"
       :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
+      :page.sync="listQuery.pageIndex"
+      :limit.sync="listQuery.pageSize"
       @pagination="getList"
     />
 
@@ -255,8 +255,8 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: {
-        page: 1,
-        limit: 20,
+        pageIndex: 1,
+        pageSize: 20,
         filter: '',
         userId: undefined,
         packageId: undefined,
@@ -301,11 +301,11 @@ export default {
       this.listLoading = true
       // 处理日期范围筛选
       if (this.dateRange && this.dateRange.length === 2) {
-        this.listQuery.beginStartAt = this.dateRange[0] + 'T00:00:00'
-        this.listQuery.lastStartAt = this.dateRange[1] + 'T23:59:59'
+        this.listQuery.beginEndAt = this.dateRange[0] + 'T00:00:00'
+        this.listQuery.lastEndAt = this.dateRange[1] + 'T23:59:59'
       } else {
-        this.listQuery.beginStartAt = undefined
-        this.listQuery.lastStartAt = undefined
+        this.listQuery.beginEndAt = undefined
+        this.listQuery.lastEndAt = undefined
       }
       getUserSubscriptions(this.listQuery).then(response => {
         this.list = response.data.items
@@ -314,10 +314,18 @@ export default {
       })
     },
     resetQuery() {
-      this.listQuery.filter = ''
-      this.listQuery.userId = undefined
-      this.listQuery.packageId = undefined
-      this.listQuery.status = undefined
+      this.listQuery = {
+        pageIndex: 1,
+        pageSize: 20,
+        filter: '',
+        userId: undefined,
+        packageId: undefined,
+        status: undefined,
+        beginStartAt: undefined,
+        lastStartAt: undefined,
+        beginEndAt: undefined,
+        lastEndAt: undefined
+      }
       this.dateRange = []
       this.getList()
     },

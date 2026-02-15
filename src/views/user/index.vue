@@ -1,6 +1,56 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
+      <el-input
+        v-model="listQuery.filter"
+        placeholder="用户名或邮箱"
+        style="width: 200px;"
+        class="filter-item"
+        @keyup.enter.native="getList"
+      />
+      <el-select
+        v-model="listQuery.isActive"
+        placeholder="状态"
+        clearable
+        style="width: 150px"
+        class="filter-item"
+      >
+        <el-option
+          label="启用"
+          :value="true"
+        />
+        <el-option
+          label="禁用"
+          :value="false"
+        />
+      </el-select>
+      <el-date-picker
+        v-model="dateRange"
+        type="daterange"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        format="yyyy-MM-dd"
+        value-format="yyyy-MM-dd"
+        class="filter-item"
+        style="width: 240px;"
+      />
+      <el-button
+        class="filter-item"
+        type="primary"
+        icon="el-icon-search"
+        @click="getList"
+      >
+        搜索
+      </el-button>
+      <el-button
+        class="filter-item"
+        type="primary"
+        icon="el-icon-refresh"
+        @click="resetQuery"
+      >
+        重置
+      </el-button>
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
         新增
       </el-button>
@@ -97,7 +147,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.pageIndex" :limit.sync="listQuery.pageSize" @pagination="getList" />
 
     <el-dialog
       :title="textMap[dialogStatus]"
@@ -180,10 +230,15 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: {
-        page: 1,
-        limit: 20,
-        access: 2
+        pageIndex: 1,
+        pageSize: 20,
+        access: 2,
+        isActive: undefined,
+        filter: '',
+        createBegin: undefined,
+        createEnd: undefined
       },
+      dateRange: [], // 用于存储日期范围选择器的值
       temp: {
         id: undefined,
         isAdministrator: false,
@@ -241,7 +296,15 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      getUsers({ PageIndex: this.listQuery.page, PageSize: this.listQuery.limit, Access: this.listQuery.access }).then(response => {
+      // 处理日期范围筛选
+      if (this.dateRange && this.dateRange.length === 2) {
+        this.listQuery.createBegin = this.dateRange[0] + 'T00:00:00'
+        this.listQuery.createEnd = this.dateRange[1] + 'T23:59:59'
+      } else {
+        this.listQuery.createBegin = undefined
+        this.listQuery.createEnd = undefined
+      }
+      getUsers(this.listQuery).then(response => {
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
@@ -347,6 +410,19 @@ export default {
           })
         })
       })
+    },
+    resetQuery() {
+      this.listQuery = {
+        pageIndex: 1,
+        pageSize: 20,
+        access: 2,
+        isActive: undefined,
+        filter: '',
+        createBegin: undefined,
+        createEnd: undefined
+      }
+      this.dateRange = []
+      this.getList()
     }
   }
 }
