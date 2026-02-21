@@ -15,6 +15,7 @@ import configRouter from './modules/config'
 import packageRouter from './modules/package'
 import orderRouter from './modules/order'
 import userSubscriptionRouter from './modules/user-subscription'
+import languageRouter from './modules/language'
 // import autoJobRouter from './modules/auto-job'
 // import autoJobLogRouter from './modules/auto-job-log'
 // import fileRouter from './modules/file'
@@ -123,6 +124,7 @@ export const asyncRoutes = [
   packageRouter,
   orderRouter,
   userSubscriptionRouter,
+  languageRouter,
   // autoJobRouter,
   // autoJobLogRouter,
   // fileRouter,
