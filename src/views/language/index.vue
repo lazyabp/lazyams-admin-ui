@@ -17,11 +17,11 @@
         class="filter-item"
       >
         <el-option
-          label="发布"
+          label="未发布"
           :value="0"
         />
         <el-option
-          label="不发布"
+          label="已发布"
           :value="1"
         />
       </el-select>
@@ -29,7 +29,7 @@
         v-model="listQuery.isDefault"
         placeholder="是否默认"
         clearable
-        style="width: 150px"
+        style="width:150px"
         class="filter-item"
       >
         <el-option
@@ -101,7 +101,7 @@
       </el-table-column>
       <el-table-column label="发布状态">
         <template slot-scope="{row}">
-          <el-tag :type="row.status === 0 ? 'primary' : 'info'" effect="dark">
+          <el-tag :type="row.status === 0 ? 'info' : 'primary'" effect="dark">
             <span v-for="item in publishStatuses" :key="item.value">
               <span v-if="item.value === row.status">
                 {{ item.label }}
@@ -229,7 +229,7 @@ export default {
         code: '',
         localeCode: '',
         textDirection: 0,
-        status: 0,
+        status: 1,
         isDefault: false,
         sortOrder: 0,
         icon: ''
@@ -237,11 +237,11 @@ export default {
       publishStatuses: [
         {
           value: 0,
-          label: '发布'
+          label: '未发布'
         },
         {
           value: 1,
-          label: '不发布'
+          label: '已发布'
         }
       ],
       textDirections: [
@@ -281,7 +281,7 @@ export default {
         code: '',
         localeCode: '',
         textDirection: 0,
-        status: 0,
+        status: 1,
         isDefault: false,
         sortOrder: 0,
         icon: ''

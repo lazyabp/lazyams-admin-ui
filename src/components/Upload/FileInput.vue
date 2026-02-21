@@ -54,10 +54,6 @@ export default {
     accept: {
       type: String,
       default: '.jpg,.jpeg,.png,.gif,.webp'
-    },
-    onSuccess: {
-      type: Function,
-      default: null
     }
   },
   data() {
@@ -84,7 +80,7 @@ export default {
     handleSuccess(response) {
       const url = response.data.baseUrl + response.data.filePath
       this.innerValue = url
-      this.onSuccess && this.onSuccess(response.data)
+      this.$emit('success', response.data)
       this.dialogVisible = false
     },
     handleChanged(value) {
