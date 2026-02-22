@@ -93,7 +93,7 @@
         <el-form-item label="父级分类">
           <el-cascader
             v-model="category.parentId"
-            :options="filteredTreeData"
+            :options="list"
             :props="{ value: 'id', label: 'name', children: 'children', emitPath: false, checkStrictly: true }"
             clearable
             placeholder="所属父级分类"
@@ -168,37 +168,11 @@ export default {
       languages: []
     }
   },
-  computed: {
-    filteredTreeData() {
-      if (!this.list || !Array.isArray(this.list)) {
-        return []
-      }
-      const category = JSON.parse(JSON.stringify(this.list))
-      return this.filterCategory(category)
-    }
-  },
   created() {
     this.fetchCategoryTree()
     this.fetchLanguages()
   },
   methods: {
-    filterCategory(data) {
-      return data.map(item => {
-        if (item.children && Array.isArray(item.children)) {
-          const children = this.filterCategory(item.children)
-          if (children && children.length > 0) {
-            return {
-              ...item,
-              children: children
-            }
-          } else {
-            delete item.children
-            return { ...item }
-          }
-        }
-        return item
-      })
-    },
     async fetchCategoryTree() {
       const res = await getCategoryTree()
       this.list = res.data

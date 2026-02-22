@@ -82,14 +82,16 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <!-- <el-table-column label="ID" prop="id" sortable="custom" align="center">
+      <el-table-column label="图片" prop="imageId" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.id }}</span>
+          <img v-if="row.image" :src="row.image.url" style="height: 25px;">
+          <span v-else>-</span>
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <el-table-column label="标题">
         <template slot-scope="{row}">
-          <a :href="'/' + row.slug">{{ row.title }}</a>
+          <i class="el-icon-link" />
+          <a :href="'/' + row.slug" target="_blank">{{ row.title }}</a>
         </template>
       </el-table-column>
       <el-table-column label="作者">
@@ -119,38 +121,34 @@
           <span>{{ row.viewCount }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" fixed="right">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="120" fixed="right">
         <template slot-scope="{row}">
-          <el-button
-            v-if="row.status === 0"
-            type="success"
-            size="mini"
-            @click="handleChangeStatus(row, 1)"
-          >
-            发布
-          </el-button>
-          <el-button
-            v-else-if="row.status === 1"
-            type="warning"
-            size="mini"
-            @click="handleChangeStatus(row, 2)"
-          >
-            归档
-          </el-button>
-          <el-button
-            v-else
-            type="info"
-            size="mini"
-            @click="handleChangeStatus(row, 1)"
-          >
-            发布
-          </el-button>
-          <el-button type="primary" size="mini" @click="handleUpdate(row)">
-            编辑
-          </el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(row)">
-            删除
-          </el-button>
+          <el-dropdown>
+            <el-button
+              type=""
+              size="mini"
+              class="el-dropdown-link"
+            >
+              操作 <i class="el-icon-arrow-down el-icon--right" />
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item v-if="row.status !== 0" @click.native="handleChangeStatus(row, 0)">
+                设为草稿
+              </el-dropdown-item>
+              <el-dropdown-item v-if="row.status !== 1" @click.native="handleChangeStatus(row, 1)">
+                设为待发布
+              </el-dropdown-item>
+              <el-dropdown-item v-if="row.status !== 2" @click.native="handleChangeStatus(row, 2)">
+                发布文章
+              </el-dropdown-item>
+              <el-dropdown-item @click.native="handleUpdate(row)">
+                编辑文章
+              </el-dropdown-item>
+              <el-dropdown-item @click.native="handleDelete(row)">
+                删除文章
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
@@ -165,21 +163,48 @@
     >
       <el-form ref="dataForm" :model="temp" label-width="100px">
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :span="24">
             <el-form-item label="标题" prop="title">
               <el-input v-model="temp.title" placeholder="文章标题" @change="handleChangeTitle" />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="作者" prop="author">
-              <el-input v-model="temp.author" placeholder="作者名称" />
+          <el-col :span="24">
+            <el-form-item label="Slug" prop="slug">
+              <el-input v-model="temp.slug" placeholder="URL 标识符" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="24">
+            <el-form-item label="封面图片" prop="imageId">
+              <Upload v-model="temp.imageUrl" :is-image="true" title="上传图片" @success="handleImageUploadSuccess" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="所属分类" prop="categoryId">
+              <!-- <el-select v-model="temp.categoryId" placeholder="请选择分类" style="width: 100%">
+                <el-option
+                  v-for="item in categoryList"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                />
+              </el-select> -->
+              <el-cascader
+                v-model="temp.categoryId"
+                :options="categoryList"
+                :props="{ value: 'id', label: 'name', children: 'children', emitPath: false, checkStrictly: true }"
+                clearable
+                placeholder="所属分类"
+                style="width: 100%"
+              />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="Slug" prop="slug">
-              <el-input v-model="temp.slug" placeholder="URL 标识符" />
+            <el-form-item label="作者" prop="author">
+              <el-input v-model="temp.author" placeholder="作者名称" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -190,32 +215,6 @@
                   :key="item.code"
                   :label="item.name"
                   :value="item.code"
-                />
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="所属分类" prop="cartegoryId">
-              <el-select v-model="temp.cartegoryId" placeholder="请选择分类" style="width: 100%">
-                <el-option
-                  v-for="item in categoryList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="文章状态" prop="status">
-              <el-select v-model="temp.status" placeholder="请选择状态">
-                <el-option
-                  v-for="item in articleStatuses"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
                 />
               </el-select>
             </el-form-item>
@@ -242,16 +241,6 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="关键词" prop="keywords">
-              <el-input
-                v-model="temp.keywords"
-                type="textarea"
-                :rows="2"
-                placeholder="SEO 关键词，多个用逗号分隔"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
             <el-form-item label="标签" prop="tags">
               <el-select
                 v-model="temp.tags"
@@ -271,16 +260,33 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col :span="12">
+            <el-form-item label="关键词" prop="keywords">
+              <el-input
+                v-model="temp.keywords"
+                type="textarea"
+                :rows="1"
+                placeholder="SEO 关键词，多个用逗号分隔"
+              />
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="模板" prop="template">
-              <el-input v-model="temp.template" placeholder="模板文件路径" />
+            <el-form-item label="文章状态" prop="status">
+              <el-select v-model="temp.status" placeholder="请选择状态">
+                <el-option
+                  v-for="item in articleStatuses"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="封面图片" prop="imageId">
-              <Upload v-model="temp.imageUrl" :is-image="true" title="上传图片" @success="handleImageUploadSuccess" />
+            <el-form-item label="模板" prop="template">
+              <el-input v-model="temp.template" placeholder="模板文件路径" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -331,7 +337,7 @@ export default {
         author: '',
         slug: '',
         languageCode: 'zh-cn',
-        cartegoryId: null,
+        categoryId: null,
         status: 0,
         summary: '',
         content: '',
@@ -389,24 +395,13 @@ export default {
     },
     loadCategories() {
       getCategoryTree().then(res => {
-        this.categoryList = this.flattenTree(res.data)
+        this.categoryList = res.data
       })
     },
     fetchLanguages() {
       getLanguages({}).then(res => {
         this.languages = res.data.items
       })
-    },
-    flattenTree(tree) {
-      let result = []
-      if (!tree) return result
-      tree.forEach(node => {
-        result.push(node)
-        if (node.children && node.children.length > 0) {
-          result = result.concat(this.flattenTree(node.children))
-        }
-      })
-      return result
     },
     getStatusType(status) {
       const types = {
@@ -431,7 +426,7 @@ export default {
         author: '',
         slug: '',
         languageCode: 'zh-cn',
-        cartegoryId: null,
+        categoryId: null,
         status: 0,
         summary: '',
         content: '',
@@ -469,7 +464,7 @@ export default {
     handleUpdate(row) {
       getBlogArticleById(row.id).then(res => {
         this.temp = res.data
-        this.temp.imageUrl = res.data.image ? res.data.image.baseUrl + res.data.image.filePath : ''
+        this.temp.imageUrl = res.data.image ? res.data.image.url : ''
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
         this.$nextTick(() => {
@@ -532,7 +527,7 @@ export default {
     handleImageUploadSuccess(imageData) {
       if (imageData) {
         this.temp.imageId = imageData.id
-        this.temp.imageUrl = imageData.baseUrl + imageData.filePath
+        this.temp.imageUrl = imageData.url
       }
     },
     resetQuery() {
