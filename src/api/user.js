@@ -55,7 +55,7 @@ export function getUserById(id) {
 
 export function getCurrentUser() {
   return request({
-    url: `/api/Admin/User/GetCurrentUser`,
+    url: `/api/User/GetCurrentUser`,
     method: 'get'
   })
 }
