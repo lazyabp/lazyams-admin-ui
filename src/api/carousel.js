@@ -17,7 +17,7 @@ export function getCarousel(id) {
 
 export function addCarousel(data) {
   return request({
-    url: '/api/Carousel/Add',
+    url: '/api/Admin/Carousel/Add',
     method: 'get', // Swagger says GET, but this should likely be POST
     data
   })
@@ -25,7 +25,7 @@ export function addCarousel(data) {
 
 export function updateCarousel(data) {
   return request({
-    url: '/api/Carousel/Update',
+    url: '/api/Admin/Carousel/Update',
     method: 'post',
     data
   })
@@ -33,7 +33,7 @@ export function updateCarousel(data) {
 
 export function deleteCarousel(id) {
   return request({
-    url: `/api/Carousel/Delete/${id}`,
+    url: `/api/Admin/Carousel/Delete/${id}`,
     method: 'delete'
   })
 }

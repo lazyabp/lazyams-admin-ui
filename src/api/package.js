@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getPackages(params) {
   return request({
-    url: '/api/Package/GetByPage',
+    url: '/api/Admin/Package/GetByPage',
     method: 'get',
     params
   })
@@ -10,14 +10,14 @@ export function getPackages(params) {
 
 export function getPackageById(id) {
   return request({
-    url: `/api/Package/GetById/${id}`,
+    url: `/api/Admin/Package/GetById/${id}`,
     method: 'get'
   })
 }
 
 export function addPackage(data) {
   return request({
-    url: '/api/Package/Add',
+    url: '/api/Admin/Package/Add',
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function addPackage(data) {
 
 export function updatePackage(data) {
   return request({
-    url: '/api/Package/Update',
+    url: '/api/Admin/Package/Update',
     method: 'post',
     data
   })
@@ -33,7 +33,7 @@ export function updatePackage(data) {
 
 export function activePackage(id, data) {
   return request({
-    url: `/api/Package/Active/${id}`,
+    url: `/api/Admin/Package/Active/${id}`,
     method: 'post',
     data
   })
@@ -41,7 +41,7 @@ export function activePackage(id, data) {
 
 export function deletePackage(id) {
   return request({
-    url: `/api/Package/Delete/${id}`,
+    url: `/api/Admin/Package/Delete/${id}`,
     method: 'delete'
   })
 }

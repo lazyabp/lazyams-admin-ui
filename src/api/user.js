@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function getInfo(username) {
   return request({
-    url: `/api/User/Get/${username}`,
+    url: `/api/Admin/User/Get/${username}`,
     method: 'get'
   })
 }
 
 export function getUsers(params) {
   return request({
-    url: '/api/User/GetByPage',
+    url: '/api/Admin/User/GetByPage',
     method: 'get',
     params
   })
@@ -17,7 +17,7 @@ export function getUsers(params) {
 
 export function addUser(data) {
   return request({
-    url: '/api/User/Add',
+    url: '/api/Admin/User/Add',
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function addUser(data) {
 
 export function updateUser(data) {
   return request({
-    url: '/api/User/Update',
+    url: '/api/Admin/User/Update',
     method: 'post',
     data
   })
@@ -33,7 +33,7 @@ export function updateUser(data) {
 
 export function activeUser(id, data) {
   return request({
-    url: `/api/User/${id}/Active`,
+    url: `/api/Admin/User/${id}/Active`,
     method: 'post',
     data
   })
@@ -41,21 +41,21 @@ export function activeUser(id, data) {
 
 export function deleteUser(id) {
   return request({
-    url: `/api/User/Delete/${id}`,
+    url: `/api/Admin/User/Delete/${id}`,
     method: 'delete'
   })
 }
 
 export function getUserById(id) {
   return request({
-    url: `/api/User/GetUserById/${id}`,
+    url: `/api/Admin/User/GetUserById/${id}`,
     method: 'get'
   })
 }
 
 export function getCurrentUser() {
   return request({
-    url: `/api/User/GetCurrentUser`,
+    url: `/api/Admin/User/GetCurrentUser`,
     method: 'get'
   })
 }

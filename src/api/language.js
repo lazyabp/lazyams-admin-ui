@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getLanguages(params) {
   return request({
-    url: '/api/Language/GetByPage',
+    url: '/api/Admin/Language/GetByPage',
     method: 'get',
     params
   })
@@ -10,14 +10,14 @@ export function getLanguages(params) {
 
 export function getLanguageById(id) {
   return request({
-    url: `/api/Language/GetById/${id}`,
+    url: `/api/Admin/Language/GetById/${id}`,
     method: 'get'
   })
 }
 
 export function addLanguage(data) {
   return request({
-    url: '/api/Language/Add',
+    url: '/api/Admin/Language/Add',
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function addLanguage(data) {
 
 export function updateLanguage(data) {
   return request({
-    url: '/api/Language/Update',
+    url: '/api/Admin/Language/Update',
     method: 'post',
     data
   })
@@ -33,14 +33,14 @@ export function updateLanguage(data) {
 
 export function setDefaultLanguage(id) {
   return request({
-    url: `/api/Language/SetDefault/${id}`,
+    url: `/api/Admin/Language/SetDefault/${id}`,
     method: 'post'
   })
 }
 
 export function deleteLanguage(id) {
   return request({
-    url: `/api/Language/Delete/${id}`,
+    url: `/api/Admin/Language/Delete/${id}`,
     method: 'delete'
   })
 }

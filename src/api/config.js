@@ -9,14 +9,14 @@ export function getAllConfigs() {
 
 export function getConfig(key) {
   return request({
-    url: `/api/Config/Get/${key}`,
+    url: `/api/Admin/Config/Get/${key}`,
     method: 'get'
   })
 }
 
 export function setConfig(key, data) {
   return request({
-    url: `/api/Config/Set/${key}`,
+    url: `/api/Admin/Config/Set/${key}`,
     method: 'post',
     data
   })
@@ -24,14 +24,14 @@ export function setConfig(key, data) {
 
 export function getKeys() {
   return request({
-    url: '/api/Config/GetKeys',
+    url: '/api/Admin/Config/GetKeys',
     method: 'get'
   })
 }
 
 export function testMailer(data) {
   return request({
-    url: '/api/Config/TestMailer',
+    url: '/api/Admin/Config/TestMailer',
     method: 'post',
     data
   })
@@ -39,7 +39,7 @@ export function testMailer(data) {
 
 export function testSms(data) {
   return request({
-    url: '/api/Config/TestSms',
+    url: '/api/Admin/Config/TestSms',
     method: 'post',
     data
   })

@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getMenus(params) {
   return request({
-    url: '/api/Menu/GetByPage',
+    url: '/api/Admin/Menu/GetByPage',
     method: 'get',
     params
   })
@@ -10,7 +10,7 @@ export function getMenus(params) {
 
 export function addMenu(data) {
   return request({
-    url: '/api/Menu/Add',
+    url: '/api/Admin/Menu/Add',
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function addMenu(data) {
 
 export function updateMenu(data) {
   return request({
-    url: '/api/Menu/Update',
+    url: '/api/Admin/Menu/Update',
     method: 'post',
     data
   })
@@ -26,28 +26,28 @@ export function updateMenu(data) {
 
 export function deleteMenu(id) {
   return request({
-    url: `/api/Menu/Delete/${id}`,
+    url: `/api/Admin/Menu/Delete/${id}`,
     method: 'delete'
   })
 }
 
 export function getMenuById(id) {
   return request({
-    url: `/api/Menu/GetById/${id}`,
+    url: `/api/Admin/Menu/GetById/${id}`,
     method: 'get'
   })
 }
 
 export function getMenuTree() {
   return request({
-    url: '/api/Menu/GetMenuTree',
+    url: '/api/Admin/Menu/GetMenuTree',
     method: 'get'
   })
 }
 
 export function activeMenu(id, data) {
   return request({
-    url: `/api/Menu/Active/${id}`,
+    url: `/api/Admin/Menu/Active/${id}`,
     method: 'post',
     data
   })
@@ -55,14 +55,14 @@ export function activeMenu(id, data) {
 
 export function getMenuTypes() {
   return request({
-    url: '/api/Menu/GetMenuType',
+    url: '/api/Admin/Menu/GetMenuType',
     method: 'get'
   })
 }
 
 export function getMenuIdsByRoleId(id) {
   return request({
-    url: `/api/Menu/GetMenuIdsByRoleId/${id}`,
+    url: `/api/Admin/Menu/GetMenuIdsByRoleId/${id}`,
     method: 'get'
   })
 }

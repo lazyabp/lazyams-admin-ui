@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getFiles(params) {
   return request({
-    url: '/api/File/GetByPage',
+    url: '/api/Admin/File/GetByPage',
     method: 'get',
     params
   })
@@ -26,7 +26,7 @@ export function uploadAvatar(data) {
 
 export function deleteFile(id) {
   return request({
-    url: `/api/File/${id}`,
+    url: `/api/Admin/File/${id}`,
     method: 'delete'
   })
 }

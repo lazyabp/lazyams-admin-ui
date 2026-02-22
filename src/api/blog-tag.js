@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getBlogTags(params) {
   return request({
-    url: '/api/BlogTag/GetByPage',
+    url: '/api/Admin/BlogTag/GetByPage',
     method: 'get',
     params
   })
@@ -10,14 +10,14 @@ export function getBlogTags(params) {
 
 export function getBlogTagById(id) {
   return request({
-    url: `/api/BlogTag/GetById/${id}`,
+    url: `/api/Admin/BlogTag/GetById/${id}`,
     method: 'get'
   })
 }
 
 export function addBlogTag(data) {
   return request({
-    url: '/api/BlogTag/Add',
+    url: '/api/Admin/BlogTag/Add',
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function addBlogTag(data) {
 
 export function updateBlogTag(data) {
   return request({
-    url: '/api/BlogTag/Update',
+    url: '/api/Admin/BlogTag/Update',
     method: 'post',
     data
   })
@@ -33,7 +33,7 @@ export function updateBlogTag(data) {
 
 export function deleteBlogTag(id) {
   return request({
-    url: `/api/BlogTag/Delete/${id}`,
+    url: `/api/Admin/BlogTag/Delete/${id}`,
     method: 'delete'
   })
 }

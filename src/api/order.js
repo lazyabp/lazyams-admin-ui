@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getOrders(query) {
   return request({
-    url: '/api/Order/GetByPage',
+    url: '/api/Admin/Order/GetByPage',
     method: 'get',
     params: query
   })
@@ -10,14 +10,14 @@ export function getOrders(query) {
 
 export function getOrderById(id) {
   return request({
-    url: `/api/Order/GetById/${id}`,
+    url: `/api/Admin/Order/GetById/${id}`,
     method: 'get'
   })
 }
 
 export function createOrder(data) {
   return request({
-    url: '/api/Order/Add',
+    url: '/api/Admin/Order/Add',
     method: 'post',
     data
   })
@@ -28,14 +28,14 @@ export function createOrder(data) {
 
 export function deleteOrder(id) {
   return request({
-    url: `/api/Order/Delete/${id}`,
+    url: `/api/Admin/Order/Delete/${id}`,
     method: 'delete'
   })
 }
 
 export function setOrderAsPaid(id, data) {
   return request({
-    url: `/api/Order/SetAsPaid/${id}`,
+    url: `/api/Admin/Order/SetAsPaid/${id}`,
     method: 'post',
     data
   })
@@ -43,7 +43,7 @@ export function setOrderAsPaid(id, data) {
 
 export function setOrderAsCompleted(id, data) {
   return request({
-    url: `/api/Order/SetAsComplited/${id}`,
+    url: `/api/Admin/Order/SetAsComplited/${id}`,
     method: 'post',
     data
   })
@@ -51,7 +51,7 @@ export function setOrderAsCompleted(id, data) {
 
 export function setOrderAsCanceled(id, data) {
   return request({
-    url: `/api/Order/SetAsCanceled/${id}`,
+    url: `/api/Admin/Order/SetAsCanceled/${id}`,
     method: 'post',
     data
   })
@@ -59,7 +59,7 @@ export function setOrderAsCanceled(id, data) {
 
 export function setOrderAsRefund(id, data) {
   return request({
-    url: `/api/Order/SetAsRefund/${id}`,
+    url: `/api/Admin/Order/SetAsRefund/${id}`,
     method: 'post',
     data
   })
@@ -67,7 +67,7 @@ export function setOrderAsRefund(id, data) {
 
 export function changeDiscountedAmount(id, data) {
   return request({
-    url: `/api/Order/ChangeDiscountedAmount/${id}`,
+    url: `/api/Admin/Order/ChangeDiscountedAmount/${id}`,
     method: 'post',
     data
   })

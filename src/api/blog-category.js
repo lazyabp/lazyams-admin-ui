@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getBlogCategories(params) {
   return request({
-    url: '/api/BlogCategory/GetByPage',
+    url: '/api/Admin/BlogCategory/GetByPage',
     method: 'get',
     params
   })
@@ -10,14 +10,14 @@ export function getBlogCategories(params) {
 
 export function getBlogCategoryById(id) {
   return request({
-    url: `/api/BlogCategory/GetById/${id}`,
+    url: `/api/Admin/BlogCategory/GetById/${id}`,
     method: 'get'
   })
 }
 
 export function addBlogCategory(data) {
   return request({
-    url: '/api/BlogCategory/Add',
+    url: '/api/Admin/BlogCategory/Add',
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function addBlogCategory(data) {
 
 export function updateBlogCategory(data) {
   return request({
-    url: '/api/BlogCategory/Update',
+    url: '/api/Admin/BlogCategory/Update',
     method: 'post',
     data
   })
@@ -33,14 +33,14 @@ export function updateBlogCategory(data) {
 
 export function deleteBlogCategory(id) {
   return request({
-    url: `/api/BlogCategory/Delete/${id}`,
+    url: `/api/Admin/BlogCategory/Delete/${id}`,
     method: 'delete'
   })
 }
 
 export function changeBlogCategoryStatus(id, data) {
   return request({
-    url: `/api/BlogCategory/ChangeStatus/${id}`,
+    url: `/api/Admin/BlogCategory/ChangeStatus/${id}`,
     method: 'post',
     data
   })
@@ -48,14 +48,14 @@ export function changeBlogCategoryStatus(id, data) {
 
 export function getCategoryTree() {
   return request({
-    url: '/api/BlogCategory/GetCategoryTree',
+    url: '/api/Admin/BlogCategory/GetCategoryTree',
     method: 'get'
   })
 }
 
 export function getCategoryTreeByParentId(parentId) {
   return request({
-    url: '/api/BlogCategory/GetCategoryTreeByParentId',
+    url: '/api/Admin/BlogCategory/GetCategoryTreeByParentId',
     method: 'get',
     params: { parentId }
   })
@@ -63,7 +63,7 @@ export function getCategoryTreeByParentId(parentId) {
 
 export function getPublishStatus() {
   return request({
-    url: '/api/BlogCategory/GetPublishStatus',
+    url: '/api/Admin/BlogCategory/GetPublishStatus',
     method: 'get'
   })
 }
